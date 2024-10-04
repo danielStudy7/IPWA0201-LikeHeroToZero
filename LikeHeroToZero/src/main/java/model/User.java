@@ -8,7 +8,7 @@ public class User
 	
 	public User()
 	{
-		//leerer Standardkonstruktor
+		//parameterloser Standardkonstruktor
 	}
 	
 	public User(String userName, String password)

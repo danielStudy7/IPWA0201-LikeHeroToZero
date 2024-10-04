@@ -9,7 +9,7 @@ public class EmissionEntry
 	
 	public EmissionEntry()
 	{
-		//Leerer Standardkonstruktor
+		//parameterloser Standardkonstruktor
 	}
 	
 	public EmissionEntry(String country, double emissions, int year)
