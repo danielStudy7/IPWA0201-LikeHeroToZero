@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html 	xmlns="http://www.w3.org/1999/xhtml" 
+		xmlns:h="http://xmlns.jcp.org/jsf/html"
+		xmlns:f="http://xmlns.jcp.org/jsf/core"
+		xmlns:p="http://primefaces.org/ui">
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<title>Like Hero To Zero</title>
+		<h:outputStylesheet name="css/style.css" />
+	</h:head>
+	<h:body>
+		<h:graphicImage url=""/>
+		<h:outputText value="Like Hero To Zero">
+		<h:commandButton value="Login"/>
+		<h:outputText value="Info Text zu Co2 Emmissionen"/>
+		<p:tabView>
+			<p:tab title="Unternehmen">
+				<h:form>
+					<h:panelGrid columns="2">
+						<h:outputLabel for="company" value="Unternehmen"/>
+						<h:inputText id="company" value=""/>
+						<h:outputLabel for="country" value="Land"/>
+						<h:inputText id="country" value=""/>
+						<h:outputLabel for="emissions" value="CO2 Emission"/>
+						<h:inputText id="emissions" value=""/>
+						<h:outputLabel for="year" value="Jahr"/>
+						<h:inputText id="year" value=""/>
+						<h:outputLabel/>
+						<h:commandButton value="Speichern"/>
+					</h:panelGrid>
+				</h:form>
+			</p:tab>
+			<p:tab title="Länder">
+				<h:form>
+					<h:panelGrid columns="2">
+						<h:outputLabel for="country" value="Land"/>
+						<h:inputText id="country" value=""/>
+						<h:outputLabel for="continent" value="Kontinent"/>
+						<h:inputText id="continent" value=""/>
+						<h:outputLabel for="emissions" value="CO2 Emission MTon"/>
+						<h:inputText id="emissions" value=""/>
+						<h:outputLabel for="year" value="Jahr"/>
+						<h:inputText id="year" value=""/>
+						<h:outputLabel/>
+						<h:commandButton value="Speichern"/>
+					</h:panelGrid>
+				</h:form>
+			</p:tab>
+		</p:tabView>
+	</h:body>
+</html>

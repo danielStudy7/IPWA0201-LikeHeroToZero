@@ -11,27 +11,36 @@
 	<h:body>
 		<h:graphicImage url=""/>
 		<h:outputText value="Like Hero To Zero">
-		<h:commandButton value="Login"/>
-		<h:outputText value="Info Text zu Co2 Emmissionen"/>
-		<p:tabView>
+		<h:commandButton value="Logout"/>
+		<h:outputText value="Eintragen/Bearbeiten von Daten"/>
+		<h:commandButton value="Neuer Eintrag"/>
+				<p:tabView>
 			<p:tab title="Unternehmen">
 				<!-- TODO Tabelle sortieren, durchsuchen, filtern  -->
 				<p:dataTable >
 					<p:column>
 						<f:facet name="header">Unternehmen</f:facet>
-						<h:outputText value=""></h:outputText>
+						<h:inputText value=""></h:inputText>
 					</p:column>
 					<p:column>
 						<f:facet name="header">Land</f:facet>
-						<h:outputText value=""></h:outputText>					
+						<h:inputText value=""></h:inputText>					
 					</p:column>
 					<p:column>
 						<f:facet name="header">CO2 Emission</f:facet>
-						<h:outputText value=""></h:outputText>					
+						<h:inputText value=""></h:inputText>					
 					</p:column>
 					<p:column>
 						<f:facet name="header">Jahr</f:facet>
-						<h:outputText value=""></h:outputText>
+						<h:inputText value=""></h:inputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">Löschen</f:facet>
+						<h:commandButton value="Löschen"/>
+					</p:column>
+					<p:column>
+						<f:facet name="header">Speichern</f:facet>
+						<h:commandButton value="Speichern"/>
 					</p:column>
 				</p:dataTable>			
 			</p:tab>
@@ -40,17 +49,25 @@
 				<p:dataTable>
 					<p:column>
 						<f:facet name="header">Land</f:facet>
-						<h:outputText value=""></h:outputText>
+						<h:inputText value=""></h:inputText>
 					</p:column>
 						<f:facet name="header">Kontinent</f:facet>
-						<h:outputText value=""></h:outputText>
+						<h:inputText value=""></h:inputText>
 					<p:column>
 						<f:facet name="header">MTon CO2</f:facet>
-						<h:outputText value=""></h:outputText>					
+						<h:inputText value=""></h:inputText>					
 					</p:column>						
 					<p:column>
 						<f:facet name="header">Jahr</f:facet>
-						<h:outputText value=""></h:outputText>
+						<h:inputText value=""></h:inputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">Löschen</f:facet>
+						<h:commandButton value="Löschen"/>
+					</p:column>
+					<p:column>
+						<f:facet name="header">Speichern</f:facet>
+						<h:commandButton value="Speichern"/>
 					</p:column>
 				</p:dataTable>	
 			</p:tab>
