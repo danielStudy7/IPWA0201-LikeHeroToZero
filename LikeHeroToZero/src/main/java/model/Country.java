@@ -2,6 +2,7 @@ package model;
 
 import jakarta.persistence.Entity;
 
+@Entity
 public class Country extends EmissionEntry 
 {
 	private String continentName;

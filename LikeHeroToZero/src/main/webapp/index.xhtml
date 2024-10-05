@@ -9,8 +9,8 @@
 		<h:outputStylesheet name="css/style.css" />
 	</h:head>
 	<h:body>
-		<h:graphicImage url=""/>
-		<h:outputText value="Like Hero To Zero">
+		<h:graphicImage/>
+		<h:outputText value="Like Hero To Zero"/>
 		<h:commandButton value="Login"/>
 		<h:outputText value="Info Text zu Co2 Emmissionen"/>
 		<p:tabView>
@@ -19,19 +19,19 @@
 				<p:dataTable >
 					<p:column>
 						<f:facet name="header">Unternehmen</f:facet>
-						<h:outputText value=""></h:outputText>
+						<h:outputText value="#{company.companyName}"/>
 					</p:column>
 					<p:column>
 						<f:facet name="header">Land</f:facet>
-						<h:outputText value=""></h:outputText>					
+						<h:outputText value="#{company.country}"/>					
 					</p:column>
 					<p:column>
 						<f:facet name="header">CO2 Emission</f:facet>
-						<h:outputText value=""></h:outputText>					
+						<h:outputText value="#{company.emissions}"/>					
 					</p:column>
 					<p:column>
 						<f:facet name="header">Jahr</f:facet>
-						<h:outputText value=""></h:outputText>
+						<h:outputText value="#{company.year}"/>
 					</p:column>
 				</p:dataTable>			
 			</p:tab>
@@ -40,17 +40,17 @@
 				<p:dataTable>
 					<p:column>
 						<f:facet name="header">Land</f:facet>
-						<h:outputText value=""></h:outputText>
+						<h:outputText value="#{country.country}"/>
 					</p:column>
 						<f:facet name="header">Kontinent</f:facet>
-						<h:outputText value=""></h:outputText>
+						<h:outputText value="#{country.continentName}"/>
 					<p:column>
 						<f:facet name="header">MTon CO2</f:facet>
-						<h:outputText value=""></h:outputText>					
+						<h:outputText value="#{country.emissions}"/>					
 					</p:column>						
 					<p:column>
 						<f:facet name="header">Jahr</f:facet>
-						<h:outputText value=""></h:outputText>
+						<h:outputText value="#{country.year}"/>
 					</p:column>
 				</p:dataTable>	
 			</p:tab>

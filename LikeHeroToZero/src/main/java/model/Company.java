@@ -1,5 +1,8 @@
 package model;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class Company extends EmissionEntry 
 {
 	private String companyName;

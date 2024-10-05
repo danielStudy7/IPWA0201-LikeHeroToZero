@@ -1,7 +1,19 @@
 package model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class EmissionEntry 
 {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
 	private String country;
 	private double emissions;
 	private int year;
@@ -20,6 +32,11 @@ public class EmissionEntry
 	}
 
 	
+	public int getId()
+	{
+		return id;
+	}
+	
 	public String getCountry() 
 	{
 		return country;
@@ -33,6 +50,11 @@ public class EmissionEntry
 	public int getYear() 
 	{
 		return year;
+	}
+	
+	public void setId(int id)
+	{
+		this.id = id;
 	}
 	
 	public void setCountry(String country) 
