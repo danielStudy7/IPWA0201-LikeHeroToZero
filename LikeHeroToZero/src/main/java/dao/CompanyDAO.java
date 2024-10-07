@@ -15,6 +15,7 @@ import model.Company;
 public class CompanyDAO 
 {
 	private final static EntityManagerFactory emf = Persistence.createEntityManagerFactory("LikeHeroToZero");
+
 	
 	public List<Company> findAll()
 	{

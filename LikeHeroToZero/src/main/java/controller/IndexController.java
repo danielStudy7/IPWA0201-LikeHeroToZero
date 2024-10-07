@@ -1,10 +1,11 @@
 package controller;
 
 import java.io.Serializable;
+import java.util.List;
 
 import dao.CompanyDAO;
+import dao.CountryDAO;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import model.Company;
@@ -16,29 +17,32 @@ public class IndexController implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
-	private Company company;
-	private Country country;
+	private List<Company> companyList;
+	private List<Country> countryList;
 	
 	@Inject
-	CompanyDAO companyDao;
+	private CompanyDAO companyDao;
+	
+	@Inject
+	private CountryDAO countryDao;
 	
 	public IndexController()
 	{
-		company = new Company();
-		company.getCompanyList();
+
+	}
+	
+	
+	public List<Company> getCompanyList()
+	{
+		companyList = companyDao.findAll();
 		
-		country = new Country();
-		country.getCountryList();
+		return companyList;
 	}
 	
-	
-	public Company getCompany()
+	public List<Country> getCountryList()
 	{
-		return company;
-	}
-	
-	public Country getCountry()
-	{
-		return country;
+		countryList = countryDao.findAll();
+		
+		return countryList;
 	}
 }

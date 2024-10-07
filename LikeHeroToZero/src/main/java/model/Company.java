@@ -17,17 +17,6 @@ public class Company extends EmissionEntry
 	}
 	
 	
-	public List<Company> getCompanyList()
-	{
-		CompanyDAO companyDao = new CompanyDAO();
-		List<Company> companyList = companyDao.findAll();
-		
-		System.out.println(companyList.get(0).getCountry() + "Liste Unternehmen");
-		
-		return companyList;
-	}
-	
-	
 	public Company(String countryName, double emissions, int year, String companyName)
 	{
 		super(countryName, emissions, year);

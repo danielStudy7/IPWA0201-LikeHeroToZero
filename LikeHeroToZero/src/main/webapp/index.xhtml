@@ -16,43 +16,43 @@
 		<p:tabView>
 			<p:tab title="Unternehmen">
 				<!-- TODO Tabelle sortieren, durchsuchen, filtern  -->
-				<p:dataTable value="#{indexController.company.companyList}" var="company">
+				<p:dataTable value="#{indexController.companyList}" var="company">
 					<p:column>
 						<f:facet name="header">Unternehmen</f:facet>
-						<h:outputText value="#{indexController.company.companyName}"/>
+						<h:outputText value="#{company.companyName}"/>
 					</p:column>
 					<p:column>
 						<f:facet name="header">Land</f:facet>
-						<h:outputText value="#{indexController.company.country}"/>					
+						<h:outputText value="#{company.country}"/>					
 					</p:column>
 					<p:column>
 						<f:facet name="header">CO2 Emission</f:facet>
-						<h:outputText value="#{indexController.company.emissions}"/>					
+						<h:outputText value="#{company.emissions}"/>					
 					</p:column>
 					<p:column>
 						<f:facet name="header">Jahr</f:facet>
-						<h:outputText value="#{indexController.company.year}"/>
+						<h:outputText value="#{company.year}"/>
 					</p:column>
 				</p:dataTable>			
 			</p:tab>
 			<p:tab title="Länder">
 				<!-- TODO Tabelle sortieren, durchsuchen, filtern  -->
-				<p:dataTable value="#{indexController.country.countryList}">
+				<p:dataTable value="#{indexController.countryList}">
 					<p:column>
 						<f:facet name="header">Land</f:facet>
-						<h:outputText value="#{indexController.country.country}"/>
+						<h:outputText value="#{country.country}"/>
 					</p:column>
 					<p:column>
 						<f:facet name="header">Kontinent</f:facet>
-						<h:outputText value="#{indexController.country.continentName}"/>
+						<h:outputText value="#{country.continentName}"/>
 					</p:column>
 					<p:column>
 						<f:facet name="header">MTon CO2</f:facet>
-						<h:outputText value="#{indexController.country.emissions}"/>					
+						<h:outputText value="#{country.emissions}"/>					
 					</p:column>						
 					<p:column>
 						<f:facet name="header">Jahr</f:facet>
-						<h:outputText value="#{indexController.country.year}"/>
+						<h:outputText value="#{country.year}"/>
 					</p:column>
 				</p:dataTable>
 			</p:tab>
