@@ -8,7 +8,7 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class EmissionEntry 
 {
 	@Id
@@ -21,7 +21,7 @@ public class EmissionEntry
 	
 	public EmissionEntry()
 	{
-		//parameterloser Standardkonstruktor
+		
 	}
 	
 	public EmissionEntry(String country, double emissions, int year)

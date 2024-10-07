@@ -3,7 +3,5 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
               https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_3_0.xsd">
-	<application>
-    
-	</application>
+              <!-- <application><message-bundle> -->
 </faces-config>

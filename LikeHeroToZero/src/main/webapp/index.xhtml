@@ -12,47 +12,49 @@
 		<h:graphicImage/>
 		<h:outputText value="Like Hero To Zero"/>
 		<h:commandButton value="Login"/>
-		<h:outputText value="Info Text zu Co2 Emmissionen"/>
+		<h:outputText value="Info Text zu Co2 HIRT"/>
 		<p:tabView>
 			<p:tab title="Unternehmen">
 				<!-- TODO Tabelle sortieren, durchsuchen, filtern  -->
-				<p:dataTable >
+				<p:dataTable value="#{indexController.company.companyList}" var="company">
 					<p:column>
 						<f:facet name="header">Unternehmen</f:facet>
-						<h:outputText value="#{company.companyName}"/>
+						<h:outputText value="#{indexController.company.companyName}"/>
 					</p:column>
 					<p:column>
 						<f:facet name="header">Land</f:facet>
-						<h:outputText value="#{company.country}"/>					
+						<h:outputText value="#{indexController.company.country}"/>					
 					</p:column>
 					<p:column>
 						<f:facet name="header">CO2 Emission</f:facet>
-						<h:outputText value="#{company.emissions}"/>					
+						<h:outputText value="#{indexController.company.emissions}"/>					
 					</p:column>
 					<p:column>
 						<f:facet name="header">Jahr</f:facet>
-						<h:outputText value="#{company.year}"/>
+						<h:outputText value="#{indexController.company.year}"/>
 					</p:column>
 				</p:dataTable>			
 			</p:tab>
 			<p:tab title="Länder">
 				<!-- TODO Tabelle sortieren, durchsuchen, filtern  -->
-				<p:dataTable>
+				<p:dataTable value="#{indexController.country.countryList}">
 					<p:column>
 						<f:facet name="header">Land</f:facet>
-						<h:outputText value="#{country.country}"/>
+						<h:outputText value="#{indexController.country.country}"/>
 					</p:column>
+					<p:column>
 						<f:facet name="header">Kontinent</f:facet>
-						<h:outputText value="#{country.continentName}"/>
+						<h:outputText value="#{indexController.country.continentName}"/>
+					</p:column>
 					<p:column>
 						<f:facet name="header">MTon CO2</f:facet>
-						<h:outputText value="#{country.emissions}"/>					
+						<h:outputText value="#{indexController.country.emissions}"/>					
 					</p:column>						
 					<p:column>
 						<f:facet name="header">Jahr</f:facet>
-						<h:outputText value="#{country.year}"/>
+						<h:outputText value="#{indexController.country.year}"/>
 					</p:column>
-				</p:dataTable>	
+				</p:dataTable>
 			</p:tab>
 		</p:tabView>
 	</h:body>

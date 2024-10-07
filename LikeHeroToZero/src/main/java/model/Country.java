@@ -1,5 +1,8 @@
 package model;
 
+import java.util.List;
+
+import dao.CountryDAO;
 import jakarta.persistence.Entity;
 
 @Entity
@@ -19,6 +22,15 @@ public class Country extends EmissionEntry
 		this.continentName = continentName;
 	}
 
+	
+	public List<Country> getCountryList()
+	{
+		CountryDAO countryDao = new CountryDAO();
+		List<Country> countryList = countryDao.findAll();
+		
+		return countryList;
+	}
+	
 	
 	public String getContinentName() 
 	{
