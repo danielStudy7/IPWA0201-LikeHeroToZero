@@ -17,6 +17,7 @@ public class EmissionEntry
 	private String country;
 	private double emissions;
 	private int year;
+	private boolean checked;
 	
 	
 	public EmissionEntry()
@@ -52,6 +53,12 @@ public class EmissionEntry
 		return year;
 	}
 	
+	public boolean isChecked()
+	{
+		return checked;
+	}
+	
+	
 	public void setId(int id)
 	{
 		this.id = id;
@@ -70,5 +77,10 @@ public class EmissionEntry
 	public void setYear(int year) 
 	{
 		this.year = year;
+	}
+	
+	public void setChecked(boolean check)
+	{
+		this.checked = check;
 	}
 }

@@ -1,8 +1,5 @@
 package model;
 
-import java.util.List;
-
-import dao.CompanyDAO;
 import jakarta.persistence.Entity;
 
 @Entity

@@ -17,7 +17,7 @@ public class User
 	
 	public User()
 	{
-		//parameterloser Standardkonstruktor
+		
 	}
 	
 	public User(String userName, String password)
@@ -26,6 +26,28 @@ public class User
 		this.password = password;
 	}
 
+	
+	@Override
+	public boolean equals(Object loginUser)
+	{
+		if (loginUser instanceof User)
+		{
+			User user = (User) loginUser;
+			if (user.getUserName().equals(this.userName) && user.getPassword().equals(this.password))
+			{
+				return true;				
+			}
+			else
+			{
+				return false;				
+			}
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
 	
 	public int getId()
 	{
