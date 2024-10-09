@@ -10,15 +10,15 @@
 	</h:head>
 	<h:body>
 		<h:graphicImage url=""/>
-		<h:outputText value="Like Hero To Zero">
+		<h:outputText value="Like Hero To Zero"/>
 		<h:commandButton value="Login?"/>
 		<h:outputText value="Login"/>
 		<h:form>
 			<h:outputLabel for="userName" value="Benutzername"/>
-			<h:inputText id="userName" value=""/>
+			<h:inputText id="userName" value="#{loginController.loginUser.userName}"/>
 			<h:outputLabel for="password" value="Passwort"/>
-			<h:inputSecret id="password" value=""/>
-			<h:commandButton value="Login"/>
+			<h:inputSecret id="password" value="#{loginController.loginUser.password}"/>
+			<h:commandButton value="Login" action="#{loginController.login()}"/>
 			<h:outputText value="Neu hier?"/>
 			<h:commandButton value="Sign in"/>
 		</h:form>

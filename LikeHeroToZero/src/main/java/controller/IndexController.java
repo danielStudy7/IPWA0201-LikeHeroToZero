@@ -26,6 +26,7 @@ public class IndexController implements Serializable
 	@Inject
 	private CountryDAO countryDao;
 	
+	
 	public IndexController()
 	{
 
