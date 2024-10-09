@@ -46,7 +46,7 @@ public class CompanyDAO
 			EntityTransaction t = em.getTransaction();
 
 			t.begin();
-			em.persist(company);
+				em.persist(company);
 			t.commit();			
 		}
 		else
