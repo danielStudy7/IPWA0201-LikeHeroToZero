@@ -38,6 +38,8 @@ public class UserDAO
 		
 		userList = em.createQuery(cq).getResultList();
 		
+		em.clear();
+		
 		return userList;
 	}
 	
@@ -48,19 +50,27 @@ public class UserDAO
 		Root<User> rootUser = cq.from(User.class);
 		Predicate usernameCondition = cb.equal(rootUser.get("username"), username);
 		cq.select(rootUser).where(usernameCondition);
+
+		User user = em.createQuery(cq).getSingleResult();
 		
-		return em.createQuery(cq).getSingleResult();
+		em.clear();
+		
+		return user;
 	}
 	
 	public void createUser(User user)
 	{
 		if (user != null)
 		{
+			user.setPassword(Integer.toString(user.getPassword().hashCode()));
+			
 			EntityTransaction t = em.getTransaction();
 			
 			t.begin();
 				em.persist(user);
-			t.commit();			
+			t.commit();	
+			
+			em.clear();
 		}
 		else
 		{
@@ -75,8 +85,10 @@ public class UserDAO
 			EntityTransaction t = em.getTransaction();
 			
 			t.begin();
-			em.merge(user);
-			t.commit();			
+				em.merge(user);
+			t.commit();	
+			
+			em.clear();
 		}
 		else
 		{
@@ -91,9 +103,11 @@ public class UserDAO
 			EntityTransaction t = em.getTransaction();
 			
 			t.begin();
-			em.merge(user);
-			em.remove(user);
-			t.commit();			
+				em.merge(user);
+				em.remove(user);
+			t.commit();		
+			
+			em.clear();
 		}
 		else
 		{

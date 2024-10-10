@@ -26,11 +26,13 @@ public class LoginController implements Serializable
 		loginUser = new User("", "");
 	}
 	
-	
+	//TODO hash verwenden für PAssword
 	public String login()
 	{
 		List<User> userList = userDao.getUserList();
-
+		
+		this.loginUser.setPassword(Integer.toString(loginUser.getPassword().hashCode()));
+		
 		for (User user : userList)
 		{	
 			if (user.equals(this.loginUser))
@@ -42,6 +44,37 @@ public class LoginController implements Serializable
 		return "login.xhtml";
 	}
 	
+	public void signUp()
+	{
+		if (loginUser.getUserName() != null && loginUser.getPassword() != null)
+		{
+			List<User> userList = userDao.getUserList();
+			if (userList != null && !userList.isEmpty())
+			{
+				for (User user : userList)
+				{
+					if (user.getUserName().equals(loginUser.getUserName()))
+					{
+						//User nicht erstellbar
+					}
+					else
+					{
+						userDao.createUser(loginUser);
+					}
+				}				
+			}
+			else 
+			{
+				userDao.createUser(loginUser);
+			}
+		}
+		
+		else
+		{
+			//TODO handeln
+			System.out.println("ELSE Block");
+		}
+	}
 	
 	public User getLoginUser()
 	{

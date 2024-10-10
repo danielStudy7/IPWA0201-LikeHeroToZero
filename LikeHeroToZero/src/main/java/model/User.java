@@ -54,6 +54,13 @@ public class User
 	}
 	
 	
+	@Override
+	public int hashCode()
+	{
+		return this.password.hashCode() * 7;
+	}
+	
+	
 	public int getId()
 	{
 		return id;
