@@ -23,7 +23,7 @@ public class LoginController implements Serializable
 	
 	public LoginController()
 	{
-		loginUser = new User(" ", " ");
+		loginUser = new User("", "");
 	}
 	
 	
