@@ -40,7 +40,8 @@ public class NewEntryController implements Serializable
 	
 	public void createCountry()
 	{
-		
+		countryDao.createCountryEntry(country);
+		country = new Country();
 	}
 	
 	
