@@ -55,7 +55,7 @@ public class CompanyDAO
 		}
 	}
 	
-	public void deleteCompanyEntrie(Company company)
+	public void deleteCompanyEntry(Company company)
 	{
 		if (company != null)
 		{
@@ -72,7 +72,7 @@ public class CompanyDAO
 		}
 	}
 	
-	public void updateCompany(Company company)
+	public void updateCompanyEntry(Company company)
 	{		
 		if (company != null)
 		{
@@ -84,7 +84,7 @@ public class CompanyDAO
 		}
 	}
 	
-	public Company getCompanyEntrie(int index)
+	public Company getCompanyEntry(int index)
 	{
 		Company company;
 		List<Company> companyList;
