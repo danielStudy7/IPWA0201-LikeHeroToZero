@@ -44,8 +44,6 @@ public class IndexController implements Serializable
 	{
 		countryList = countryDao.findAll();
 		
-		System.out.println("CountryList aus Controller" + countryList.get(0).getContinentName());
-		
 		return countryList;
 	}
 }

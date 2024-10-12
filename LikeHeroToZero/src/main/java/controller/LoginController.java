@@ -26,7 +26,7 @@ public class LoginController implements Serializable
 		loginUser = new User("", "");
 	}
 	
-	//TODO hash verwenden für PAssword
+
 	public String login()
 	{
 		List<User> userList = userDao.getUserList();
@@ -72,7 +72,6 @@ public class LoginController implements Serializable
 		else
 		{
 			//TODO handeln
-			System.out.println("ELSE Block");
 		}
 	}
 	

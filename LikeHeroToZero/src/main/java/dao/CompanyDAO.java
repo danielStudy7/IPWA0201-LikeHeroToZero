@@ -62,8 +62,8 @@ public class CompanyDAO
 			EntityTransaction t = em.getTransaction();
 
 			t.begin();
-			em.merge(company);
-			em.remove(company);
+				em.merge(company);
+				em.remove(company);
 			t.commit();			
 		}
 		else
@@ -79,7 +79,7 @@ public class CompanyDAO
 			EntityTransaction t = em.getTransaction();
 			
 			t.begin();
-			em.merge(company);
+				em.merge(company);
 			t.commit();			
 		}
 	}
