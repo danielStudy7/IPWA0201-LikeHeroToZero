@@ -39,7 +39,7 @@ public class CompanyDAO
 		return companyList;
 	}
 		
-	public void safeCompanyEntrie(Company company)
+	public void createCompanyEntry(Company company)
 	{
 		if (company != null)
 		{
