@@ -17,6 +17,8 @@ public class User
 	private String userName;
 	
 	private String password;
+	private String name;
+	private String familyName;
 	
 	
 	public User()
@@ -75,6 +77,17 @@ public class User
 	{
 		return password;
 	}
+	
+	public String getName()
+	{
+		return name;
+	}
+	
+	public String getFamilyName()
+	{
+		return familyName;
+	}
+	
 
 	public void setId(int id)
 	{
@@ -89,5 +102,15 @@ public class User
 	public void setPassword(String password) 
 	{
 		this.password = password;
+	}
+	
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+	
+	public void setFamilyName(String familyName)
+	{
+		this.familyName = familyName;
 	}
 }

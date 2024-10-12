@@ -1,11 +1,13 @@
 package model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -17,7 +19,12 @@ public class EmissionEntry
 	private String country;
 	private double emissions;
 	private int year;
+	
+	@Column(columnDefinition = "Boolean")
 	private boolean checked;
+	
+	@ManyToOne
+	private User user;
 	
 	
 	public EmissionEntry()
@@ -58,6 +65,11 @@ public class EmissionEntry
 		return checked;
 	}
 	
+	public User getUser()
+	{
+		return user;
+	}
+	
 	
 	public void setId(int id)
 	{
@@ -82,5 +94,10 @@ public class EmissionEntry
 	public void setChecked(boolean check)
 	{
 		this.checked = check;
+	}
+	
+	public void setUser(User user)
+	{
+		this.user = user;
 	}
 }
