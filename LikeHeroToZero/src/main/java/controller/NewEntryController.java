@@ -16,8 +16,8 @@ public class NewEntryController implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 
-	Company company;
-	Country country;
+	private Company company;
+	private Country country;
 	
 	@Inject
 	private CompanyDAO companyDao;
@@ -27,13 +27,15 @@ public class NewEntryController implements Serializable
 	
 	public NewEntryController()
 	{
-		
+		company = new Company();
+		country = new Country();
 	}
 	
 	
 	public void createCompany()
 	{
 		companyDao.createCompanyEntry(company);
+		company = new Company();
 	}
 	
 	public void createCountry()

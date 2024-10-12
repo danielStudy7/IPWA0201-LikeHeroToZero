@@ -26,7 +26,7 @@
 						<h:outputLabel for="year" value="Jahr"/>
 						<h:inputText id="year" value="#{newEntryController.company.year}"/>
 						<h:outputLabel/>
-						<h:commandButton value="Speichern" action="#{newEntryController.createNewCompany}"/>
+						<h:commandButton value="Speichern" action="#{newEntryController.createCompany()}"/>
 					</h:panelGrid>
 				</h:form>
 			</p:tab>
@@ -36,13 +36,13 @@
 						<h:outputLabel for="country" value="Land"/>
 						<h:inputText id="country" value="#{newEntryController.country.country}"/>
 						<h:outputLabel for="continent" value="Kontinent"/>
-						<h:inputText id="continent" value="#{newEntryController.country.continent}"/>
+						<h:inputText id="continent" value="#{newEntryController.country.continentName}"/>
 						<h:outputLabel for="emissions" value="CO2 Emission MTon"/>
 						<h:inputText id="emissions" value="#{newEntryController.country.emissions}"/>
 						<h:outputLabel for="year" value="Jahr"/>
 						<h:inputText id="year" value="#{newEntryController.country.year}"/>
 						<h:outputLabel/>
-						<h:commandButton value="Speichern" action="#{newEntryController.createNewCountry}"/>
+						<h:commandButton value="Speichern" action="#{newEntryController.createCountry()}"/>
 					</h:panelGrid>
 				</h:form>
 			</p:tab>
