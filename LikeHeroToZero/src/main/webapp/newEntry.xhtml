@@ -11,7 +11,9 @@
 	<h:body>
 		<h:graphicImage url=""/>
 		<h:outputText value="Like Hero To Zero"/>
-		<h:commandButton value="Logout"/>
+		<h:form>
+			<h:commandButton value="Logout" action="#{loginController.logout()}"/>		
+		</h:form>
 		<h:outputText value="Info Text zu Co2 Emmissionen"/>
 		<p:tabView>
 			<p:tab title="Unternehmen">

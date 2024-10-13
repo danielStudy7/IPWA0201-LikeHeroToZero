@@ -10,7 +10,6 @@ import jakarta.persistence.Persistence;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import model.Company;
-import model.User;
 
 @Named
 @ApplicationScoped
