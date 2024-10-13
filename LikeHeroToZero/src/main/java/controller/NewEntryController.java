@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import dao.CompanyDAO;
 import dao.CountryDAO;
+import dao.UserDAO;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -25,6 +26,13 @@ public class NewEntryController implements Serializable
 	@Inject
 	private CountryDAO countryDao;
 	
+	@Inject
+	private UserDAO userDao;
+	
+	@Inject
+	private UserSessionController userSession;
+
+	
 	public NewEntryController()
 	{
 		company = new Company();
@@ -34,6 +42,8 @@ public class NewEntryController implements Serializable
 	
 	public void createCompany()
 	{
+		userDao.updateUser(userSession.getCurrentUser());
+		company.setUser(userSession.getCurrentUser());
 		companyDao.createCompanyEntry(company);
 		company = new Company();
 	}

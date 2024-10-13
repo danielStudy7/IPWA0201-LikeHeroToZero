@@ -48,7 +48,7 @@ public class UserDAO
 		CriteriaQuery<User> cq = cb.createQuery(User.class);
 		
 		Root<User> rootUser = cq.from(User.class);
-		Predicate usernameCondition = cb.equal(rootUser.get("username"), username);
+		Predicate usernameCondition = cb.equal(rootUser.get("userName"), username);
 		cq.select(rootUser).where(usernameCondition);
 
 		User user = em.createQuery(cq).getSingleResult();

@@ -10,6 +10,7 @@ import jakarta.persistence.Persistence;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import model.Company;
+import model.User;
 
 @Named
 @ApplicationScoped
@@ -42,12 +43,14 @@ public class CompanyDAO
 	public void createCompanyEntry(Company company)
 	{
 		if (company != null)
-		{
+		{			
 			EntityTransaction t = em.getTransaction();
 
 			t.begin();
 				em.persist(company);
-			t.commit();			
+			t.commit();	
+			
+			em.clear();
 		}
 		else
 		{

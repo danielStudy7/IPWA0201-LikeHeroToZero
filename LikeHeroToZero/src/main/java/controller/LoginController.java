@@ -18,15 +18,19 @@ public class LoginController implements Serializable
 	@Inject
 	private UserDAO userDao;
 	
+	@Inject
+	private UserSessionController userSession;
+	
 	private User loginUser;
 	
 	
 	public LoginController()
 	{
 		loginUser = new User("", "");
+		//userSession = new UserSessionController();
 	}
 	
-
+	
 	public String login()
 	{
 		List<User> userList = userDao.getUserList();
@@ -37,7 +41,9 @@ public class LoginController implements Serializable
 		{	
 			if (user.equals(this.loginUser))
 			{
-				return "index.xhtml";
+				userSession.setCurrentUser(userDao.getUser(loginUser.getUserName()));
+				System.out.println("BenutzerSession LoginController " + userSession.getCurrentUser().getUserName());
+				return "newEntry.xhtml";
 			}
 		}
 		
@@ -60,12 +66,16 @@ public class LoginController implements Serializable
 					else
 					{
 						userDao.createUser(loginUser);
+						login();
+						userSession.setCurrentUser(loginUser);
 					}
 				}				
 			}
 			else 
 			{
 				userDao.createUser(loginUser);
+				login();
+				userSession.setCurrentUser(loginUser);
 			}
 		}
 		

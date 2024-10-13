@@ -20,12 +20,11 @@ public class EmissionEntry
 	private double emissions;
 	private int year;
 	
-	@Column(columnDefinition = "Boolean")
+	@Column(columnDefinition = "BOOLEAN")
 	private boolean checked;
 	
 	@ManyToOne
 	private User user;
-	
 	
 	public EmissionEntry()
 	{
@@ -69,7 +68,6 @@ public class EmissionEntry
 	{
 		return user;
 	}
-	
 	
 	public void setId(int id)
 	{

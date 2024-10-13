@@ -87,7 +87,6 @@ public class User
 	{
 		return familyName;
 	}
-	
 
 	public void setId(int id)
 	{
