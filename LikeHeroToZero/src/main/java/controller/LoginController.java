@@ -41,7 +41,7 @@ public class LoginController implements Serializable
 			if (user.equals(this.loginUser))
 			{
 				userSession.setCurrentUser(userDao.getUser(loginUser.getUserName()));
-				return "newEntry.xhtml";
+				return "backend.xhtml";
 			}
 		}
 		

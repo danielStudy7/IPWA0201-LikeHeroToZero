@@ -25,7 +25,7 @@ public class CompanyDAO
 		em = Persistence.createEntityManagerFactory("LikeHeroToZero").createEntityManager();
 		cb = em.getCriteriaBuilder();
 	}
-	
+
 	
 	public List<Company> findAll()
 	{

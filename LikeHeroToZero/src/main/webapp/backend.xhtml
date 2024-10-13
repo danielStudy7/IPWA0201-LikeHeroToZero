@@ -9,64 +9,74 @@
 		<h:outputStylesheet name="css/style.css" />
 	</h:head>
 	<h:body>
-		<h:graphicImage url=""/>
-		<h:outputText value="Like Hero To Zero">
-		<h:commandButton value="Logout"/>
+		<h:graphicImage url="resources/img/likeHeroToZero.png" width="200"/>
+		<h:outputText value="Like Hero To Zero"/>
+		<h:form>
+			<h:commandButton value="Logout" action="#{loginController.logout()}"/>		
+		</h:form>
 		<h:outputText value="Eintragen/Bearbeiten von Daten"/>
-		<h:commandButton value="Neuer Eintrag"/>
+		<h:form>
+			<h:commandButton value="Neuer Eintrag" action="newEntry"/>		
+		</h:form>
+		<h:form>
+			<h:commandButton value="Änderungen für meine Einträge"/>
+		</h:form>
+		<h:form>
+			<h:commandButton value="Startseite" action="index"/>
+		</h:form>
 		<p:tabView>
 			<p:tab title="Unternehmen">
 				<!-- TODO Tabelle sortieren, durchsuchen, filtern  -->
-				<p:dataTable >
+				<p:dataTable value="#{backendController.companyList}" var="company">
 					<p:column>
 						<f:facet name="header">Unternehmen</f:facet>
-						<h:inputText value=""></h:inputText>
+						<h:inputText value="#{company.companyName}"/>
 					</p:column>
 					<p:column>
 						<f:facet name="header">Land</f:facet>
-						<h:inputText value=""></h:inputText>					
+						<h:inputText value="#{company.country}"/>				
 					</p:column>
 					<p:column>
 						<f:facet name="header">CO2 Emission</f:facet>
-						<h:inputText value=""></h:inputText>					
+						<h:inputText value="#{company.emissions}"/>				
 					</p:column>
 					<p:column>
 						<f:facet name="header">Jahr</f:facet>
-						<h:inputText value=""></h:inputText>
+						<h:inputText value="#{company.year}"/>
 					</p:column>
 					<p:column>
-						<f:facet name="header">Löschen</f:facet>
+						<f:facet name="header">Löschung beantragen</f:facet>
 						<h:commandButton value="Löschen"/>
 					</p:column>
 					<p:column>
-						<f:facet name="header">Speichern</f:facet>
+						<f:facet name="header">Änderung beantragen</f:facet>
 						<h:commandButton value="Speichern"/>
 					</p:column>
 				</p:dataTable>			
 			</p:tab>
 			<p:tab title="Länder">
 				<!-- TODO Tabelle sortieren, durchsuchen, filtern  -->
-				<p:dataTable>
+				<p:dataTable value="#{backendController.countryList}" var="country">
 					<p:column>
 						<f:facet name="header">Land</f:facet>
-						<h:inputText value=""></h:inputText>
+						<h:inputText value="#{country.country}"/>
 					</p:column>
 						<f:facet name="header">Kontinent</f:facet>
-						<h:inputText value=""></h:inputText>
+						<h:inputText value="#{country.continentName}"/>
 					<p:column>
 						<f:facet name="header">MTon CO2</f:facet>
-						<h:inputText value=""></h:inputText>					
+						<h:inputText value="#{country.emissions}"/>					
 					</p:column>						
 					<p:column>
 						<f:facet name="header">Jahr</f:facet>
-						<h:inputText value=""></h:inputText>
+						<h:inputText value="#{country.year}"/>
 					</p:column>
 					<p:column>
-						<f:facet name="header">Löschen</f:facet>
+						<f:facet name="header">Löschung beantragen</f:facet>
 						<h:commandButton value="Löschen"/>
 					</p:column>
 					<p:column>
-						<f:facet name="header">Speichern</f:facet>
+						<f:facet name="header">Änderung beantragen</f:facet>
 						<h:commandButton value="Speichern"/>
 					</p:column>
 				</p:dataTable>	
