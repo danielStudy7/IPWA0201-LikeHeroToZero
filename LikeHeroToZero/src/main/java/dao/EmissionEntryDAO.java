@@ -9,6 +9,8 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Order;
+import jakarta.persistence.criteria.Root;
 import model.EmissionEntry;
 
 @Named
@@ -27,12 +29,15 @@ public class EmissionEntryDAO
 	}
 	
 	
+	//Initial nach emission sortiert
 	public List<EmissionEntry> findAll()
 	{	
 		List<EmissionEntry> emissionList;
 		
 		CriteriaQuery<EmissionEntry> cq = cb.createQuery(EmissionEntry.class);
-		cq.from(EmissionEntry.class);
+		Root<EmissionEntry> emissionRoot = cq.from(EmissionEntry.class);
+		
+		cq.select(emissionRoot).orderBy(cb.desc(emissionRoot.get("year")));
 		
 		emissionList = em.createQuery(cq).getResultList();
 		

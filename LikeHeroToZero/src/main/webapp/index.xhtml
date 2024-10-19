@@ -29,7 +29,7 @@
 				<f:facet name="header">Land</f:facet>
 				<h:outputText value="#{emissionEntry.country}"/>
 			</p:column>
-			<p:column>
+			<p:column sortable="true" sortBy="#{emissionEntry.emissions}">
 				<f:facet name="header">MTon CO2</f:facet>
 				<h:outputText value="#{emissionEntry.emissions}"/>					
 			</p:column>						
