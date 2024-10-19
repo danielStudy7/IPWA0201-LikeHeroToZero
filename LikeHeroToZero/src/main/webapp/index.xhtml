@@ -23,49 +23,24 @@
 			Sowohl Staaten, als auch Unternehmen müssen sich beteiligen, um die CO2 Emissionen weltweit zu reduzieren und den Klimawandel im Schacht zu halten. Verfolgen Sie hier, wie Ihr 
 			Land oder ein bestimmtes Unternehmen ihre CO2 Emissionen im Laufe der Jahre reduzieren konnte und hoffentlich weiter reduzieren werden.
 		</p>
-		<p:tabView>
-			<p:tab title="Unternehmen">
-				<!-- TODO Tabelle sortieren, durchsuchen, filtern  -->
-				<p:dataTable value="#{indexController.companyList}" var="company">
-					<p:column>
-						<f:facet name="header">Unternehmen</f:facet>
-						<h:outputText value="#{company.companyName}"/>
-					</p:column>
-					<p:column>
-						<f:facet name="header">Land</f:facet>
-						<h:outputText value="#{company.country}"/>					
-					</p:column>
-					<p:column sortBy="#{company.emissions}" sortOrder="desc">	
-						<f:facet name="header">CO2 Emission</f:facet>
-						<h:outputText value="#{company.emissions}"/>					
-					</p:column>
-					<p:column>
-						<f:facet name="header">Jahr</f:facet>
-						<h:outputText value="#{company.year}"/>
-					</p:column>
-				</p:dataTable>			
-			</p:tab>
-			<p:tab title="Länder">
-				<!-- TODO Tabelle sortieren, durchsuchen, filtern  -->
-				<p:dataTable value="#{indexController.countryList}" var="country">
-					<p:column>
-						<f:facet name="header">Land</f:facet>
-						<h:outputText value="#{country.country}"/>
-					</p:column>
-					<p:column>
-						<f:facet name="header">Kontinent</f:facet>
-						<h:outputText value="#{country.continentName}"/>
-					</p:column>
-					<p:column>
-						<f:facet name="header">MTon CO2</f:facet>
-						<h:outputText value="#{country.emissions}"/>					
-					</p:column>						
-					<p:column>
-						<f:facet name="header">Jahr</f:facet>
-						<h:outputText value="#{country.year}"/>
-					</p:column>
-				</p:dataTable>
-			</p:tab>
-		</p:tabView>
+		<!-- TODO Tabelle sortieren, durchsuchen, filtern  -->
+		<p:dataTable value="#{indexController.countryList}" var="country">
+			<p:column>
+				<f:facet name="header">Land</f:facet>
+				<h:outputText value="#{country.country}"/>
+			</p:column>
+			<p:column>
+				<f:facet name="header">Kontinent</f:facet>
+				<h:outputText value="#{country.continentName}"/>
+			</p:column>
+			<p:column>
+				<f:facet name="header">MTon CO2</f:facet>
+				<h:outputText value="#{country.emissions}"/>					
+			</p:column>						
+			<p:column>
+				<f:facet name="header">Jahr</f:facet>
+				<h:outputText value="#{country.year}"/>
+			</p:column>
+		</p:dataTable>
 	</h:body>
 </html>

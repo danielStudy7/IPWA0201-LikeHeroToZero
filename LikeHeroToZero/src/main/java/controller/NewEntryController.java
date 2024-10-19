@@ -2,13 +2,11 @@ package controller;
 
 import java.io.Serializable;
 
-import dao.CompanyDAO;
 import dao.CountryDAO;
 import dao.UserDAO;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import model.Company;
 import model.Country;
 
 @Named
@@ -17,11 +15,8 @@ public class NewEntryController implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 
-	private Company company;
 	private Country country;
 	
-	@Inject
-	private CompanyDAO companyDao;
 	
 	@Inject
 	private CountryDAO countryDao;
@@ -35,39 +30,22 @@ public class NewEntryController implements Serializable
 	
 	public NewEntryController()
 	{
-		company = new Company();
 		country = new Country();
 	}
-	
-	
-	public void createCompany()
-	{
-		userDao.updateUser(userSession.getCurrentUser());
-		company.setUser(userSession.getCurrentUser());
-		companyDao.createCompanyEntry(company);
-		company = new Company();
-	}
+
 	
 	public void createCountry()
 	{
+		userDao.updateUser(userSession.getCurrentUser());
+		country.setUser(userSession.getCurrentUser());
 		countryDao.createCountryEntry(country);
 		country = new Country();
 	}
 	
 	
-	public Company getCompany()
-	{
-		return company;
-	}
-	
 	public Country getCountry()
 	{
 		return country;
-	}
-	
-	public void setCompany(Company company)
-	{
-		this.company = company;
 	}
 	
 	public void setCountry(Country country)

@@ -15,39 +15,19 @@
 			<h:commandButton value="Logout" action="#{loginController.logout()}"/>		
 		</h:form>
 		<h:outputText value="Info Text zu Co2 Emmissionen"/>
-		<p:tabView>
-			<p:tab title="Unternehmen">
-				<h:form>
-					<h:panelGrid columns="2">
-						<h:outputLabel for="company" value="Unternehmen"/>
-						<h:inputText id="company" value="#{newEntryController.company.companyName}"/>
-						<h:outputLabel for="country" value="Land"/>
-						<h:inputText id="country" value="#{newEntryController.company.country}"/>
-						<h:outputLabel for="emissions" value="CO2 Emission"/>
-						<h:inputText id="emissions" value="#{newEntryController.company.emissions}"/>
-						<h:outputLabel for="year" value="Jahr"/>
-						<h:inputText id="year" value="#{newEntryController.company.year}"/>
-						<h:outputLabel/>
-						<h:commandButton value="Speichern" action="#{newEntryController.createCompany()}"/>
-					</h:panelGrid>
-				</h:form>
-			</p:tab>
-			<p:tab title="Länder">
-				<h:form>
-					<h:panelGrid columns="2">
-						<h:outputLabel for="country" value="Land"/>
-						<h:inputText id="country" value="#{newEntryController.country.country}"/>
-						<h:outputLabel for="continent" value="Kontinent"/>
-						<h:inputText id="continent" value="#{newEntryController.country.continentName}"/>
-						<h:outputLabel for="emissions" value="CO2 Emission MTon"/>
-						<h:inputText id="emissions" value="#{newEntryController.country.emissions}"/>
-						<h:outputLabel for="year" value="Jahr"/>
-						<h:inputText id="year" value="#{newEntryController.country.year}"/>
-						<h:outputLabel/>
-						<h:commandButton value="Speichern" action="#{newEntryController.createCountry()}"/>
-					</h:panelGrid>
-				</h:form>
-			</p:tab>
-		</p:tabView>
+		<h:form>
+			<h:panelGrid columns="2">
+				<h:outputLabel for="country" value="Land"/>
+				<h:inputText id="country" value="#{newEntryController.country.country}"/>
+				<h:outputLabel for="continent" value="Kontinent"/>
+				<h:inputText id="continent" value="#{newEntryController.country.continentName}"/>
+				<h:outputLabel for="emissions" value="CO2 Emission MTon"/>
+				<h:inputText id="emissions" value="#{newEntryController.country.emissions}"/>
+				<h:outputLabel for="year" value="Jahr"/>
+				<h:inputText id="year" value="#{newEntryController.country.year}"/>
+				<h:outputLabel/>
+				<h:commandButton value="Speichern" action="#{newEntryController.createCountry()}"/>
+			</h:panelGrid>
+		</h:form>
 	</h:body>
 </html>
