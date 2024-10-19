@@ -1,6 +1,11 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import org.primefaces.model.FilterMeta;
+import org.primefaces.model.SortOrder;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Named;
@@ -9,7 +14,7 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Order;
+import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import model.EmissionEntry;
 
@@ -111,5 +116,74 @@ public class EmissionEntryDAO
 		emissionEntry = emissionList.get(index);
 		
 		return emissionEntry;
+	}
+	
+	
+	//Methoden für das LazyEmissionEntryDataModel
+	public int countEmissionEntrys(Map<String, FilterMeta> filters)
+	{
+		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+		Root<EmissionEntry> emissionRoot = cq.from(EmissionEntry.class);
+		
+		//Anzahl abfragen
+		cq.select(cb.count(emissionRoot));
+		
+		//Filtern
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		if (filters != null)
+		{
+			filters.forEach((k, v) ->
+			{
+				predicates.add(cb.like(cb.lower(emissionRoot.get(k)),  "%" + v.toString().toLowerCase() + "%"));
+			});
+		}
+		
+		cq.where(predicates.toArray(new Predicate[0]));
+		
+		int result = em.createQuery(cq).getSingleResult().intValue();
+		
+		em.clear();
+		
+		return result;
+	}
+	
+	public List<EmissionEntry> loadEmissionEntrys(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, FilterMeta> filterBy)
+	{
+		CriteriaQuery<EmissionEntry> cq = cb.createQuery(EmissionEntry.class);
+		Root<EmissionEntry> emissionRoot = cq.from(EmissionEntry.class);
+		
+		//Sortieren
+		if (sortField != null)
+		{
+			if (sortOrder == SortOrder.ASCENDING)
+			{
+				cq.orderBy(cb.asc(emissionRoot.get(sortField)));
+			}
+			else if (sortOrder == SortOrder.DESCENDING)
+			{
+				cq.orderBy(cb.desc(emissionRoot.get(sortField)));
+			}
+		}
+		
+		//Filtern
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		if (filterBy != null)
+		{
+			filterBy.forEach((k,v) ->
+			{
+				predicates.add(cb.like(cb.lower(emissionRoot.get(k)), "%" + v.toString().toLowerCase() + "%"));
+			});
+		}
+		
+		cq.where(predicates.toArray(new Predicate[0]));
+		
+		//Abfrage ausführen
+		List<EmissionEntry> resultList = em.createQuery(cq).setFirstResult(first).setMaxResults(pageSize).getResultList();
+		
+		em.clear();
+		
+		return resultList;
 	}
 }
