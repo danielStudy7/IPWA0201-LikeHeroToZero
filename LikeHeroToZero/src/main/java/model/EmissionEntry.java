@@ -14,7 +14,6 @@ public class EmissionEntry
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private String country;
-	private String continent;
 	private double emissions;
 	private int year;
 	
@@ -47,11 +46,6 @@ public class EmissionEntry
 	{
 		return country;
 	}
-	
-	public String getContinent()
-	{
-		return continent;
-	}
 
 	public double getEmissions() 
 	{
@@ -81,11 +75,6 @@ public class EmissionEntry
 	public void setCountry(String country) 
 	{
 		this.country = country;
-	}
-	
-	public void setContinent(String continent)
-	{
-		this.continent = continent;
 	}
 
 	public void setEmissions(double emissions) 
