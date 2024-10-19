@@ -4,7 +4,8 @@
 		xmlns:f="http://xmlns.jcp.org/jsf/core"
 		xmlns:p="http://primefaces.org/ui">
 	<h:head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta 	http-equiv="Content-Type" 
+				content="text/html; charset=UTF-8"/>
 		<title>Like Hero To Zero</title>
 		<h:outputStylesheet name="css/style.css" />
 	</h:head>
@@ -24,16 +25,27 @@
 			Land oder ein bestimmtes Unternehmen ihre CO2 Emissionen im Laufe der Jahre reduzieren konnte und hoffentlich weiter reduzieren werden.
 		</p>
 		<!-- TODO Tabelle sortieren, durchsuchen, filtern  -->
-		<p:dataTable value="#{indexController.lazyDataModel}" var="emissionEntry" paginator="true" rows="2" selectionMode="single" sortMode="multiple" filterMode="contains">
-			<p:column filterBy="#{emissionEntry.country}">
+		<p:dataTable 	value="#{indexController.lazyDataModel}" 
+						var="emissionEntry" 
+						paginator="true" 
+						rows="5" 
+						selectionMode="single" 
+						sortMode="multiple" 
+						filterMode="contains"
+						rowsPerPageTemplate="5,10,15"
+						lazy="true">
+			<p:column 	sortable="true"
+						sortBy="#{emissionEntry.country}">
 				<f:facet name="header">Land</f:facet>
 				<h:outputText value="#{emissionEntry.country}"/>
 			</p:column>
-			<p:column sortable="true" sortBy="#{emissionEntry.emissions}">
+			<p:column 	sortable="true" 
+						sortBy="#{emissionEntry.emissions}">
 				<f:facet name="header">MTon CO2</f:facet>
 				<h:outputText value="#{emissionEntry.emissions}"/>					
 			</p:column>						
-			<p:column sortable="true" sortBy="#{emissionEntry.year}">
+			<p:column 	sortable="true" 
+						sortBy="#{emissionEntry.year}">
 				<f:facet name="header">Jahr</f:facet>
 				<h:outputText value="#{emissionEntry.year}"/>
 			</p:column>

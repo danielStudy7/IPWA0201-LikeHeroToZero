@@ -4,7 +4,8 @@
 		xmlns:f="http://xmlns.jcp.org/jsf/core"
 		xmlns:p="http://primefaces.org/ui">
 	<h:head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta 	http-equiv="Content-Type" 
+				content="text/html; charset=UTF-8"/>
 		<title>Like Hero To Zero</title>
 		<h:outputStylesheet name="css/style.css" />
 	</h:head>
@@ -14,13 +15,19 @@
 		<h:commandButton value="Login?"/>
 		<h:outputText value="Login"/>
 		<h:form>
-			<h:outputLabel for="userName" value="Benutzername"/>
-			<h:inputText id="userName" value="#{loginController.loginUser.userName}"/>
-			<h:outputLabel for="password" value="Passwort"/>
-			<h:inputSecret id="password" value="#{loginController.loginUser.password}"/>
-			<h:commandButton value="Login" action="#{loginController.login()}"/>
+			<h:outputLabel 	for="userName" 
+							value="Benutzername"/>
+			<h:inputText 	id="userName" 
+							value="#{loginController.loginUser.userName}"/>
+			<h:outputLabel 	for="password" 
+							value="Passwort"/>
+			<h:inputSecret 	id="password" 
+							value="#{loginController.loginUser.password}"/>
+			<h:commandButton 	value="Login" 
+								action="#{loginController.login()}"/>
 			<h:outputText value="Neu hier?"/>
-			<h:commandButton value="Sign in" action="#{loginController.signUp()}"/>
+			<h:commandButton 	value="Sign in" 
+								action="#{loginController.signUp()}"/>
 		</h:form>
 	</h:body>
 </html>
