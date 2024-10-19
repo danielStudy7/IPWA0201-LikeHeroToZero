@@ -5,18 +5,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class EmissionEntry 
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private String country;
+	private String continent;
 	private double emissions;
 	private int year;
 	
@@ -25,12 +23,13 @@ public class EmissionEntry
 	
 	@ManyToOne
 	private User user;
+
 	
 	public EmissionEntry()
 	{
 		
 	}
-	
+	//TODO Konstruktor erweitern
 	public EmissionEntry(String country, double emissions, int year)
 	{
 		this.country = country;
@@ -47,6 +46,11 @@ public class EmissionEntry
 	public String getCountry() 
 	{
 		return country;
+	}
+	
+	public String getContinent()
+	{
+		return continent;
 	}
 
 	public double getEmissions() 
@@ -77,6 +81,11 @@ public class EmissionEntry
 	public void setCountry(String country) 
 	{
 		this.country = country;
+	}
+	
+	public void setContinent(String continent)
+	{
+		this.continent = continent;
 	}
 
 	public void setEmissions(double emissions) 

@@ -25,20 +25,20 @@
 			<h:commandButton value="Startseite" action="index"/>
 		</h:form>		
 		<!-- TODO Tabelle sortieren, durchsuchen, filtern  -->
-		<p:dataTable value="#{backendController.countryList}" var="country">
+		<p:dataTable value="#{backendController.emissionList}" var="emissionEntry">
 			<p:column>
 				<f:facet name="header">Land</f:facet>
-				<h:inputText value="#{country.country}"/>
+				<h:inputText value="#{emissionEntry.country}"/>
 			</p:column>
 				<f:facet name="header">Kontinent</f:facet>
-				<h:inputText value="#{country.continentName}"/>
+				<h:inputText value="#{emissionEntry.continent}"/>
 			<p:column>
 				<f:facet name="header">MTon CO2</f:facet>
-				<h:inputText value="#{country.emissions}"/>					
+				<h:inputText value="#{emissionEntry.emissions}"/>					
 			</p:column>						
 			<p:column>
 				<f:facet name="header">Jahr</f:facet>
-				<h:inputText value="#{country.year}"/>
+				<h:inputText value="#{emissionEntry.year}"/>
 			</p:column>
 			<p:column>
 				<f:facet name="header">Löschung beantragen</f:facet>

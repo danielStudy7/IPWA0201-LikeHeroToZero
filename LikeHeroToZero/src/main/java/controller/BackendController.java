@@ -3,11 +3,11 @@ package controller;
 import java.io.Serializable;
 import java.util.List;
 
-import dao.CountryDAO;
+import dao.EmissionEntryDAO;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import model.Country;
+import model.EmissionEntry;
 
 @Named
 @ViewScoped
@@ -15,10 +15,10 @@ public class BackendController implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 
-	private List<Country> countryList;
+	private List<EmissionEntry> emissionList;
 	
 	@Inject
-	private CountryDAO countryDao;
+	private EmissionEntryDAO emissionDao;
 	
 	
 	public BackendController()
@@ -27,10 +27,10 @@ public class BackendController implements Serializable
 	}
 	
 	
-	public List<Country> getCountryList()
+	public List<EmissionEntry> getEmissionList()
 	{
-		countryList = countryDao.findAll();
+		emissionList = emissionDao.findAll();
 		
-		return countryList;
+		return emissionList;
 	}
 }

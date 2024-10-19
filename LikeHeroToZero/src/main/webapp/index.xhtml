@@ -24,22 +24,22 @@
 			Land oder ein bestimmtes Unternehmen ihre CO2 Emissionen im Laufe der Jahre reduzieren konnte und hoffentlich weiter reduzieren werden.
 		</p>
 		<!-- TODO Tabelle sortieren, durchsuchen, filtern  -->
-		<p:dataTable value="#{indexController.countryList}" var="country">
+		<p:dataTable value="#{indexController.emissionList}" var="emissionEntry">
 			<p:column>
 				<f:facet name="header">Land</f:facet>
-				<h:outputText value="#{country.country}"/>
+				<h:outputText value="#{emissionEntry.country}"/>
 			</p:column>
 			<p:column>
 				<f:facet name="header">Kontinent</f:facet>
-				<h:outputText value="#{country.continentName}"/>
+				<h:outputText value="#{emissionEntry.continent}"/>
 			</p:column>
 			<p:column>
 				<f:facet name="header">MTon CO2</f:facet>
-				<h:outputText value="#{country.emissions}"/>					
+				<h:outputText value="#{emissionEntry.emissions}"/>					
 			</p:column>						
 			<p:column>
 				<f:facet name="header">Jahr</f:facet>
-				<h:outputText value="#{country.year}"/>
+				<h:outputText value="#{emissionEntry.year}"/>
 			</p:column>
 		</p:dataTable>
 	</h:body>
