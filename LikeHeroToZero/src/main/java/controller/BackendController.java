@@ -27,6 +27,12 @@ public class BackendController implements Serializable
 	}
 	
 	
+	public void safe(int index)
+	{
+		emissionDao.updateEmissionEntry(emissionList.get(index));
+	}
+	
+	
 	public List<EmissionEntry> getEmissionList()
 	{
 		emissionList = emissionDao.findAll();
