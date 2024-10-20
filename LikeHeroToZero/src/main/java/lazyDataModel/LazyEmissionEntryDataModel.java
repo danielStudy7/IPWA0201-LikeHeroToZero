@@ -10,6 +10,7 @@ import org.primefaces.model.SortMeta;
 import org.primefaces.model.SortOrder;
 
 import dao.EmissionEntryDAO;
+import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import model.EmissionEntry;
 
@@ -37,7 +38,16 @@ public class LazyEmissionEntryDataModel extends LazyDataModel<EmissionEntry>
 	@Override
 	public int count(Map<String, FilterMeta> filterBy) 
 	{
-		return emissionDao.countEmissionEntrys(filterBy);
+		Map<String, Object> filters = new HashMap<>();
+		if (filterBy != null)
+		{
+			for (Map.Entry<String, FilterMeta> entry : filterBy.entrySet())
+			{	
+				filters.put(entry.getKey(), entry.getValue().getFilterValue());
+			}
+		}
+		
+		return emissionDao.countEmissionEntrys(filters);
 	}
 
 	@Override
@@ -59,14 +69,23 @@ public class LazyEmissionEntryDataModel extends LazyDataModel<EmissionEntry>
 		if (filterBy != null)
 		{
 			for (Map.Entry<String, FilterMeta> entry : filterBy.entrySet())
-			{
+			{	
 				filters.put(entry.getKey(), entry.getValue().getFilterValue());
 			}
 		}
 		
-		emissionList = emissionDao.loadEmissionEntrys(first, pageSize, sortField, sortOrder, filterBy);
+		emissionList = emissionDao.loadEmissionEntrys(first, pageSize, sortField, sortOrder, filters);
 		
 		return emissionList;
 	}
 	
+	
+	public List<EmissionEntry> loadDataByCountry(List<String> selectedItems)
+	{
+		emissionList = emissionDao.getDataByCountry(selectedItems);
+		
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("form:emissionTable");
+		
+		return emissionList;
+	}
 }

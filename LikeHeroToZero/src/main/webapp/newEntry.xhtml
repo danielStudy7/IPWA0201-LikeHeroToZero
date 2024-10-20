@@ -14,7 +14,7 @@
 		<h:outputText value="Like Hero To Zero"/>
 		<h:form>
 			<h:commandButton 	value="Logout" 
-								action="#{loginController.logout()}"/>		
+								action="#{loginController.logout}"/>		
 		</h:form>
 		<h:outputText value="Info Text zu Co2 Emmissionen"/>
 		<h:form>
@@ -33,7 +33,7 @@
 								value="#{newEntryController.emissionEntry.year}"/>
 				<h:outputLabel/>
 				<h:commandButton 	value="Speichern" 
-									action="#{newEntryController.createEmissionEntry()}"/>
+									action="#{newEntryController.createEmissionEntry}"/>
 			</h:panelGrid>
 		</h:form>
 	</h:body>

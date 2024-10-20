@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.primefaces.model.FilterMeta;
 import org.primefaces.model.SortOrder;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -120,7 +119,7 @@ public class EmissionEntryDAO
 	
 	
 	//Methoden für das LazyEmissionEntryDataModel
-	public int countEmissionEntrys(Map<String, FilterMeta> filters)
+	public int countEmissionEntrys(Map<String, Object> filters)
 	{
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		Root<EmissionEntry> emissionRoot = cq.from(EmissionEntry.class);
@@ -148,7 +147,7 @@ public class EmissionEntryDAO
 		return result;
 	}
 	
-	public List<EmissionEntry> loadEmissionEntrys(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, FilterMeta> filterBy)
+	public List<EmissionEntry> loadEmissionEntrys(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filterBy)
 	{
 		CriteriaQuery<EmissionEntry> cq = cb.createQuery(EmissionEntry.class);
 		Root<EmissionEntry> emissionRoot = cq.from(EmissionEntry.class);
@@ -172,7 +171,7 @@ public class EmissionEntryDAO
 		if (filterBy != null)
 		{
 			filterBy.forEach((k,v) ->
-			{
+			{		
 				predicates.add(cb.like(cb.lower(emissionRoot.get(k)), "%" + v.toString().toLowerCase() + "%"));
 			});
 		}
@@ -185,5 +184,52 @@ public class EmissionEntryDAO
 		em.clear();
 		
 		return resultList;
+	}
+	
+	//Weitere Filter für Selektionen
+	public List<String> getCountriesFromData()
+	{
+		List<String> countryList;
+		CriteriaQuery<String> cq = cb.createQuery(String.class);
+		Root<EmissionEntry> emissionRoot = cq.from(EmissionEntry.class);
+		
+		cq.select(emissionRoot.get("country")).distinct(true);
+		
+		countryList = em.createQuery(cq).getResultList();
+		
+		em.clear();
+		
+		return countryList;
+	}
+	
+	public void getYearsFromData()
+	{
+		
+	}
+	
+	public List<EmissionEntry> getDataByCountry(List<String> countries)
+	{
+		CriteriaQuery<EmissionEntry> cq = cb.createQuery(EmissionEntry.class);
+		Root<EmissionEntry> emissionRoot = cq.from(EmissionEntry.class);
+		List<EmissionEntry> emissionList = new ArrayList<EmissionEntry>();
+		
+		//Nur nach Ländern filtern
+		if (countries != null)
+		{
+			List<Predicate> attributes = new ArrayList<Predicate>();
+			
+			for (String att : countries)
+			{
+				attributes.add(cb.equal(emissionRoot.get("country"), att));
+			}
+			
+			cq.where(cb.and(attributes.toArray(new Predicate[0])));
+			
+			emissionList = em.createQuery(cq).getResultList();
+			
+			return emissionList;
+		}
+		
+		return emissionList;
 	}
 }
