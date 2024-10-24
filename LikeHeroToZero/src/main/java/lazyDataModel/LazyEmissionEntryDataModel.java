@@ -10,7 +10,6 @@ import org.primefaces.model.SortMeta;
 import org.primefaces.model.SortOrder;
 
 import dao.EmissionEntryDAO;
-import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import model.EmissionEntry;
 
@@ -75,16 +74,6 @@ public class LazyEmissionEntryDataModel extends LazyDataModel<EmissionEntry>
 		}
 		
 		emissionList = emissionDao.loadEmissionEntrys(first, pageSize, sortField, sortOrder, filters);
-		
-		return emissionList;
-	}
-	
-	
-	public List<EmissionEntry> loadDataByCountry(List<String> selectedItems)
-	{
-		emissionList = emissionDao.getDataByCountry(selectedItems);
-		
-		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("form:emissionTable");
 		
 		return emissionList;
 	}
