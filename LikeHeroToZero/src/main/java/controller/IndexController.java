@@ -16,12 +16,8 @@ public class IndexController implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
-	@Inject
-	private EmissionEntryDAO emissionDao;
-	
 	private LazyEmissionEntryDataModel lazyDataModel;
-	
-	private List<String> countryList;
+
 	private List<String> selectedItems;
 	
 	
@@ -31,24 +27,11 @@ public class IndexController implements Serializable
 	}
 	
 	
-	public List<EmissionEntry> updateTable()
-	{
-		return lazyDataModel.loadDataByCountry(selectedItems);
-	}
-	
-	
 	public LazyEmissionEntryDataModel getLazyDataModel()
 	{	
 		return lazyDataModel;
 	}
-	
-	public List<String> getCountryList()
-	{
-		countryList = emissionDao.getCountriesFromData();
-		
-		return countryList;
-	}
-	
+
 	public List<String> getSelectedItems()
 	{
 		return selectedItems;
