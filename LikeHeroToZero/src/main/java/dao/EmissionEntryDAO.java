@@ -173,10 +173,15 @@ public class EmissionEntryDAO
 			filterBy.forEach((k,v) ->
 			{		
 				predicates.add(cb.like(cb.lower(emissionRoot.get(k)), "%" + v.toString().toLowerCase() + "%"));
-			});
+			});			
 		}
 		
+		//Nur die geprüften Einträge ausgeben 
+		Predicate checkedPredicate = cb.equal(emissionRoot.get("checked"), true);
+		predicates.add(checkedPredicate);
+		
 		cq.where(predicates.toArray(new Predicate[0]));
+		
 		
 		//Abfrage ausführen
 		List<EmissionEntry> resultList = em.createQuery(cq).setFirstResult(first).setMaxResults(pageSize).getResultList();
@@ -184,52 +189,5 @@ public class EmissionEntryDAO
 		em.clear();
 		
 		return resultList;
-	}
-	
-	//Weitere Filter für Selektionen
-	public List<String> getCountriesFromData()
-	{
-		List<String> countryList;
-		CriteriaQuery<String> cq = cb.createQuery(String.class);
-		Root<EmissionEntry> emissionRoot = cq.from(EmissionEntry.class);
-		
-		cq.select(emissionRoot.get("country")).distinct(true);
-		
-		countryList = em.createQuery(cq).getResultList();
-		
-		em.clear();
-		
-		return countryList;
-	}
-	
-	public void getYearsFromData()
-	{
-		
-	}
-	
-	public List<EmissionEntry> getDataByCountry(List<String> countries)
-	{
-		CriteriaQuery<EmissionEntry> cq = cb.createQuery(EmissionEntry.class);
-		Root<EmissionEntry> emissionRoot = cq.from(EmissionEntry.class);
-		List<EmissionEntry> emissionList = new ArrayList<EmissionEntry>();
-		
-		//Nur nach Ländern filtern
-		if (countries != null)
-		{
-			List<Predicate> attributes = new ArrayList<Predicate>();
-			
-			for (String att : countries)
-			{
-				attributes.add(cb.equal(emissionRoot.get("country"), att));
-			}
-			
-			cq.where(cb.and(attributes.toArray(new Predicate[0])));
-			
-			emissionList = em.createQuery(cq).getResultList();
-			
-			return emissionList;
-		}
-		
-		return emissionList;
 	}
 }
