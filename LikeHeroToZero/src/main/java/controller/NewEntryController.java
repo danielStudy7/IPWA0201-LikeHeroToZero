@@ -34,6 +34,7 @@ public class NewEntryController implements Serializable
 	}
 
 	
+	//Erstellt einen freigegebenen Eintrag
 	public void createEmissionEntry()
 	{
 		userDao.updateUser(userSession.getCurrentUser());

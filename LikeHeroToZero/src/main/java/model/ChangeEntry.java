@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class ChangeEntry 
@@ -15,12 +16,14 @@ public class ChangeEntry
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private boolean accepted;
+	private boolean declined;
 	
+	@ManyToOne
 	private User changeUser;
 	private String infoText;
 	private String source;
 	
-	@ManyToOne
+	@OneToOne
 	private EmissionEntry emissionEntry;
 	
 	
@@ -51,6 +54,11 @@ public class ChangeEntry
 	{
 		return accepted;
 	}
+	
+	public boolean isDeclined()
+	{
+		return declined;
+	}
 
 	public User getChangeUser() 
 	{
@@ -80,6 +88,11 @@ public class ChangeEntry
 	public void setAccepted(boolean accepted) 
 	{
 		this.accepted = accepted;
+	}
+	
+	public void setDeclined(boolean declined)
+	{
+		this.declined = declined;
 	}
 	
 	public void setChangeUser(User changeUser) 

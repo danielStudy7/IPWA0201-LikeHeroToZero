@@ -101,6 +101,7 @@ public class EmissionEntryDAO
 		}
 	}
 	
+	//TODO nicht nach index abfragen sondern nach id
 	public EmissionEntry getEmissionEntry(int index)
 	{
 		EmissionEntry emissionEntry;
@@ -115,6 +116,27 @@ public class EmissionEntryDAO
 		emissionEntry = emissionList.get(index);
 		
 		return emissionEntry;
+	}
+	
+	
+	public void checkEmissionEntry(EmissionEntry emissionEntry)
+	{
+		if (emissionEntry != null)
+		{
+			emissionEntry.setChecked(true);
+			
+			EntityTransaction t = em.getTransaction();
+			
+			t.begin();
+				em.merge(emissionEntry);
+			t.commit();
+			
+			em.clear();
+		}
+		else
+		{
+			//TODO handeln
+		}
 	}
 	
 	
