@@ -38,6 +38,7 @@ public class NewEntryController implements Serializable
 	{
 		userDao.updateUser(userSession.getCurrentUser());
 		emissionEntry.setUser(userSession.getCurrentUser());
+		emissionEntry.setChecked(true);
 		emissionDao.createEmissionEntry(emissionEntry);
 		emissionEntry = new EmissionEntry();
 	}
