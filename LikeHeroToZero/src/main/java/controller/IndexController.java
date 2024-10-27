@@ -3,12 +3,9 @@ package controller;
 import java.io.Serializable;
 import java.util.List;
 
-import dao.EmissionEntryDAO;
 import jakarta.enterprise.context.SessionScoped;
-import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lazyDataModel.LazyEmissionEntryDataModel;
-import model.EmissionEntry;
 
 @Named
 @SessionScoped
