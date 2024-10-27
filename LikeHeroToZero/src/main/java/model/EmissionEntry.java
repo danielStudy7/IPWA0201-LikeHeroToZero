@@ -35,6 +35,30 @@ public class EmissionEntry
 		this.emissions = emissions;
 		this.year = year;
 	}
+	
+	
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj instanceof EmissionEntry)
+		{
+			EmissionEntry entry = (EmissionEntry) obj;
+			
+			return this.id == entry.id;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		String tempId = Integer.toString(id);
+		
+		return tempId.hashCode() * 7;
+	}
 
 	
 	public int getId()
