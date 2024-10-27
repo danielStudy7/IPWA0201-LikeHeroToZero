@@ -75,6 +75,7 @@ public class BackendController implements Serializable
 		
 		changeEntry = new ChangeEntry();
 		
+		selectedEmissionEntry = null;
 	}
 	
 	
