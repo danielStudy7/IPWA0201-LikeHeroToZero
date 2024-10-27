@@ -11,17 +11,19 @@ import jakarta.persistence.OneToOne;
 public class ChangeEntry 
 {
 
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private boolean accepted;
 	private boolean declined;
+	private double emissions;
+	private int year;
 	
 	@ManyToOne
 	private User changeUser;
 	private String infoText;
 	private String source;
+	private String country;
 	
 	@OneToOne
 	private EmissionEntry emissionEntry;
@@ -32,15 +34,19 @@ public class ChangeEntry
 		
 	}
 	
-	public ChangeEntry(int id, boolean accepted, User changeUser, String infoText, String source,
-			EmissionEntry emissionEntry) 
+	public ChangeEntry(int id, boolean accepted, boolean declined, double emissions, int year, User changeUser, String infoText, String source,
+			String country, EmissionEntry emissionEntry) 
 	{
 		this();
 		this.id = id;
 		this.accepted = accepted;
+		this.declined = declined;
+		this.emissions = emissions;
+		this.year = year;
 		this.changeUser = changeUser;
 		this.infoText = infoText;
 		this.source = source;
+		this.country = country;
 		this.emissionEntry = emissionEntry;
 	}
 	
@@ -59,6 +65,16 @@ public class ChangeEntry
 	{
 		return declined;
 	}
+	
+	public double getEmissions()
+	{
+		return emissions;
+	}
+	
+	public int getYear()
+	{
+		return year;
+	}
 
 	public User getChangeUser() 
 	{
@@ -73,12 +89,17 @@ public class ChangeEntry
 	{
 		return source;
 	}
-
+	
+	public String getCountry()
+	{
+		return country;
+	}
 
 	public EmissionEntry getEmissionEntry() 
 	{
 		return emissionEntry;
 	}
+	
 	
 	public void setId(int id) 
 	{
@@ -95,6 +116,16 @@ public class ChangeEntry
 		this.declined = declined;
 	}
 	
+	public void setEmissions(double emissions)
+	{
+		this.emissions = emissions;
+	}
+	
+	public void setYear(int year)
+	{
+		this.year = year;
+	}
+	
 	public void setChangeUser(User changeUser) 
 	{
 		this.changeUser = changeUser;
@@ -109,12 +140,15 @@ public class ChangeEntry
 	{
 		this.source = source;
 	}
+	
+	public void setCountry(String country)
+	{
+		this.country = country;
+	}
 
 	public void setEmissionEntry(EmissionEntry emissionEntry) 
 	{
 		this.emissionEntry = emissionEntry;
 	}
-	
-	
 	
 }

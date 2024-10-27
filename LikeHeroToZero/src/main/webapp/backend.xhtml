@@ -17,7 +17,6 @@
 			<h:commandButton 	value="Logout" 
 								action="#{loginController.logout}"/>		
 		</h:form>
-		<h:outputText value="Eintragen/Bearbeiten von Daten"/>
 		<h:form>
 			<h:commandButton 	value="Neuer Eintrag" 
 								action="newEntry"/>		
@@ -28,30 +27,59 @@
 		<h:form>
 			<h:commandButton 	value="Startseite" 
 								action="index"/>
-		</h:form>		
-		<!-- TODO Tabelle sortieren, durchsuchen, filtern  -->
-		<p:dataTable 	value="#{backendController.emissionList}" 
-						var="emissionEntry">
-			<p:column>
-				<f:facet name="header">Land</f:facet>
-				<h:inputText value="#{emissionEntry.country}"/>
-			</p:column>
-			<p:column>
-				<f:facet name="header">MTon CO2</f:facet>
-				<h:inputText value="#{emissionEntry.emissions}"/>					
-			</p:column>						
-			<p:column>
-				<f:facet name="header">Jahr</f:facet>
-				<h:inputText value="#{emissionEntry.year}"/>
-			</p:column>
-			<p:column>
-				<f:facet name="header">Löschung beantragen</f:facet>
-				<h:commandButton value="Löschen"/>
-			</p:column>
-			<p:column>
-				<f:facet name="header">Änderung beantragen</f:facet>
-				<h:commandButton value="Speichern" action=""/>
-			</p:column>
-		</p:dataTable>	
+		</h:form>
+		<h2>Einträge bearbeiten</h2>
+		<h:form>
+			<p:dataTable 	value="#{backendController.emissionList}" 
+							var="emissionEntry"
+							id="emissionTable"
+							selectionMode="single"
+							selection="#{backendController.selectedEmissionEntry}"
+							rowKey="#{emissionEntry.id}">
+				<p:ajax 	event="rowSelect" 
+							listener="#{backendController.onRowSelect}" 
+							update="emissionTable"/>
+				<p:column 	selectionMode="single"
+							style="width:16px;text-align:center"/>
+				<p:column>
+					<f:facet name="header">Land</f:facet>
+					<h:outputLabel value="#{emissionEntry.country}"/>
+				</p:column>
+				<p:column>
+					<f:facet name="header">MTon CO2</f:facet>
+					<h:outputLabel value="#{emissionEntry.emissions}"/>					
+				</p:column>						
+				<p:column>
+					<f:facet name="header">Jahr</f:facet>
+					<h:outputLabel value="#{emissionEntry.year}"/>
+				</p:column>
+				<f:facet name="footer">
+					<h:commandButton value="Bearbeiten" action="#{backendController.edit}"/>
+				</f:facet>
+			</p:dataTable>
+		</h:form>
+		<h:form>
+			<h:panelGrid 	columns="3">
+				<h:outputLabel	for="country"
+								value="Land"/>
+				<h:outputLabel 	id="country"
+								value="#{backendController.selectedEmissionEntry.country}"/>
+				<h:inputText	value="#{backendController.changeEntry.country}"/>
+				<h:outputLabel	for="emission"
+								value="Emissionen"/>
+				<h:outputLabel 	id="emission"
+								value="#{backendController.selectedEmissionEntry.emissions}"/>
+				<h:inputText	value="#{backendController.changeEntry.emissions}"/>
+				<h:outputLabel	for="year"
+								value="Jahr"/>
+				<h:outputLabel 	id="year"
+								value="#{backendController.selectedEmissionEntry.year}"/>
+				<h:inputText	value="#{backendController.changeEntry.year}"/>
+				<p/>
+				<p/>
+				<h:commandButton	value="Änderung beantragen"
+									action="#{backendController.createChangeEntry}"/>
+			</h:panelGrid>
+		</h:form>
 	</h:body>
 </html>

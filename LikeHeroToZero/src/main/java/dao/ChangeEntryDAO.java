@@ -2,6 +2,8 @@ package dao;
 
 import java.util.List;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
@@ -12,6 +14,8 @@ import jakarta.persistence.criteria.Root;
 import model.ChangeEntry;
 import model.User;
 
+@Named
+@ApplicationScoped
 public class ChangeEntryDAO 
 {
 	private EntityManager em;
