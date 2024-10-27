@@ -138,12 +138,14 @@ public class ChangeEntryDAO
 		CriteriaQuery<ChangeEntry> cq = cb.createQuery(ChangeEntry.class);
 		Root<ChangeEntry> changeEntryRoot = cq.from(ChangeEntry.class);
 		
-		Predicate userPredicate = cb.equal(changeEntryRoot.get("id"), currentUser.getId());
-		Predicate checkedPredicate = cb.isFalse(changeEntryRoot.get("checked"));
+		Predicate userPredicate = cb.equal(changeEntryRoot.get("createUser"), currentUser);
+		Predicate checkedPredicate = cb.isFalse(changeEntryRoot.get("accepted"));
 		
 		cq.where(cb.and(userPredicate, checkedPredicate));
 		
 		changeEntryList = em.createQuery(cq).getResultList();
+		
+		//System.out.println("Änderungsanträge: " + changeEntryList.get(0).getCountry() + " " + changeEntryList.get(0));
 		
 		return changeEntryList;
 	}

@@ -20,6 +20,10 @@ public class ChangeEntry
 	
 	@ManyToOne
 	private User changeUser;
+	
+	@ManyToOne
+	private User createUser;
+	
 	private String infoText;
 	private String source;
 	private String country;
@@ -46,6 +50,30 @@ public class ChangeEntry
 		this.source = source;
 		this.country = country;
 		this.emissionEntry = emissionEntry;
+	}
+	
+	
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj instanceof ChangeEntry)
+		{
+			ChangeEntry changeEntry = (ChangeEntry) obj;
+			
+			return this.id == changeEntry.id;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		String tempId = Integer.toString(id);
+		
+		return tempId.hashCode() * 7;
 	}
 	
 
@@ -77,6 +105,11 @@ public class ChangeEntry
 	public User getChangeUser() 
 	{
 		return changeUser;
+	}
+	
+	public User getCreateUser()
+	{
+		return createUser;
 	}
 
 	public String getInfoText() {
@@ -127,6 +160,11 @@ public class ChangeEntry
 	public void setChangeUser(User changeUser) 
 	{
 		this.changeUser = changeUser;
+	}
+	
+	public void setCreateUser(User createUser)
+	{
+		this.createUser = createUser;
 	}
 	
 	public void setInfoText(String infoText) 

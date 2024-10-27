@@ -32,8 +32,6 @@ public class BackendController implements Serializable
 	
 	@Inject
 	private UserSessionController userSession;
-	
-	private int index = 0;
 
 	
 	public BackendController()
@@ -70,6 +68,7 @@ public class BackendController implements Serializable
 		changeEntry.setEmissionEntry(selectedEmissionEntry);
 		
 		changeEntry.setChangeUser(userSession.getCurrentUser());
+		changeEntry.setCreateUser(selectedEmissionEntry.getUser());
 
 		changeEntryDao.createChangeEntry(changeEntry);
 		
@@ -81,9 +80,7 @@ public class BackendController implements Serializable
 	
 	public void edit()
 	{
-		index = emissionList.indexOf(selectedEmissionEntry);
-		
-		System.out.println("Index ist: " + index);
+		//nix
 	}
 	
 	
