@@ -5,7 +5,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 
 @Entity
 public class ChangeEntry 
@@ -25,7 +24,7 @@ public class ChangeEntry
 	private String source;
 	private String country;
 	
-	@OneToOne
+	@ManyToOne
 	private EmissionEntry emissionEntry;
 	
 	
@@ -34,11 +33,10 @@ public class ChangeEntry
 		
 	}
 	
-	public ChangeEntry(int id, boolean accepted, boolean declined, double emissions, int year, User changeUser, String infoText, String source,
+	public ChangeEntry(boolean accepted, boolean declined, double emissions, int year, User changeUser, String infoText, String source,
 			String country, EmissionEntry emissionEntry) 
 	{
 		this();
-		this.id = id;
 		this.accepted = accepted;
 		this.declined = declined;
 		this.emissions = emissions;

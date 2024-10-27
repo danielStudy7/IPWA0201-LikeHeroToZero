@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.primefaces.event.SelectEvent;
 
+import dao.ChangeEntryDAO;
 import dao.EmissionEntryDAO;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
@@ -26,6 +27,12 @@ public class BackendController implements Serializable
 	@Inject
 	private EmissionEntryDAO emissionDao;
 	
+	@Inject
+	private ChangeEntryDAO changeEntryDao;
+	
+	@Inject
+	private UserSessionController userSession;
+	
 	private int index = 0;
 
 	
@@ -41,8 +48,33 @@ public class BackendController implements Serializable
 	}
 	
 	public void createChangeEntry()
-	{
-		System.out.println("createChangeEntry() wird aufgerufen!");
+	{		
+		if (changeEntry.getCountry() == null || changeEntry.getCountry() == "")
+		{
+			changeEntry.setCountry(selectedEmissionEntry.getCountry());
+		}
+			
+		if (changeEntry.getEmissions() == 0.0)
+		{
+			changeEntry.setEmissions(selectedEmissionEntry.getEmissions());
+		}
+				
+		if (changeEntry.getYear() == 0)
+		{
+			changeEntry.setYear(selectedEmissionEntry.getYear());
+		}
+		
+		changeEntry.setAccepted(false);
+		changeEntry.setDeclined(false);
+		
+		changeEntry.setEmissionEntry(selectedEmissionEntry);
+		
+		changeEntry.setChangeUser(userSession.getCurrentUser());
+
+		changeEntryDao.createChangeEntry(changeEntry);
+		
+		changeEntry = new ChangeEntry();
+		
 	}
 	
 	

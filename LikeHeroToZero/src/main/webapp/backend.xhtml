@@ -75,6 +75,16 @@
 				<h:outputLabel 	id="year"
 								value="#{backendController.selectedEmissionEntry.year}"/>
 				<h:inputText	value="#{backendController.changeEntry.year}"/>
+				<h:outputLabel	for="infoText"
+								value="Bemerkung"/>
+				<p/>
+				<h:inputText	id="infoText"
+								value="#{backendController.changeEntry.infoText}"/>
+				<h:outputLabel	for="source"
+								value="Quelle"/>
+				<p/>
+				<h:inputText	id="source"
+								value="#{backendController.changeEntry.source}"/>
 				<p/>
 				<p/>
 				<h:commandButton	value="Änderung beantragen"
