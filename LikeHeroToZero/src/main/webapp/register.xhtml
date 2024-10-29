@@ -30,6 +30,8 @@
 								value="Passwort"/>
 				<h:inputSecret 	id="password" 
 								value="#{signUpController.signUpUser.password}"/>
+				<h:commandButton 	value="Abbrechen" 
+									action="index"/>	
 				<h:commandButton 	value="Sign in" 
 									action="#{signUpController.signUp}"/>			
 			</h:panelGrid>

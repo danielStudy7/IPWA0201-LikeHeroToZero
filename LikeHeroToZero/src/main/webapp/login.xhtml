@@ -15,16 +15,20 @@
 		<h:commandButton value="Login?"/>
 		<h:outputText value="Login"/>
 		<h:form>
-			<h:outputLabel 	for="userName" 
-							value="Benutzername"/>
-			<h:inputText 	id="userName" 
-							value="#{loginController.loginUser.userName}"/>
-			<h:outputLabel 	for="password" 
-							value="Passwort"/>
-			<h:inputSecret 	id="password" 
-							value="#{loginController.loginUser.password}"/>
-			<h:commandButton 	value="Login" 
-								action="#{loginController.login}"/>
+			<h:panelGrid columns="2">
+				<h:outputLabel 	for="userName" 
+								value="Benutzername"/>
+				<h:inputText 	id="userName" 
+								value="#{loginController.loginUser.userName}"/>
+				<h:outputLabel 	for="password" 
+								value="Passwort"/>
+				<h:inputSecret 	id="password" 
+								value="#{loginController.loginUser.password}"/>
+				<h:commandButton 	value="Abbrechen"
+									action="index"/>
+				<h:commandButton 	value="Login" 
+									action="#{loginController.login}"/>		
+			</h:panelGrid>
 		</h:form>
 	</h:body>
 </html>
