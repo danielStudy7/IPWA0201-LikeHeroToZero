@@ -48,49 +48,6 @@ public class LoginController implements Serializable
 		return "login.xhtml";
 	}
 	
-	public void signUp()
-	{
-		if (loginUser.getUserName() != null && loginUser.getPassword() != null)
-		{
-			List<User> userList = userDao.getUserList();
-			
-			int countUser = 0;
-			
-			if (userList != null && !userList.isEmpty())
-			{
-				for (User user : userList)
-				{
-					if (user.getUserName().equals(loginUser.getUserName()))
-					{
-						countUser++;
-					}
-				}
-				
-				if (countUser == 0)
-				{
-					userDao.createUser(loginUser);
-					login();
-					userSession.setCurrentUser(loginUser);					
-				}
-				else
-				{
-					//User nicht erstellbar
-				}
-			}
-			else 
-			{
-				userDao.createUser(loginUser);
-				login();
-				userSession.setCurrentUser(loginUser);
-			}
-		}
-		
-		else
-		{
-			//TODO handeln
-		}
-	}
-	
 	public String logout()
 	{
 		if (userSession.getCurrentUser() != null)
