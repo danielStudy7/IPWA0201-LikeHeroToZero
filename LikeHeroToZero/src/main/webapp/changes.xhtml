@@ -48,7 +48,9 @@
 				</p:column>
 				<p:column>
 					<f:facet name="header">MTon CO2</f:facet>
-					<h:outputLabel value="#{changeEntry.emissions}"/>					
+					<h:outputLabel value="#{changeEntry.emissions}">
+						<f:convertNumber locale="de_DE"/>
+					</h:outputLabel>					
 				</p:column>						
 				<p:column>
 					<f:facet name="header">Jahr</f:facet>
@@ -84,8 +86,12 @@
 				<h:outputLabel	for="emission"
 								value="Emissionen"/>
 				<h:outputLabel 	id="emission"
-								value="#{changesController.emissionEntry.emissions}"/>
-				<h:outputLabel	value="#{changesController.selectedChangeEntry.emissions}"/>
+								value="#{changesController.emissionEntry.emissions}">
+					<f:convertNumber locale="de_DE"/>				
+				</h:outputLabel>
+				<h:outputLabel	value="#{changesController.selectedChangeEntry.emissions}">
+					<f:convertNumber locale="de_DE"/>
+				</h:outputLabel>
 				<h:outputLabel	for="year"
 								value="Jahr"/>
 				<h:outputLabel 	id="year"

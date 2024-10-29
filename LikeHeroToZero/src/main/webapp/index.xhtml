@@ -45,7 +45,9 @@
 				<p:column 	sortable="true" 
 							sortBy="#{emissionEntry.emissions}">
 					<f:facet name="header">MTon CO2</f:facet>
-					<h:outputText value="#{emissionEntry.emissions}"/>					
+					<h:outputText 	value="#{emissionEntry.emissions}">
+						<f:convertNumber locale="de_DE"/>										
+					</h:outputText>
 				</p:column>						
 				<p:column 	sortable="true" 
 							sortBy="#{emissionEntry.year}"
@@ -55,10 +57,14 @@
 				</p:column>
 			</p:dataTable>
 		</h:form>
-		<div>
+		<div id="footer">
 			<h:form>
 				<h:commandLink	value="Registrieren"
-								action="register"/>			
+								action="register"/>
+				<h:commandLink	value="Impressum"
+								action="impressum"/>
+				<h:commandLink	value="Datenschutz"
+								action="dataSecurity"/>							
 			</h:form>
 		</div>
 	</h:body>

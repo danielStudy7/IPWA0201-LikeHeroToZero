@@ -40,7 +40,9 @@
 				<h:outputLabel 	for="emissions" 
 								value="CO2 Emission MTon"/>
 				<h:inputText 	id="emissions" 
-								value="#{newEntryController.emissionEntry.emissions}"/>
+								value="#{newEntryController.emissionEntry.emissions}">
+					<f:convertNumber locale="de_DE"/>				
+				</h:inputText>
 				<h:outputLabel 	for="year" 
 								value="Jahr"/>
 				<h:inputText 	id="year" 
