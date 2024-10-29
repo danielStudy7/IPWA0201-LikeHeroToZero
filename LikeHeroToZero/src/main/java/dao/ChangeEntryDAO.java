@@ -139,9 +139,12 @@ public class ChangeEntryDAO
 		Root<ChangeEntry> changeEntryRoot = cq.from(ChangeEntry.class);
 		
 		Predicate userPredicate = cb.equal(changeEntryRoot.get("createUser"), currentUser);
-		Predicate checkedPredicate = cb.isFalse(changeEntryRoot.get("accepted"));
 		
-		cq.where(cb.and(userPredicate, checkedPredicate));
+		Predicate checkedPredicate = cb.isFalse(changeEntryRoot.get("accepted"));
+		Predicate declinedPredicate = cb.isFalse(changeEntryRoot.get("declined"));
+		Predicate finalPredicate = cb.and(checkedPredicate, declinedPredicate);		
+		
+		cq.where(cb.and(userPredicate, finalPredicate));
 		
 		changeEntryList = em.createQuery(cq).getResultList();
 		
