@@ -10,6 +10,25 @@
 		<h:outputStylesheet name="css/style.css" />
 	</h:head>
 	<h:body>
+	<h:graphicImage 	url="resources/img/likeHeroToZero.png" 
+						width="200"/>
+	<h:outputText value="Like Hero To Zero"/>
+	<h:form>
+		<h:commandButton 	value="Logout" 
+							action="#{loginController.logout}"/>		
+	</h:form>
+	<h:form>
+		<h:commandButton 	value="Neuer Eintrag" 
+							action="newEntry"/>		
+	</h:form>
+	<h:form>
+		<h:commandButton	value="Einträge ändern"
+							action="backend"/>
+	</h:form>
+	<h:form>
+		<h:commandButton 	value="Startseite" 
+							action="index"/>
+	</h:form>
 	<h2>Änderungen für meine Einträge</h2>
 		<h:form>
 			<p:dataTable 	value="#{changesController.changesList}" 
