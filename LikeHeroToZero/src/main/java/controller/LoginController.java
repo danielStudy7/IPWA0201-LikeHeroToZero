@@ -51,18 +51,13 @@ public class LoginController implements Serializable
 	public String logout()
 	{
 		if (userSession.getCurrentUser() != null)
-		{
-			System.out.println("Logout Benutzer ist nicht Null");
-			
+		{	
 			userSession = new UserSessionController();
-			System.out.println("Logout Benutzer nach Logout " + userSession.getCurrentUser().getUserName());
 			
 			return "index.xhtml";
 		}
 		else 
-		{
-			System.out.println("Benutzer ist Null und man ist nicht eingeloggt");
-			
+		{			
 			return "index.xhtml";
 		}
 	}
