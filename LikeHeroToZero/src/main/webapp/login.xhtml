@@ -13,17 +13,20 @@
 		<h:graphicImage url="resources/img/likeHeroToZero.png" width="200"/>
 		<h:outputText value="Like Hero To Zero"/>
 		<h:form id="loginForm">
+			<h:messages id="error"/>
 			<h:panelGrid columns="2">
 				<h:outputLabel 	for="userName" 
 								value="Benutzername"/>
 				<h:inputText 	id="userName" 
 								value="#{loginController.loginUser.userName}"
-								required="true"/>
+								required="true"
+								label="Benutzername"/>
 				<h:outputLabel 	for="password" 
 								value="Passwort"/>
 				<h:inputSecret 	id="password" 
 								value="#{loginController.loginUser.password}"
-								required="true"/>
+								required="true"
+								label="Passwort"/>
 				<h:commandButton 	value="Abbrechen"
 									action="index"/>
 				<h:commandButton 	value="Login" 

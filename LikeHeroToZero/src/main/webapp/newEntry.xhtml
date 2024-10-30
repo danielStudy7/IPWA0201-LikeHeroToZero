@@ -32,23 +32,27 @@
 		<h:outputText value="Info Text zu Co2 Emmissionen"/>
 		<h2>Neuer Eintrag</h2>
 		<h:form>
+			<h:messages id="error"/>
 			<h:panelGrid columns="2">
 				<h:outputLabel 	for="country" 
 								value="Land"/>
 				<h:inputText 	id="country" 
 								value="#{newEntryController.emissionEntry.country}"
-								required="true"/>
+								required="true"
+								label="Land"/>
 				<h:outputLabel 	for="emissions" 
 								value="CO2 Emission MTon"/>
 				<h:inputText 	id="emissions" 
 								value="#{newEntryController.emissionEntry.emissions}"
-								required="true">
+								required="true"
+								label="Emissionen">
 				</h:inputText>
 				<h:outputLabel 	for="year" 
 								value="Jahr"/>
 				<h:inputText 	id="year" 
 								value="#{newEntryController.emissionEntry.year}"
-								required="true"/>
+								required="true"
+								label="Jahr"/>
 				<h:outputLabel/>
 				<h:commandButton 	value="Speichern" 
 									action="#{newEntryController.createEmissionEntry}"/>

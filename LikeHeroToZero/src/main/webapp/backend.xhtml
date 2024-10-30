@@ -65,6 +65,7 @@
 			<p>
 				Bitte hinterlegen Sie die Werte, die geändert werden sollen. Die Eingabe einer Bemerkung und entsprechenden Quelle ist verpflichtend, damit die Änderung verifiziert werden kann. 
 			</p>
+			<h:messages id="error"/>
 			<h:panelGrid 	columns="3">
 				<h:outputLabel	for="country"
 								value="Land"/>
@@ -90,13 +91,15 @@
 				<p/>
 				<h:inputText	id="infoText"
 								value="#{backendController.changeEntry.infoText}"
-								required="true"/>
+								required="true"
+								label="Bemerkung"/>
 				<h:outputLabel	for="source"
 								value="Quelle"/>
 				<p/>
 				<h:inputText	id="source"
 								value="#{backendController.changeEntry.source}"
-								required="true"/>
+								required="true"
+								label="Quelle"/>
 				<p/>
 				<p/>
 				<h:commandButton	value="Änderung beantragen"
