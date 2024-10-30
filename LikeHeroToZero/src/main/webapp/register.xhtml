@@ -13,27 +13,33 @@
 		<h:graphicImage url=""/>
 		<h:outputText value="Like Hero To Zero"/>
 		<h:form>
+			<h:messages id="error"/>
 			<h:panelGrid columns="2">
 				<h:outputLabel 	for="prename" 
 								value="Vorname"/>
 				<h:inputText 	id="prename" 
-								value="#{signUpController.signUpUser.name}"/>
+								value="#{registerController.signUpUser.name}"/>
 				<h:outputLabel 	for="familiyName" 
 								value="Nachname"/>
 				<h:inputText 	id="familyName" 
-								value="#{signUpController.signUpUser.familyName}"/>								
+								value="#{registerController.signUpUser.familyName}"/>								
 				<h:outputLabel 	for="userName" 
 								value="Benutzername"/>
 				<h:inputText 	id="userName" 
-								value="#{signUpController.signUpUser.userName}"/>
+								value="#{registerController.signUpUser.userName}"
+								>
+					<f:event listener="#{registerController.postValidateUserName}" type="postValidate"/>				
+				</h:inputText>
 				<h:outputLabel 	for="password" 
 								value="Passwort"/>
 				<h:inputSecret 	id="password" 
-								value="#{signUpController.signUpUser.password}"/>
+								value="#{registerController.signUpUser.password}"
+								validator="#{registerController.validateUserName}"/>
 				<h:commandButton 	value="Abbrechen" 
 									action="index"/>	
 				<h:commandButton 	value="Sign in" 
-									action="#{signUpController.signUp}"/>			
+									action="#{registerController.signUp}"
+									/>			
 			</h:panelGrid>
 		</h:form>
 	</h:body>
