@@ -36,21 +36,24 @@
 				<h:outputLabel 	for="country" 
 								value="Land"/>
 				<h:inputText 	id="country" 
-								value="#{newEntryController.emissionEntry.country}"/>
+								value="#{newEntryController.emissionEntry.country}"
+								required="true"/>
 				<h:outputLabel 	for="emissions" 
 								value="CO2 Emission MTon"/>
 				<h:inputText 	id="emissions" 
-								value="#{newEntryController.emissionEntry.emissions}">
-					<f:convertNumber locale="de_DE"/>				
+								value="#{newEntryController.emissionEntry.emissions}"
+								required="true">
 				</h:inputText>
 				<h:outputLabel 	for="year" 
 								value="Jahr"/>
 				<h:inputText 	id="year" 
-								value="#{newEntryController.emissionEntry.year}"/>
+								value="#{newEntryController.emissionEntry.year}"
+								required="true"/>
 				<h:outputLabel/>
 				<h:commandButton 	value="Speichern" 
 									action="#{newEntryController.createEmissionEntry}"/>
 			</h:panelGrid>
+			<h:message for="emissions"/>
 		</h:form>
 	</h:body>
 </html>

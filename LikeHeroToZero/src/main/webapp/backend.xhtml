@@ -62,6 +62,9 @@
 			</p:dataTable>
 		</h:form>
 		<h:form>
+			<p>
+				Bitte hinterlegen Sie die Werte, die geändert werden sollen. Die Eingabe einer Bemerkung und entsprechenden Quelle ist verpflichtend, damit die Änderung verifiziert werden kann. 
+			</p>
 			<h:panelGrid 	columns="3">
 				<h:outputLabel	for="country"
 								value="Land"/>
@@ -86,12 +89,14 @@
 								value="Bemerkung"/>
 				<p/>
 				<h:inputText	id="infoText"
-								value="#{backendController.changeEntry.infoText}"/>
+								value="#{backendController.changeEntry.infoText}"
+								required="true"/>
 				<h:outputLabel	for="source"
 								value="Quelle"/>
 				<p/>
 				<h:inputText	id="source"
-								value="#{backendController.changeEntry.source}"/>
+								value="#{backendController.changeEntry.source}"
+								required="true"/>
 				<p/>
 				<p/>
 				<h:commandButton	value="Änderung beantragen"

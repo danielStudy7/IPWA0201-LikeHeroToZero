@@ -43,8 +43,8 @@ public class NewEntryController implements Serializable
 		emissionDao.createEmissionEntry(emissionEntry);
 		emissionEntry = new EmissionEntry();
 	}
-	
-	
+
+		
 	public EmissionEntry getEmissionEntry()
 	{
 		return emissionEntry;
