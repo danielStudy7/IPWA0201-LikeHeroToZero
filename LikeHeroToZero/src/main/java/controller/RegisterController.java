@@ -11,7 +11,7 @@ import model.User;
 
 @Named
 @ViewScoped
-public class SignUpController implements Serializable 
+public class RegisterController implements Serializable 
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -24,7 +24,7 @@ public class SignUpController implements Serializable
 	private User signUpUser;
 	
 	
-	public SignUpController()
+	public RegisterController()
 	{
 		signUpUser = new User("", "");
 	}
