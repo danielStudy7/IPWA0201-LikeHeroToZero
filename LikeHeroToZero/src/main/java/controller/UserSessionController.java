@@ -14,10 +14,13 @@ public class UserSessionController implements Serializable
 	
 	private User currentUser;
 	
+	private boolean loggedIn;
+	
 	
 	public UserSessionController()
 	{
 		currentUser = new User();
+		loggedIn = false;
 	}
 	
 	
@@ -26,8 +29,18 @@ public class UserSessionController implements Serializable
 		return currentUser;
 	}
 	
+	public boolean isLoggedIn()
+	{
+		return loggedIn;
+	}
+	
 	public void setCurrentUser(User currentUser)
 	{
 		this.currentUser = currentUser;
+	}
+	
+	public void setLoggedIn(boolean loggedIn)
+	{
+		this.loggedIn = loggedIn;
 	}
 }

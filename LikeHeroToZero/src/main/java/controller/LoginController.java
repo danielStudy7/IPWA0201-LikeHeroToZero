@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import dao.UserDAO;
+import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIInput;
@@ -11,13 +12,12 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.AbortProcessingException;
 import jakarta.faces.event.ComponentSystemEvent;
 import jakarta.faces.validator.ValidatorException;
-import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import model.User;
 
 @Named
-@ViewScoped
+@SessionScoped
 public class LoginController implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -40,6 +40,8 @@ public class LoginController implements Serializable
 	public String login()
 	{
 		userSession.setCurrentUser(userDao.getUser(loginUser.getUserName()));
+		userSession.setLoggedIn(true);
+		
 		return "backend.xhtml";
 	}
 	
@@ -48,6 +50,9 @@ public class LoginController implements Serializable
 		if (userSession.getCurrentUser() != null)
 		{	
 			userSession = new UserSessionController();
+			userSession.setLoggedIn(false);
+			
+			loginUser = new User("", "");
 			
 			return "index.xhtml";
 		}
@@ -84,9 +89,19 @@ public class LoginController implements Serializable
 	}
 	
 	
+	public UserSessionController getUserSession()
+	{
+		return userSession;
+	}
+	
 	public User getLoginUser()
 	{
 		return loginUser;
+	}
+	
+	public void setUserSession(UserSessionController userSession)
+	{
+		this.userSession = userSession;
 	}
 	
 	public void setLoginUser(User user)

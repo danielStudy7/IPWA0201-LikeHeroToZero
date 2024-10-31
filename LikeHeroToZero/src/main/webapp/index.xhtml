@@ -7,14 +7,34 @@
 		<meta 	http-equiv="Content-Type" 
 				content="text/html; charset=UTF-8"/>
 		<title>Like Hero To Zero</title>
-		<h:outputStylesheet name="css/style.css" />
+		<h:outputStylesheet name="css/style.css"/>
 	</h:head>
 	<h:body>
-		<h:graphicImage url="resources/img/likeHeroToZero.png" width="200"/>
-		<h:outputText value="Like Hero To Zero"/>
-		<h:form>
-			<h:commandButton value="Login" action="login"/>		
-		</h:form>
+		<div id="header">
+			<h:graphicImage url="resources/img/likeHeroToZero.png" width="200"/>
+			<h:outputText value="Like Hero To Zero"/>
+			<h:form rendered="#{!loginController.userSession.loggedIn}">
+				<h:commandButton 	value="Login" 
+									action="login"/>		
+			</h:form>
+			<h:form rendered="#{loginController.userSession.loggedIn}">
+				<h:commandButton 	value="Logout" 
+									action="#{loginController.logout}"/>		
+			</h:form>
+			<h:form rendered="#{loginController.userSession.loggedIn}">
+				<h:commandButton 	value="Neuer Eintrag" 
+									action="newEntry"/>		
+			</h:form>
+			<h:form rendered="#{loginController.userSession.loggedIn}">
+				<h:commandButton	value="Einträge ändern"
+									action="backend"/>
+			</h:form>
+			<h:form rendered="#{loginController.userSession.loggedIn}">
+				<h:commandButton	value="Änderungen für meine Einträge"
+									action="changes"/>
+			</h:form>
+			<h:outputText value="#{loginController.loginUser.userName}"/>		
+		</div>
 		<h:outputText value="Info Text zu Co2 HIRT"/>
 		<p>
 			"Like Hero To Zero" ist ein Nachhaltigkeitsprojekt, das ermöglichen soll, dass jeder Mensch einen Zugriff auf die CO2 Emissionsdaten weltweit erhält. 
@@ -30,10 +50,7 @@
 							var="emissionEntry" 
 							paginator="true" 
 							rows="5" 
-							
-							
 							filterDelay="1000"
-							
 							rowsPerPageTemplate="5,10,15"
 							lazy="true">
 				<p:column 	sortable="true"
