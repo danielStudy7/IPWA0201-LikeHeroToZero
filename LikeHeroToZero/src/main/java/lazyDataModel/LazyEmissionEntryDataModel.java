@@ -53,7 +53,6 @@ public class LazyEmissionEntryDataModel extends LazyDataModel<EmissionEntry>
 	public List<EmissionEntry> load(int first, int pageSize, Map<String, SortMeta> sortBy,
 			Map<String, FilterMeta> filterBy) 
 	{
-		// TODO Auto-generated method stub
 		String sortField = null;
 		SortOrder sortOrder = null;
 		

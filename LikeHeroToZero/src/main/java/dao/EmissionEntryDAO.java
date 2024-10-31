@@ -156,7 +156,7 @@ public class EmissionEntryDAO
 		{
 			filters.forEach((k, v) ->
 			{
-				predicates.add(cb.like(cb.lower(emissionRoot.get(k)),  "%" + v.toString().toLowerCase() + "%"));
+				predicates.add(cb.equal(emissionRoot.get(k), v));
 			});
 		}
 		
@@ -194,7 +194,7 @@ public class EmissionEntryDAO
 		{
 			filterBy.forEach((k,v) ->
 			{		
-				predicates.add(cb.like(cb.lower(emissionRoot.get(k)), "%" + v.toString().toLowerCase() + "%"));
+				predicates.add(cb.equal(emissionRoot.get(k), v));
 			});			
 		}
 		
