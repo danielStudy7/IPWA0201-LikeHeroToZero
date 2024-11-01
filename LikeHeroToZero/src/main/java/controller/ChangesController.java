@@ -44,17 +44,24 @@ public class ChangesController implements Serializable
 	//Methoden zum Akzeptieren und Ablehnen
 	public void acceptChange()
 	{
-		changeEntryDao.acceptChangeEntry(selectedChangeEntry);
-		
-		//EmissionEntry updaten
-		emissionEntry.setCountry(selectedChangeEntry.getCountry());
-		emissionEntry.setEmissions(selectedChangeEntry.getEmissions());
-		emissionEntry.setYear(selectedChangeEntry.getYear());
-		
-		emissionEntryDao.updateEmissionEntry(emissionEntry);
-		
-		selectedChangeEntry = null;
-		emissionEntry = null;
+		if (selectedChangeEntry != null)
+		{
+			changeEntryDao.acceptChangeEntry(selectedChangeEntry);
+			
+			//EmissionEntry updaten
+			emissionEntry.setCountry(selectedChangeEntry.getCountry());
+			emissionEntry.setEmissions(selectedChangeEntry.getEmissions());
+			emissionEntry.setYear(selectedChangeEntry.getYear());
+			
+			emissionEntryDao.updateEmissionEntry(emissionEntry);
+			
+			selectedChangeEntry = null;
+			emissionEntry = null;			
+		}
+		else
+		{
+			//Keine weiteren Aktionen notwendig
+		}
 	}
 	
 	public void declineChange()

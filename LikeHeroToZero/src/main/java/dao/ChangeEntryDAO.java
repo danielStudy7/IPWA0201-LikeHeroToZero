@@ -94,15 +94,23 @@ public class ChangeEntryDAO
 		if (changeEntry != null)
 		{
 			changeEntry.setAccepted(true);
-			changeEntry.getEmissionEntry().setChecked(true);
 			
-			EntityTransaction t = em.getTransaction();
-			
-			t.begin();
+			if (changeEntry.getEmissionEntry() != null)
+			{
+				changeEntry.getEmissionEntry().setChecked(true);
+				
+				EntityTransaction t = em.getTransaction();
+				
+				t.begin();
 				em.merge(changeEntry);
-			t.commit();	
-			
-			em.clear();
+				t.commit();	
+				
+				em.clear();
+			}
+			else 
+			{
+				
+			}
 		}
 		else
 		{
