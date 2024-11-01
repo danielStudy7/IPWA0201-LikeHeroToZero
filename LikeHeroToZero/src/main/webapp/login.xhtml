@@ -10,31 +10,85 @@
 		<h:outputStylesheet name="style/css/materialize.css"/>
 	</h:head>
 	<h:body>
-		<h:graphicImage url="resources/img/likeHeroToZero.png" width="200"/>
-		<h:outputText value="Like Hero To Zero"/>
-		<h:form id="loginForm">
-			<h:messages id="error"/>
-			<h:panelGrid columns="2">
-				<h:outputLabel 	for="userName" 
-								value="Benutzername"/>
-				<h:inputText 	id="userName" 
-								value="#{loginController.loginUser.userName}"
-								required="true"
-								label="Benutzername">
-					<f:event listener="#{loginController.postValidateUser}" type="postValidate"/>			
-				</h:inputText>
-				<h:outputLabel 	for="password" 
-								value="Passwort"/>
-				<h:inputSecret 	id="password" 
-								value="#{loginController.loginUser.password}"
-								required="true"
-								label="Passwort"
-								validator="#{loginController.validateLogin}"/>
-				<h:commandButton 	value="Abbrechen"
-									action="index"/>
-				<h:commandButton 	value="Login" 
-									action="#{loginController.login}"/>	
-			</h:panelGrid>
-		</h:form>
+		<header>
+			<nav>
+				<div class="nav-wrapper">
+					<h:graphicImage 	url="resources/img/likeHeroToZero1.png" 
+										styleClass="brand-logo"/>
+					<ul class="right">
+						<li>
+							<h:form rendered="#{!loginController.userSession.loggedIn}">
+								<h:commandLink 	value="Startseite" 
+												action="index"/>		
+							</h:form>					
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</header>
+		<main>
+			<div class="container">
+				<h:messages id="error"/>
+				<h:form id="loginForm">
+					<h:outputLabel 	for="userName" 
+									value="Benutzername"
+									class="validate"/>
+					<h:inputText 	id="userName" 
+									value="#{loginController.loginUser.userName}"
+									required="true"
+									label="Benutzername">
+						<f:event 	listener="#{loginController.postValidateUser}" 
+									type="postValidate"/>			
+					</h:inputText>
+					<h:outputLabel 	for="password" 
+									value="Passwort"/>
+					<h:inputSecret 	id="password" 
+									value="#{loginController.loginUser.password}"
+									required="true"
+									label="Passwort"
+									validator="#{loginController.validateLogin}"/>
+					<div class="row">
+						<p class="col l2"/>
+						<h:commandButton 	value="Abbrechen"
+											action="index"
+											styleClass="grey lighten-5 grey-text text-darken-5 btn col l4 s12"/>
+						<h:commandButton 	value="Login" 
+											action="#{loginController.login}"
+											styleClass="primary-blue btn col l4 s12"/>
+						<p class="col l2"/>											
+					</div>				
+				</h:form>
+			</div>
+		</main>
+		<footer class="page-footer">
+			<div class="l12 m12 s12">
+				<div class="container">
+					<h:form>
+						<ul>
+							<li>
+								<h:commandLink	value="Registrieren"
+												action="register"
+												styleClass="grey-text text-lighten-3"/>
+							</li>
+							<li>
+								<h:commandLink	value="Impressum"
+												action="impressum"
+												styleClass="grey-text text-lighten-3"/>
+							</li>
+							<li>
+								<h:commandLink	value="Datenschutz"
+												action="dataSecurity"
+												styleClass="grey-text text-lighten-3"/>							
+							</li>
+						</ul>
+					</h:form>
+				</div>
+			</div>
+			<div class="footer-copyright">
+				<div class="container">
+					© Daniel Hirt Uni Fallstudie
+				</div>
+			</div>		
+		</footer>
 	</h:body>
 </html>

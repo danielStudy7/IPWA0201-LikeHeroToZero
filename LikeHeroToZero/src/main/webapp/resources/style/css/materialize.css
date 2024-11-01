@@ -3,6 +3,18 @@
  * Copyright 2014-2017 Materialize
  * MIT License (https://raw.githubusercontent.com/Dogfalo/materialize/master/LICENSE)
  */
+.primary-blue {
+	background-color: #33b8eb !important;
+}
+
+.primary-blue-text {
+	color: #33b8eb !important;
+}
+
+-primary-blue-dark {
+	background-color: #981d1e!important;
+}
+ 
 .materialize-red {
   background-color: #e51c23 !important;
 }
@@ -5176,6 +5188,7 @@ small {
   height: 36px;
   line-height: 36px;
   padding: 0 16px;
+  margin: 5px;
   text-transform: uppercase;
   vertical-align: middle;
   -webkit-tap-highlight-color: transparent;
@@ -5251,13 +5264,14 @@ small {
 
 .btn:focus, .btn-large:focus, .btn-small:focus,
 .btn-floating:focus {
-  background-color: #1d7d74;
+  background-color: #069ed6!important;
+  color: #fff !important;
 }
 
 .btn, .btn-large, .btn-small {
   text-decoration: none;
   color: #fff;
-  background-color: #26a69a;
+  background-color: #33b8eb;
   text-align: center;
   letter-spacing: .5px;
   -webkit-transition: background-color .2s ease-out;
@@ -6231,8 +6245,8 @@ input[type=number]:not(.browser-default):focus:not([readonly]),
 input[type=search]:not(.browser-default):focus:not([readonly]),
 textarea.materialize-textarea:focus:not([readonly]) {
   border-bottom: 1px solid #26a69a;
-  -webkit-box-shadow: 0 1px 0 0 #26a69a;
-          box-shadow: 0 1px 0 0 #26a69a;
+  -webkit-box-shadow: 0 1px 0 0 #33b8eb;
+          box-shadow: 0 1px 0 0 #33b8eb;
 }
 
 input:not([type]):focus:not([readonly]) + label,
@@ -6248,7 +6262,7 @@ input[type=tel]:not(.browser-default):focus:not([readonly]) + label,
 input[type=number]:not(.browser-default):focus:not([readonly]) + label,
 input[type=search]:not(.browser-default):focus:not([readonly]) + label,
 textarea.materialize-textarea:focus:not([readonly]) + label {
-  color: #26a69a;
+  color: #33b8eb;
 }
 
 input:not([type]):focus.valid ~ label,
@@ -6264,7 +6278,7 @@ input[type=tel]:not(.browser-default):focus.valid ~ label,
 input[type=number]:not(.browser-default):focus.valid ~ label,
 input[type=search]:not(.browser-default):focus.valid ~ label,
 textarea.materialize-textarea:focus.valid ~ label {
-  color: #4CAF50;
+  color: #33b8eb;
 }
 
 input:not([type]):focus.invalid ~ label,
@@ -6326,8 +6340,8 @@ input.valid[type=search]:not(.browser-default):focus,
 textarea.materialize-textarea.valid,
 textarea.materialize-textarea.valid:focus, .select-wrapper.valid > input.select-dropdown {
   border-bottom: 1px solid #4CAF50;
-  -webkit-box-shadow: 0 1px 0 0 #4CAF50;
-          box-shadow: 0 1px 0 0 #4CAF50;
+  -webkit-box-shadow: 0 1px 0 0 #33b8eb;
+          box-shadow: 0 1px 0 0 #33b8eb;
 }
 
 input.invalid:not([type]), input.invalid:not([type]):focus,
@@ -6449,7 +6463,7 @@ input[type=search]:not(.browser-default):focus.valid ~ .helper-text:after,
 textarea.materialize-textarea.valid ~ .helper-text:after,
 textarea.materialize-textarea:focus.valid ~ .helper-text:after, .select-wrapper.valid ~ .helper-text:after {
   content: attr(data-success);
-  color: #4CAF50;
+  color: #33b8eb;
 }
 
 input:not([type]).invalid ~ .helper-text:after,
@@ -6590,7 +6604,7 @@ textarea.materialize-textarea + label:after, .select-wrapper + label:after {
 }
 
 .input-field .prefix.active {
-  color: #26a69a;
+  color: #33b8eb;
 }
 
 .input-field .prefix ~ input,
