@@ -10,55 +10,110 @@
 		<h:outputStylesheet name="style/css/materialize.css"/>
 	</h:head>
 	<h:body>
-		<h:graphicImage url="resources/img/likeHeroToZero.png"
-						width="200"/>
-		<h:outputText value="Like Hero To Zero"/>
-		<h:form>
-			<h:commandButton 	value="Logout" 
-								action="#{loginController.logout}"/>		
-		</h:form>
-		<h:form>
-			<h:commandButton	value="Änderungen für meine Einträge"
-								action="changes"/>
-		</h:form>
-		<h:form>
-			<h:commandButton	value="Einträge ändern"
-								action="backend"/>
-		</h:form>
-		<h:form>
-			<h:commandButton 	value="Startseite" 
-								action="index"/>
-		</h:form>
-		<h:outputText value="Info Text zu Co2 Emmissionen"/>
-		<h2>Neuer Eintrag</h2>
-		<h:form>
-			<h:messages id="error"/>
-			<h:panelGrid columns="2">
-				<h:outputLabel 	for="country" 
-								value="Land"/>
-				<h:inputText 	id="country" 
-								value="#{newEntryController.emissionEntry.country}"
-								required="true"
-								label="Land"/>
-				<h:outputLabel 	for="emissions" 
-								value="CO2 Emission MTon"/>
-				<h:inputText 	id="emissions" 
-								value="#{newEntryController.emissionEntry.emissions}"
-								required="true"
-								label="Emissionen">
-					<f:convertNumber locale="de_DE"/>				
-				</h:inputText>
-				<h:outputLabel 	for="year" 
-								value="Jahr"/>
-				<h:inputText 	id="year" 
-								value="#{newEntryController.emissionEntry.year}"
-								required="true"
-								label="Jahr"/>
-				<h:outputLabel/>
-				<h:commandButton 	value="Speichern" 
-									action="#{newEntryController.createEmissionEntry}"/>
-			</h:panelGrid>
-			<h:message for="emissions"/>
-		</h:form>
+		<header>
+			<nav>
+				<div class="nav-wrapper">
+					<h:graphicImage 	url="resources/img/likeHeroToZero1.png" 
+										styleClass="brand-logo"/>
+					<ul class="right">
+						<li>
+							<h:form rendered="#{loginController.userSession.loggedIn}">
+								<h:commandLink 	value="Startseite" 
+												action="index"/>		
+							</h:form>					
+						</li>
+						<li>
+							<h:form rendered="#{loginController.userSession.loggedIn}">
+								<h:commandLink	value="Einträge ändern"
+												action="backend"/>
+							</h:form>					
+						</li>
+						<li>
+							<h:form rendered="#{loginController.userSession.loggedIn}">
+								<h:commandLink	value="Änderungen für meine Einträge"
+												action="changes"/>
+							</h:form>					
+						</li>
+						<li>
+							<h:form rendered="#{!loginController.userSession.loggedIn}">
+								<h:commandLink 	value="Login" 
+												action="login"/>		
+							</h:form>
+						</li>
+						<li>
+							<h:form rendered="#{loginController.userSession.loggedIn}">
+								<h:commandLink 	value="Logout" 
+												action="#{loginController.logout}"/>		
+							</h:form>					
+							<h:outputText value="#{loginController.loginUser.userName}"/>		
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</header>
+		<main>
+			<div class="container">
+				<h2>Neuer Eintrag</h2>
+				<h:form>
+					<h:messages id="error"/>
+					<h:panelGrid columns="2">
+						<h:outputLabel 	for="country" 
+										value="Land"/>
+						<h:inputText 	id="country" 
+										value="#{newEntryController.emissionEntry.country}"
+										required="true"
+										label="Land"/>
+						<h:outputLabel 	for="emissions" 
+										value="CO2 Emission MTon"/>
+						<h:inputText 	id="emissions" 
+										value="#{newEntryController.emissionEntry.emissions}"
+										required="true"
+										label="Emissionen">
+							<f:convertNumber locale="de_DE"/>				
+						</h:inputText>
+						<h:outputLabel 	for="year" 
+										value="Jahr"/>
+						<h:inputText 	id="year" 
+										value="#{newEntryController.emissionEntry.year}"
+										required="true"
+										label="Jahr"/>
+						<h:outputLabel/>
+						<h:commandButton 	value="Speichern" 
+											action="#{newEntryController.createEmissionEntry}"/>
+					</h:panelGrid>
+					<h:message for="emissions"/>
+				</h:form>
+			</div>
+		</main>
+		<footer class="page-footer">
+			<div class="l12 m12 s12">
+				<div class="container">
+					<h:form>
+						<ul>
+							<li>
+								<h:commandLink	value="Registrieren"
+												action="register"
+												styleClass="grey-text text-lighten-3"/>
+							</li>
+							<li>
+								<h:commandLink	value="Impressum"
+												action="impressum"
+												styleClass="grey-text text-lighten-3"/>
+							</li>
+							<li>
+								<h:commandLink	value="Datenschutz"
+												action="dataSecurity"
+												styleClass="grey-text text-lighten-3"/>							
+							</li>
+						</ul>
+					</h:form>
+				</div>
+			</div>
+			<div class="footer-copyright">
+				<div class="container">
+					© Daniel Hirt Uni Fallstudie
+				</div>
+			</div>		
+		</footer>
 	</h:body>
 </html>

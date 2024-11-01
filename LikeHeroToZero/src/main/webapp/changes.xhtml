@@ -10,109 +10,166 @@
 		<h:outputStylesheet name="style/css/materialize.css" />
 	</h:head>
 	<h:body>
-	<h:graphicImage 	url="resources/img/likeHeroToZero.png" 
-						width="200"/>
-	<h:outputText value="Like Hero To Zero"/>
-	<h:form>
-		<h:commandButton 	value="Logout" 
-							action="#{loginController.logout}"/>		
-	</h:form>
-	<h:form>
-		<h:commandButton 	value="Neuer Eintrag" 
-							action="newEntry"/>		
-	</h:form>
-	<h:form>
-		<h:commandButton	value="Einträge ändern"
-							action="backend"/>
-	</h:form>
-	<h:form>
-		<h:commandButton 	value="Startseite" 
-							action="index"/>
-	</h:form>
-	<h2>Änderungen für meine Einträge</h2>
-		<h:form>
-			<p:dataTable 	value="#{changesController.changesList}" 
-							var="changeEntry"
-							id="changesTable"
-							selectionMode="single"
-							selection="#{changesController.selectedChangeEntry}"
-							rowKey="#{changeEntry.id}">
-				<p:ajax 	event="rowSelect" 
-							listener="#{changesController.onRowSelect}" 
-							update="changesTable"/>
-				<p:column 	selectionMode="single"
-							style="width:16px;text-align:center"/>
-				<p:column>
-					<f:facet name="header">Land</f:facet>
-					<h:outputLabel value="#{changeEntry.country}"/>
-				</p:column>
-				<p:column>
-					<f:facet name="header">MTon CO2</f:facet>
-					<h:outputLabel value="#{changeEntry.emissions}">
-						<f:convertNumber locale="de_DE"/>
-					</h:outputLabel>					
-				</p:column>						
-				<p:column>
-					<f:facet name="header">Jahr</f:facet>
-					<h:outputLabel value="#{changeEntry.year}"/>
-				</p:column>
-				<p:column>
-					<f:facet name="header">Bemerkung</f:facet>
-					<h:outputLabel value="#{changeEntry.infoText}"/>
-				</p:column>
-				<p:column>
-					<f:facet name="header">Quelle</f:facet>
-					<h:outputLabel value="#{changeEntry.source}"/>
-				</p:column>
-				<p:column>
-					<f:facet name="header">Ändernder Benutzer</f:facet>
-					<h:outputLabel value="#{changeEntry.changeUser.userName}"/>
-				</p:column>
-				<f:facet name="footer">
-					<h:commandButton value="Bearbeiten" action="#{changesController.edit}"/>
-				</f:facet>
-			</p:dataTable>
-		</h:form>
-		<h:form>
-			<h:panelGrid 	columns="3">
-				<p/>
-				<h:outputLabel	value="Ursprünglicher Eintrag"/>
-				<h:outputLabel	value="Änderungsantrag"/>
-				<h:outputLabel	for="country"
-								value="Land"/>
-				<h:outputLabel 	id="country"
-								value="#{changesController.emissionEntry.country}"/>
-				<h:outputLabel	value="#{changesController.selectedChangeEntry.country}"/>
-				<h:outputLabel	for="emission"
-								value="Emissionen"/>
-				<h:outputLabel 	id="emission"
-								value="#{changesController.emissionEntry.emissions}">
-					<f:convertNumber locale="de_DE"/>				
-				</h:outputLabel>
-				<h:outputLabel	value="#{changesController.selectedChangeEntry.emissions}">
-					<f:convertNumber locale="de_DE"/>
-				</h:outputLabel>
-				<h:outputLabel	for="year"
-								value="Jahr"/>
-				<h:outputLabel 	id="year"
-								value="#{changesController.emissionEntry.year}"/>
-				<h:outputLabel	value="#{changesController.selectedChangeEntry.year}"/>
-				<h:outputLabel	for="infoText"
-								value="Bemerkung"/>
-				<p/>
-				<h:outputLabel	id="infoText"
-								value="#{changesController.selectedChangeEntry.infoText}"/>
-				<h:outputLabel	for="source"
-								value="Quelle"/>
-				<p/>
-				<h:outputLabel	id="source"
-								value="#{changesController.selectedChangeEntry.source}"/>
-				<p/>
-				<h:commandButton	value="Änderung ablehnen"
-									action="#{changesController.declineChange}"/>
-				<h:commandButton	value="Änderung genehmigen"
-									action="#{changesController.acceptChange}"/>
-			</h:panelGrid>
-		</h:form>
+		<header>
+			<nav>
+				<div class="nav-wrapper">
+					<h:graphicImage 	url="resources/img/likeHeroToZero1.png" 
+										styleClass="brand-logo"/>
+					<ul class="right">
+						<li>
+							<h:form>
+								<h:commandLink	value="Startseite"
+												action="index"/>
+							</h:form>					
+						</li>
+						<li>
+							<h:form rendered="#{loginController.userSession.loggedIn}">
+								<h:commandLink 	value="Neuer Eintrag" 
+												action="newEntry"/>		
+							</h:form>					
+						</li>
+						<li>
+							<h:form rendered="#{loginController.userSession.loggedIn}">
+								<h:commandLink	value="Einträge ändern"
+												action="backend"/>
+							</h:form>					
+						</li>
+						<li>
+							<h:form rendered="#{!loginController.userSession.loggedIn}">
+								<h:commandLink 	value="Login" 
+												action="login"/>		
+							</h:form>
+						</li>
+						<li>
+							<h:form rendered="#{loginController.userSession.loggedIn}">
+								<h:commandLink 	value="Logout" 
+												action="#{loginController.logout}"/>		
+							</h:form>					
+							<h:outputText value="#{loginController.loginUser.userName}"/>		
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</header>
+		<main>
+			<div class="container">
+				<h2>Änderungen für meine Einträge</h2>
+				<h:form>
+					<p:dataTable 	value="#{changesController.changesList}" 
+									var="changeEntry"
+									id="changesTable"
+									selectionMode="single"
+									selection="#{changesController.selectedChangeEntry}"
+									rowKey="#{changeEntry.id}"
+									emptyMessage="Keine Änderungen für Ihre Einträge vorhanden.">
+						<p:ajax 	event="rowSelect" 
+									listener="#{changesController.onRowSelect}" 
+									update="changesTable"/>
+						<p:column 	selectionMode="single"
+									style="width:16px;text-align:center"/>
+						<p:column>
+							<f:facet name="header">Land</f:facet>
+							<h:outputLabel value="#{changeEntry.country}"/>
+						</p:column>
+						<p:column>
+							<f:facet name="header">MTon CO2</f:facet>
+							<h:outputLabel value="#{changeEntry.emissions}">
+								<f:convertNumber locale="de_DE"/>
+							</h:outputLabel>					
+						</p:column>						
+						<p:column>
+							<f:facet name="header">Jahr</f:facet>
+							<h:outputLabel value="#{changeEntry.year}"/>
+						</p:column>
+						<p:column>
+							<f:facet name="header">Bemerkung</f:facet>
+							<h:outputLabel value="#{changeEntry.infoText}"/>
+						</p:column>
+						<p:column>
+							<f:facet name="header">Quelle</f:facet>
+							<h:outputLabel value="#{changeEntry.source}"/>
+						</p:column>
+						<p:column>
+							<f:facet name="header">Ändernder Benutzer</f:facet>
+							<h:outputLabel value="#{changeEntry.changeUser.userName}"/>
+						</p:column>
+						<f:facet name="footer">
+							<h:commandButton value="Bearbeiten" action="#{changesController.edit}"/>
+						</f:facet>
+					</p:dataTable>
+				</h:form>
+				<h:form>
+					<h:panelGrid 	columns="3">
+						<p/>
+						<h:outputLabel	value="Ursprünglicher Eintrag"/>
+						<h:outputLabel	value="Änderungsantrag"/>
+						<h:outputLabel	for="country"
+										value="Land"/>
+						<h:outputLabel 	id="country"
+										value="#{changesController.emissionEntry.country}"/>
+						<h:outputLabel	value="#{changesController.selectedChangeEntry.country}"/>
+						<h:outputLabel	for="emission"
+										value="Emissionen"/>
+						<h:outputLabel 	id="emission"
+										value="#{changesController.emissionEntry.emissions}">
+							<f:convertNumber locale="de_DE"/>				
+						</h:outputLabel>
+						<h:outputLabel	value="#{changesController.selectedChangeEntry.emissions}">
+							<f:convertNumber locale="de_DE"/>
+						</h:outputLabel>
+						<h:outputLabel	for="year"
+										value="Jahr"/>
+						<h:outputLabel 	id="year"
+										value="#{changesController.emissionEntry.year}"/>
+						<h:outputLabel	value="#{changesController.selectedChangeEntry.year}"/>
+						<h:outputLabel	for="infoText"
+										value="Bemerkung"/>
+						<p/>
+						<h:outputLabel	id="infoText"
+										value="#{changesController.selectedChangeEntry.infoText}"/>
+						<h:outputLabel	for="source"
+										value="Quelle"/>
+						<p/>
+						<h:outputLabel	id="source"
+										value="#{changesController.selectedChangeEntry.source}"/>
+						<p/>
+						<h:commandButton	value="Änderung ablehnen"
+											action="#{changesController.declineChange}"/>
+						<h:commandButton	value="Änderung genehmigen"
+											action="#{changesController.acceptChange}"/>
+					</h:panelGrid>
+				</h:form>
+			</div>
+		</main>
+		<footer class="page-footer">
+			<div class="l12 m12 s12">
+				<div class="container">
+					<h:form>
+						<ul>
+							<li>
+								<h:commandLink	value="Registrieren"
+												action="register"
+												styleClass="grey-text text-lighten-3"/>
+							</li>
+							<li>
+								<h:commandLink	value="Impressum"
+												action="impressum"
+												styleClass="grey-text text-lighten-3"/>
+							</li>
+							<li>
+								<h:commandLink	value="Datenschutz"
+												action="dataSecurity"
+												styleClass="grey-text text-lighten-3"/>							
+							</li>
+						</ul>
+					</h:form>
+				</div>
+			</div>
+			<div class="footer-copyright">
+				<div class="container">
+					© Daniel Hirt Uni Fallstudie
+				</div>
+			</div>		
+		</footer>
 	</h:body>
 </html>

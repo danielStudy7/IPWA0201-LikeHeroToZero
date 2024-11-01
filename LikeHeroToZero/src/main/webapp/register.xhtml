@@ -10,37 +10,111 @@
 		<h:outputStylesheet name="style/css/materialize.css"/>
 	</h:head>
 	<h:body>
-		<h:graphicImage url=""/>
-		<h:outputText value="Like Hero To Zero"/>
-		<h:form>
-			<h:messages id="error"/>
-			<h:panelGrid columns="2">
-				<h:outputLabel 	for="prename" 
-								value="Vorname"/>
-				<h:inputText 	id="prename" 
-								value="#{registerController.signUpUser.name}"/>
-				<h:outputLabel 	for="familiyName" 
-								value="Nachname"/>
-				<h:inputText 	id="familyName" 
-								value="#{registerController.signUpUser.familyName}"/>								
-				<h:outputLabel 	for="userName" 
-								value="Benutzername"/>
-				<h:inputText 	id="userName" 
-								value="#{registerController.signUpUser.userName}"
-								>
-					<f:event listener="#{registerController.postValidateUserName}" type="postValidate"/>				
-				</h:inputText>
-				<h:outputLabel 	for="password" 
-								value="Passwort"/>
-				<h:inputSecret 	id="password" 
-								value="#{registerController.signUpUser.password}"
-								validator="#{registerController.validateUserName}"/>
-				<h:commandButton 	value="Abbrechen" 
-									action="index"/>	
-				<h:commandButton 	value="Sign in" 
-									action="#{registerController.signUp}"
-									/>			
-			</h:panelGrid>
-		</h:form>
+		<header>
+			<nav>
+				<div class="nav-wrapper">
+					<h:graphicImage 	url="resources/img/likeHeroToZero1.png" 
+										styleClass="brand-logo"/>
+					<ul class="right">
+						<li>
+							<h:form rendered="#{loginController.userSession.loggedIn}">
+								<h:commandLink 	value="Neuer Eintrag" 
+												action="newEntry"/>		
+							</h:form>					
+						</li>
+						<li>
+							<h:form rendered="#{loginController.userSession.loggedIn}">
+								<h:commandLink	value="Einträge ändern"
+												action="backend"/>
+							</h:form>					
+						</li>
+						<li>
+							<h:form rendered="#{loginController.userSession.loggedIn}">
+								<h:commandLink	value="Änderungen für meine Einträge"
+												action="changes"/>
+							</h:form>					
+						</li>
+						<li>
+							<h:form rendered="#{!loginController.userSession.loggedIn}">
+								<h:commandLink 	value="Login" 
+												action="login"/>		
+							</h:form>
+						</li>
+						<li>
+							<h:form rendered="#{loginController.userSession.loggedIn}">
+								<h:commandLink 	value="Logout" 
+												action="#{loginController.logout}"/>		
+							</h:form>					
+							<h:outputText value="#{loginController.loginUser.userName}"/>		
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</header>
+		<main>
+			<div class="container">
+				<h2>Registrieren</h2>
+				<h:form>
+					<h:messages id="error"/>
+					<h:panelGrid columns="2">
+						<h:outputLabel 	for="prename" 
+										value="Vorname"/>
+						<h:inputText 	id="prename" 
+										value="#{registerController.signUpUser.name}"/>
+						<h:outputLabel 	for="familiyName" 
+										value="Nachname"/>
+						<h:inputText 	id="familyName" 
+										value="#{registerController.signUpUser.familyName}"/>								
+						<h:outputLabel 	for="userName" 
+										value="Benutzername"/>
+						<h:inputText 	id="userName" 
+										value="#{registerController.signUpUser.userName}"
+										>
+							<f:event listener="#{registerController.postValidateUserName}" type="postValidate"/>				
+						</h:inputText>
+						<h:outputLabel 	for="password" 
+										value="Passwort"/>
+						<h:inputSecret 	id="password" 
+										value="#{registerController.signUpUser.password}"
+										validator="#{registerController.validateUserName}"/>
+						<h:commandButton 	value="Abbrechen" 
+											action="index"/>	
+						<h:commandButton 	value="Sign in" 
+											action="#{registerController.signUp}"
+											/>			
+					</h:panelGrid>
+				</h:form>
+			</div>
+		</main>
+		<footer class="page-footer">
+			<div class="l12 m12 s12">
+				<div class="container">
+					<h:form>
+						<ul>
+							<li>
+								<h:commandLink	value="Registrieren"
+												action="register"
+												styleClass="grey-text text-lighten-3"/>
+							</li>
+							<li>
+								<h:commandLink	value="Impressum"
+												action="impressum"
+												styleClass="grey-text text-lighten-3"/>
+							</li>
+							<li>
+								<h:commandLink	value="Datenschutz"
+												action="dataSecurity"
+												styleClass="grey-text text-lighten-3"/>							
+							</li>
+						</ul>
+					</h:form>
+				</div>
+			</div>
+			<div class="footer-copyright">
+				<div class="container">
+					© Daniel Hirt Uni Fallstudie
+				</div>
+			</div>		
+		</footer>
 	</h:body>
 </html>
