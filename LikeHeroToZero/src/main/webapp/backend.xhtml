@@ -59,8 +59,8 @@
 									value="#{backendController.emissionList}" 
 									var="emissionEntry"
 									paginator="true"
-									rows="50"
-									rowsPerPageTemplate="50,100,150"
+									rows="25"
+									rowsPerPageTemplate="25,50,100,150"
 									selectionMode="single"
 									selection="#{backendController.selectedEmissionEntry}"
 									rowKey="#{emissionEntry.id}">
@@ -84,7 +84,9 @@
 							<h:outputLabel value="#{emissionEntry.year}"/>
 						</p:column>
 						<f:facet name="footer">
-							<h:commandButton value="Bearbeiten" action="#{backendController.edit}"/>
+							<h:commandButton 	value="Bearbeiten" 
+												action="#{backendController.edit}"
+												styleClass="primary-blue btn col l4 s12"/>
 						</f:facet>
 					</p:dataTable>
 				</h:form>
@@ -127,11 +129,10 @@
 										value="#{backendController.changeEntry.source}"
 										required="true"
 										label="Quelle"/>
-						<p/>
-						<p/>
-						<h:commandButton	value="Änderung beantragen"
-											action="#{backendController.createChangeEntry}"/>
 					</h:panelGrid>
+					<h:commandButton	value="Änderung beantragen"
+										action="#{backendController.createChangeEntry}"
+										styleClass="primary-blue btn col l4 s12"/>
 				</h:form>
 			</div>
 		</main>
