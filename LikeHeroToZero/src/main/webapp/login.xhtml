@@ -28,8 +28,10 @@
 		</header>
 		<main>
 			<div class="container">
-				<h:messages id="error"/>
+				<h:message for="userName" class="error"/>
+				<h:message for="password" class="error"/>
 				<h:form id="loginForm">
+					<p/>
 					<h:outputLabel 	for="userName" 
 									value="Benutzername"
 									class="validate"/>
@@ -64,25 +66,29 @@
 		<footer class="page-footer">
 			<div class="l12 m12 s12">
 				<div class="container">
-					<h:form>
-						<ul>
-							<li>
+					<ul>
+						<li>
+							<h:form>
 								<h:commandLink	value="Registrieren"
 												action="register"
-												styleClass="grey-text text-lighten-3"/>
-							</li>
-							<li>
+												styleClass="grey-text text-lighten-3"/>							
+							</h:form>
+						</li>
+						<li>
+							<h:form>
 								<h:commandLink	value="Impressum"
 												action="impressum"
 												styleClass="grey-text text-lighten-3"/>
-							</li>
-							<li>
+							</h:form>
+						</li>
+						<li>
+							<h:form>
 								<h:commandLink	value="Datenschutz"
 												action="dataSecurity"
 												styleClass="grey-text text-lighten-3"/>							
-							</li>
-						</ul>
-					</h:form>
+							</h:form>
+						</li>
+					</ul>
 				</div>
 			</div>
 			<div class="footer-copyright">
