@@ -22,6 +22,7 @@ public class LazyEmissionEntryDataModel extends LazyDataModel<EmissionEntry>
 	@Inject
 	private EmissionEntryDAO emissionDao;
 	
+	
 	public LazyEmissionEntryDataModel()
 	{
 		emissionDao = new EmissionEntryDAO();
@@ -74,6 +75,12 @@ public class LazyEmissionEntryDataModel extends LazyDataModel<EmissionEntry>
 		
 		emissionList = emissionDao.loadEmissionEntrys(first, pageSize, sortField, sortOrder, filters);
 		
+		return emissionList;
+	}
+	
+	
+	public List<EmissionEntry> getEmissionList()
+	{
 		return emissionList;
 	}
 }
