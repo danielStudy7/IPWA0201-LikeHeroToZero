@@ -2946,7 +2946,7 @@ ul.staggered-list li {
 .page-footer {
   padding-top: 20px;
   color: #fff;
-  background-color: #ee6e73;
+  background-color: #33b8eb;
 }
 
 .page-footer .footer-copyright {
@@ -4271,7 +4271,7 @@ table span.badge {
 
 nav {
   color: #fff;
-  background-color: #ee6e73;
+  background-color: #33b8eb;
   width: 100%;
   height: 56px;
   line-height: 56px;
@@ -4334,6 +4334,7 @@ nav .brand-logo {
   display: inline-block;
   font-size: 2.1rem;
   padding: 0;
+  height: 100%;
 }
 
 nav .brand-logo.center {
@@ -4344,7 +4345,8 @@ nav .brand-logo.center {
 
 @media only screen and (max-width: 992px) {
   nav .brand-logo {
-    left: 50%;
+    left: 5%;
+    height: 100%;
     -webkit-transform: translateX(-50%);
             transform: translateX(-50%);
   }
@@ -4359,12 +4361,14 @@ nav .brand-logo.center {
   nav .brand-logo.right {
     right: 0.5rem;
     left: auto;
+    height: 100%;
   }
 }
 
 nav .brand-logo.right {
   right: 0.5rem;
   padding: 0;
+  height: 100%;
 }
 
 nav .brand-logo i,
@@ -4372,6 +4376,7 @@ nav .brand-logo [class^="mdi-"], nav .brand-logo [class*="mdi-"],
 nav .brand-logo i.material-icons {
   float: left;
   margin-right: 15px;
+  height: 100%;
 }
 
 nav .nav-title {

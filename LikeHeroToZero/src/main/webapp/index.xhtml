@@ -10,79 +10,126 @@
 		<h:outputStylesheet name="style/css/materialize.css"/>
 	</h:head>
 	<h:body>
-		<div id="header">
-			<h:graphicImage url="resources/img/likeHeroToZero.png" width="200"/>
-			<h:outputText value="Like Hero To Zero"/>
-			<h:form rendered="#{!loginController.userSession.loggedIn}">
-				<h:commandButton 	value="Login" 
-									action="login"/>		
-			</h:form>
-			<h:form rendered="#{loginController.userSession.loggedIn}">
-				<h:commandButton 	value="Logout" 
-									action="#{loginController.logout}"/>		
-			</h:form>
-			<h:form rendered="#{loginController.userSession.loggedIn}">
-				<h:commandButton 	value="Neuer Eintrag" 
-									action="newEntry"/>		
-			</h:form>
-			<h:form rendered="#{loginController.userSession.loggedIn}">
-				<h:commandButton	value="Einträge ändern"
-									action="backend"/>
-			</h:form>
-			<h:form rendered="#{loginController.userSession.loggedIn}">
-				<h:commandButton	value="Änderungen für meine Einträge"
-									action="changes"/>
-			</h:form>
-			<h:outputText value="#{loginController.loginUser.userName}"/>		
-		</div>
-		<h:outputText value="Info Text zu Co2 HIRT"/>
-		<p>
-			"Like Hero To Zero" ist ein Nachhaltigkeitsprojekt, das ermöglichen soll, dass jeder Mensch einen Zugriff auf die CO2 Emissionsdaten weltweit erhält. 
-			Wissenschaftler können sich registrieren und selber Daten eingeben oder Korrigieren.	
-		</p>
-		<p>
-			Sowohl Staaten, als auch Unternehmen müssen sich beteiligen, um die CO2 Emissionen weltweit zu reduzieren und den Klimawandel im Schacht zu halten. Verfolgen Sie hier, wie Ihr 
-			Land oder ein bestimmtes Unternehmen ihre CO2 Emissionen im Laufe der Jahre reduzieren konnte und hoffentlich weiter reduzieren werden.
-		</p>
-		<h:form>
-			<p:dataTable 	id="emissionTable"
-							value="#{indexController.lazyDataModel}" 
-							var="emissionEntry" 
-							paginator="true" 
-							rows="5" 
-							filterDelay="1000"
-							rowsPerPageTemplate="5,10,15"
-							lazy="true">
-				<p:column 	sortable="true"
-							sortBy="#{emissionEntry.country}"
-							filterBy="#{emissionEntry.country}">
-					<f:facet name="header">Land</f:facet>
-					<h:outputText value="#{emissionEntry.country}"/>
-				</p:column>
-				<p:column 	sortable="true" 
-							sortBy="#{emissionEntry.emissions}">
-					<f:facet name="header">MTon CO2</f:facet>
-					<h:outputText 	value="#{emissionEntry.emissions}">
-						<f:convertNumber locale="de_DE"/>										
-					</h:outputText>
-				</p:column>						
-				<p:column 	sortable="true" 
-							sortBy="#{emissionEntry.year}"
-							filterBy="#{emissionEntry.year}">
-					<f:facet name="header">Jahr</f:facet>
-					<h:outputText value="#{emissionEntry.year}"/>
-				</p:column>
-			</p:dataTable>
-		</h:form>
-		<div id="footer">
-			<h:form>
-				<h:commandLink	value="Registrieren"
-								action="register"/>
-				<h:commandLink	value="Impressum"
-								action="impressum"/>
-				<h:commandLink	value="Datenschutz"
-								action="dataSecurity"/>							
-			</h:form>
-		</div>
+		<header>
+			<nav>
+				<div class="nav-wrapper">
+					<h:graphicImage 	url="resources/img/likeHeroToZero1.png" 
+										styleClass="brand-logo"/>
+					<ul class="right">
+						<li>
+							<h:form rendered="#{loginController.userSession.loggedIn}">
+								<h:commandLink 	value="Neuer Eintrag" 
+												action="newEntry"/>		
+							</h:form>					
+						</li>
+						<li>
+							<h:form rendered="#{loginController.userSession.loggedIn}">
+								<h:commandLink	value="Einträge ändern"
+												action="backend"/>
+							</h:form>					
+						</li>
+						<li>
+							<h:form rendered="#{loginController.userSession.loggedIn}">
+								<h:commandLink	value="Änderungen für meine Einträge"
+												action="changes"/>
+							</h:form>					
+						</li>
+						<li>
+							<h:form rendered="#{!loginController.userSession.loggedIn}">
+								<h:commandLink 	value="Login" 
+												action="login"/>		
+							</h:form>
+						</li>
+						<li>
+							<h:form rendered="#{loginController.userSession.loggedIn}">
+								<h:commandLink 	value="Logout" 
+												action="#{loginController.logout}"/>		
+							</h:form>					
+							<h:outputText value="#{loginController.loginUser.userName}"/>		
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</header>
+		<main>
+			<div class="container">
+				<div class="row">
+					<div class="col l12">
+						<div class="card horizontal">
+							<div class="card-stacked">
+								<div class="card-content">
+									"Like Hero To Zero" ist ein Nachhaltigkeitsprojekt, das ermöglichen soll, dass jeder Mensch einen Zugriff auf die CO2 Emissionsdaten weltweit erhält. 
+									Wissenschaftler können sich registrieren und selber Daten eingeben oder Korrigieren.																
+								</div>
+								<div class="card-action">
+									<h:commandLink 	value="Registrieren Sie sich jetzt!"
+													action="register"/>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<h:form>
+					<p:dataTable 	id="emissionTable"
+									value="#{indexController.lazyDataModel}" 
+									var="emissionEntry" 
+									paginator="true" 
+									rows="50" 
+									filterDelay="1000"
+									rowsPerPageTemplate="50,100,150"
+									lazy="true">
+						<p:column 	sortable="true"
+									sortBy="#{emissionEntry.country}"
+									filterBy="#{emissionEntry.country}">
+							<f:facet name="header">Land</f:facet>
+							<h:outputText value="#{emissionEntry.country}"/>
+						</p:column>
+						<p:column 	sortable="true" 
+									sortBy="#{emissionEntry.emissions}">
+							<f:facet name="header">MTon CO2</f:facet>
+							<h:outputText 	value="#{emissionEntry.emissions}">
+								<f:convertNumber locale="de_DE"/>										
+							</h:outputText>
+						</p:column>						
+						<p:column 	sortable="true" 
+									sortBy="#{emissionEntry.year}"
+									filterBy="#{emissionEntry.year}">
+							<f:facet name="header">Jahr</f:facet>
+							<h:outputText value="#{emissionEntry.year}"/>
+						</p:column>
+					</p:dataTable>
+				</h:form>
+			</div>
+		</main>
+		<footer class="page-footer">
+			<div class="l12 m12 s12">
+				<div class="container">
+					<h:form>
+						<ul>
+							<li>
+								<h:commandLink	value="Registrieren"
+												action="register"
+												styleClass="grey-text text-lighten-3"/>
+							</li>
+							<li>
+								<h:commandLink	value="Impressum"
+												action="impressum"
+												styleClass="grey-text text-lighten-3"/>
+							</li>
+							<li>
+								<h:commandLink	value="Datenschutz"
+												action="dataSecurity"
+												styleClass="grey-text text-lighten-3"/>							
+							</li>
+						</ul>
+					</h:form>
+				</div>
+			</div>
+			<div class="footer-copyright">
+				<div class="container">
+					© Daniel Hirt Uni Fallstudie
+				</div>
+			</div>		
+		</footer>
 	</h:body>
 </html>
