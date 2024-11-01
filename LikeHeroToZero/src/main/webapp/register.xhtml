@@ -78,10 +78,11 @@
 										value="#{registerController.signUpUser.password}"
 										validator="#{registerController.validateUserName}"/>
 						<h:commandButton 	value="Abbrechen" 
-											action="index"/>	
+											action="index"
+											styleClass="grey lighten-5 grey-text text-darken-5 btn"/>	
 						<h:commandButton 	value="Sign in" 
 											action="#{registerController.signUp}"
-											/>			
+											styleClass="primary-blue btn col l4 s12"/>			
 					</h:panelGrid>
 				</h:form>
 			</div>
