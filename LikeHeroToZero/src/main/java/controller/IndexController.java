@@ -34,6 +34,9 @@ public class IndexController implements Serializable
 	private UserDAO userDao;
 	
 	
+	//Konstruktor
+	//Erstellt initiale Standarddaten, wenn keine vorhanden sind 
+	//Erstellt einen Standard-User für die Standarddaten
 	public IndexController()
 	{
 		lazyDataModel = new LazyEmissionEntryDataModel();
@@ -81,11 +84,12 @@ public class IndexController implements Serializable
 		}
 		else
 		{
-			//nix
+			//Keine weitere Aktion notwendig - Daten sind vorhanden
 		}
 	}
 	
 	
+	//Getter Setter
 	public LazyEmissionEntryDataModel getLazyDataModel()
 	{	
 		return lazyDataModel;
@@ -95,7 +99,6 @@ public class IndexController implements Serializable
 	{
 		return selectedItems;
 	}
-	
 	
 	public void setSelectedItems(List<String> selectedItems)
 	{

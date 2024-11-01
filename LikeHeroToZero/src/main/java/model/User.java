@@ -21,6 +21,7 @@ public class User
 	private String familyName;
 	
 	
+	//Konstruktoren
 	public User()
 	{
 		
@@ -33,6 +34,7 @@ public class User
 	}
 
 	
+	//Überschriebene Methoden
 	@Override
 	public boolean equals(Object loginUser)
 	{
@@ -41,7 +43,6 @@ public class User
 			User user = (User) loginUser;
 			if (user.getUserName().equals(this.userName) && user.getPassword().equals(this.password))
 			{
-				
 				return true;				
 			}
 			else
@@ -63,6 +64,7 @@ public class User
 	}
 	
 	
+	//Getter Setter
 	public int getId()
 	{
 		return id;

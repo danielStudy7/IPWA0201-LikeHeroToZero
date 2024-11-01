@@ -34,17 +34,21 @@ public class BackendController implements Serializable
 	private UserSessionController userSession;
 
 	
+	//Konstruktor
 	public BackendController()
 	{
 		changeEntry = new ChangeEntry();
 	}
 	
 	
+	//Übernahme des selektierten EmissionEntry
 	public void onRowSelect(SelectEvent<EmissionEntry> event)
 	{
 		selectedEmissionEntry = event.getObject();
 	}
 	
+	//Neuen ChangeEntry anlegen
+	//Übernimmt Daten aus dem vorherigen EmissionEntry, wenn diese nicht gefüllt wurden
 	public void createChangeEntry()
 	{		
 		if (changeEntry.getCountry() == null || changeEntry.getCountry() == "")
@@ -80,10 +84,11 @@ public class BackendController implements Serializable
 	
 	public void edit()
 	{
-		//nix
+		//Leere Methode zum Übernehmen der Einträge
 	}
 	
 	
+	//Getter Setter
 	public List<EmissionEntry> getEmissionList()
 	{
 		emissionList = emissionDao.findAll();
@@ -105,7 +110,6 @@ public class BackendController implements Serializable
 	{
 		return changeEntry;
 	}
-	
 	
 	public void setSelectedEmissionEntry(EmissionEntry selectedEmissionEntry)
 	{

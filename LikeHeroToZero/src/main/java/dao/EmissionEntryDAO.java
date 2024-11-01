@@ -26,6 +26,7 @@ public class EmissionEntryDAO
 	private CriteriaBuilder cb;
 	
 	
+	//Konstruktor
 	public EmissionEntryDAO()
 	{
 		em = Persistence.createEntityManagerFactory("LikeHeroToZero").createEntityManager();
@@ -33,7 +34,7 @@ public class EmissionEntryDAO
 	}
 	
 	
-	//Initial nach emission sortiert
+	//Datenbank abfragen
 	public List<EmissionEntry> findAll()
 	{	
 		List<EmissionEntry> emissionList;
@@ -64,7 +65,7 @@ public class EmissionEntryDAO
 		}
 		else
 		{
-			//TODO handeln
+			//Keine weitere Aktion notwendig
 		}
 	}
 	
@@ -81,7 +82,7 @@ public class EmissionEntryDAO
 		}
 		else
 		{
-			//TODO handeln
+			//Keine weitere Aktion notwendig
 		}
 	}
 	
@@ -97,18 +98,17 @@ public class EmissionEntryDAO
 		}
 		else
 		{
-			//TODO handeln
+			//Keine weitere Aktion notwendig
 		}
 	}
 	
-	//TODO nicht nach index abfragen sondern nach id
 	public EmissionEntry getEmissionEntry(int index)
 	{
 		EmissionEntry emissionEntry;
 		
 		List<EmissionEntry> emissionList;
-		
 		CriteriaQuery<EmissionEntry> cq = cb.createQuery(EmissionEntry.class);
+		
 		cq.from(EmissionEntry.class);
 		
 		emissionList = em.createQuery(cq).getResultList();
@@ -117,7 +117,6 @@ public class EmissionEntryDAO
 		
 		return emissionEntry;
 	}
-	
 	
 	public void checkEmissionEntry(EmissionEntry emissionEntry)
 	{
@@ -135,7 +134,7 @@ public class EmissionEntryDAO
 		}
 		else
 		{
-			//TODO handeln
+			//Keine weitere Aktion notwendig
 		}
 	}
 	

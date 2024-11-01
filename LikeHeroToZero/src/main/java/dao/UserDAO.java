@@ -22,18 +22,19 @@ public class UserDAO
 	private CriteriaBuilder cb;
 	
 	
+	//Konstruktor
 	public UserDAO()
 	{
 		em = Persistence.createEntityManagerFactory("LikeHeroToZero").createEntityManager();
 		cb = em.getCriteriaBuilder();
 	}
 	
-	
+	//Datenbank abfragen 
 	public List<User> getUserList()
 	{
 		List<User> userList;
-		
 		CriteriaQuery<User> cq = cb.createQuery(User.class);
+		
 		cq.from(User.class);
 		
 		userList = em.createQuery(cq).getResultList();
@@ -74,7 +75,7 @@ public class UserDAO
 		}
 		else
 		{
-			//TODO handeln
+			//Keine weitere Aktion notwendig
 		}
 	}
 	
@@ -92,7 +93,7 @@ public class UserDAO
 		}
 		else
 		{
-			//TODO handeln
+			//Keine weitere Aktion notwendig
 		}
 	}
 	
@@ -111,7 +112,7 @@ public class UserDAO
 		}
 		else
 		{
-			//TODO handeln
+			//Keine weitere Aktion notwendig
 		}
 	}
 }

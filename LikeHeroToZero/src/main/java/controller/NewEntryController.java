@@ -17,7 +17,6 @@ public class NewEntryController implements Serializable
 
 	private EmissionEntry emissionEntry;
 	
-	
 	@Inject
 	private EmissionEntryDAO emissionDao;
 	
@@ -28,6 +27,7 @@ public class NewEntryController implements Serializable
 	private UserSessionController userSession;
 
 	
+	//Konstruktor
 	public NewEntryController()
 	{
 		emissionEntry = new EmissionEntry();
@@ -44,7 +44,8 @@ public class NewEntryController implements Serializable
 		emissionEntry = new EmissionEntry();
 	}
 
-		
+	
+	//Getter Setter
 	public EmissionEntry getEmissionEntry()
 	{
 		return emissionEntry;

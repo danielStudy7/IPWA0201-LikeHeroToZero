@@ -14,9 +14,11 @@ public class UserSessionController implements Serializable
 	
 	private User currentUser;
 	
+	//zur Prüfung eines aktuellen Logins damit Felder im index.xhtml angezeigt bzw. ausgeblendet werden
 	private boolean loggedIn;
 	
 	
+	//Konstruktor
 	public UserSessionController()
 	{
 		currentUser = new User();
@@ -24,6 +26,7 @@ public class UserSessionController implements Serializable
 	}
 	
 	
+	//Getter Setter
 	public User getCurrentUser()
 	{
 		return currentUser;

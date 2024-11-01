@@ -24,19 +24,23 @@ public class EmissionEntry
 	private User user;
 
 	
+	//Konstruktoren
 	public EmissionEntry()
 	{
 		
 	}
-	//TODO Konstruktor erweitern
-	public EmissionEntry(String country, double emissions, int year)
+	
+	public EmissionEntry(String country, double emissions, int year, boolean checked, User user)
 	{
 		this.country = country;
 		this.emissions = emissions;
 		this.year = year;
+		this.checked = checked;
+		this.user = user;
 	}
 	
 	
+	//Überschriebene Methoden
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -61,6 +65,7 @@ public class EmissionEntry
 	}
 
 	
+	//Getter Setter
 	public int getId()
 	{
 		return id;

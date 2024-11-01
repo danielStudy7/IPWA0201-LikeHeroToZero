@@ -9,7 +9,6 @@ import jakarta.persistence.ManyToOne;
 @Entity
 public class ChangeEntry 
 {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
@@ -32,12 +31,13 @@ public class ChangeEntry
 	private EmissionEntry emissionEntry;
 	
 	
+	//Konstruktoren
 	public ChangeEntry()
 	{
 		
 	}
 	
-	public ChangeEntry(boolean accepted, boolean declined, double emissions, int year, User changeUser, String infoText, String source,
+	public ChangeEntry(boolean accepted, boolean declined, double emissions, int year, User changeUser, User createUser, String infoText, String source,
 			String country, EmissionEntry emissionEntry) 
 	{
 		this();
@@ -46,6 +46,7 @@ public class ChangeEntry
 		this.emissions = emissions;
 		this.year = year;
 		this.changeUser = changeUser;
+		this.createUser = createUser;
 		this.infoText = infoText;
 		this.source = source;
 		this.country = country;
@@ -53,6 +54,7 @@ public class ChangeEntry
 	}
 	
 	
+	//Überschriebene Methoden
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -77,6 +79,7 @@ public class ChangeEntry
 	}
 	
 
+	//Getter Setter
 	public int getId() 
 	{
 		return id;
@@ -130,7 +133,6 @@ public class ChangeEntry
 	{
 		return emissionEntry;
 	}
-	
 	
 	public void setId(int id) 
 	{
@@ -186,5 +188,4 @@ public class ChangeEntry
 	{
 		this.emissionEntry = emissionEntry;
 	}
-	
 }

@@ -31,12 +31,14 @@ public class RegisterController implements Serializable
 	private String tempUserName;
 	
 	
+	//Konstruktor
 	public RegisterController()
 	{
 		signUpUser = new User("", "");
 	}
 	
 	
+	//Neuen User erstellten
 	public String signUp()
 	{
 		if (signUpUser.getUserName() != null && !signUpUser.getUserName().isEmpty() && signUpUser.getPassword() != null && !signUpUser.getPassword().isEmpty())
@@ -53,6 +55,7 @@ public class RegisterController implements Serializable
 	}
 	
 	
+	//Registrierung validieren
 	public void postValidateUserName(ComponentSystemEvent event) throws ValidatorException
 	{
 		UIInput tempUserName = (UIInput) event.getComponent();
@@ -90,6 +93,7 @@ public class RegisterController implements Serializable
 	}
 	
 	
+	//Getter Setter
 	public User getSignUpUser()
 	{
 		return signUpUser;

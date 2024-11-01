@@ -31,12 +31,14 @@ public class LoginController implements Serializable
 	private User loginUser;
 	
 	
+	//Konstruktor
 	public LoginController()
 	{
 		loginUser = new User("", "");
 	}
 	
 	
+	//Login und Logout
 	public String login()
 	{
 		userSession.setCurrentUser(userDao.getUser(loginUser.getUserName()));
@@ -62,6 +64,7 @@ public class LoginController implements Serializable
 		}
 	}
 	
+	//Login validieren
 	public void validateLogin(FacesContext context, UIComponent component, Object object) throws ValidatorException
 	{
 		List<User> userList = userDao.getUserList();
@@ -77,10 +80,8 @@ public class LoginController implements Serializable
 				return;
 			}
 		}
-		
 		throw new ValidatorException(new FacesMessage("Benutzername oder Passwort falsch!"));
 	}
-	
 	
 	public void postValidateUser(ComponentSystemEvent event) throws AbortProcessingException
 	{
@@ -89,6 +90,7 @@ public class LoginController implements Serializable
 	}
 	
 	
+	//Getter Setter
 	public UserSessionController getUserSession()
 	{
 		return userSession;

@@ -17,7 +17,6 @@ import model.EmissionEntry;
 @ViewScoped
 public class ChangesController implements Serializable
 {
-
 	private static final long serialVersionUID = 1L;
 	
 	private List<ChangeEntry> changesList;
@@ -35,12 +34,14 @@ public class ChangesController implements Serializable
 	private EmissionEntryDAO emissionEntryDao;
 	
 	
+	//Konstruktor
 	public ChangesController()
 	{
 		
 	}
 	
 	
+	//Methoden zum Akzeptieren und Ablehnen
 	public void acceptChange()
 	{
 		changeEntryDao.acceptChangeEntry(selectedChangeEntry);
@@ -64,6 +65,7 @@ public class ChangesController implements Serializable
 		emissionEntry = null;
 	}
 	
+	//Übernahme des Tabelleneintrag
 	public void onRowSelect(SelectEvent<ChangeEntry> event)
 	{
 		selectedChangeEntry = event.getObject();
@@ -72,10 +74,11 @@ public class ChangesController implements Serializable
 	
 	public void edit()
 	{
-		//nix
+		//Leere Methode zum Übernehmen der Einträge
 	}
 	
 	
+	//Getter Setter
 	public List<ChangeEntry> getChangesList()
 	{
 		changesList = changeEntryDao.getChangeList(userSession.getCurrentUser());
@@ -97,7 +100,6 @@ public class ChangesController implements Serializable
 	{
 		return emissionEntry;
 	}
-	
 	
 	public void setChangeEntry(ChangeEntry changeEntry)
 	{

@@ -23,6 +23,7 @@ public class ChangeEntryDAO
 	private CriteriaBuilder cb;
 	
 	
+	//Konstruktor
 	public ChangeEntryDAO()
 	{
 		em = Persistence.createEntityManagerFactory("LikeHeroToZero").createEntityManager();
@@ -30,6 +31,7 @@ public class ChangeEntryDAO
 	}
 	
 	
+	//Datenbank abfragen
 	public void createChangeEntry(ChangeEntry changeEntry)
 	{
 		if (changeEntry != null)
@@ -44,7 +46,7 @@ public class ChangeEntryDAO
 		}
 		else
 		{
-			//TODO handeln
+			//Keine weitere Aktion notwendig
 		}
 	}
 	
@@ -63,7 +65,7 @@ public class ChangeEntryDAO
 		}
 		else
 		{
-			//TODO handeln
+			//Keine weitere Aktion notwendig
 		}
 	}
 	
@@ -81,16 +83,12 @@ public class ChangeEntryDAO
 		}
 		else
 		{
-			//TODO handeln
+			//Keine weitere Aktion notwendig
 		}
 	}
+
 	
-	public void getChangeEntry()
-	{
-		//TODO Nach id abfragen
-	}
-	
-	
+	//Akzeptieren und Ablehnen von Änderungen
 	public void acceptChangeEntry(ChangeEntry changeEntry)
 	{
 		if (changeEntry != null)
@@ -108,7 +106,7 @@ public class ChangeEntryDAO
 		}
 		else
 		{
-			//TODO handeln
+			//Keine weitere Aktion notwendig
 		}
 	}
 	
@@ -128,10 +126,12 @@ public class ChangeEntryDAO
 		}
 		else
 		{
-			//TODO handeln
+			//Keine weitere Aktion notwendig
 		}
 	}
 	
+	//Abfrage der Liste an Änderungen für Einträge des aktuellen User
+	//Gibt ChangeEntrys zurück, die nicht accepted oder declined sind
 	public List<ChangeEntry> getChangeList(User currentUser)
 	{
 		List<ChangeEntry> changeEntryList;
@@ -147,8 +147,6 @@ public class ChangeEntryDAO
 		cq.where(cb.and(userPredicate, finalPredicate));
 		
 		changeEntryList = em.createQuery(cq).getResultList();
-		
-		//System.out.println("Änderungsanträge: " + changeEntryList.get(0).getCountry() + " " + changeEntryList.get(0));
 		
 		return changeEntryList;
 	}
