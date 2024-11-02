@@ -156,6 +156,8 @@ public class ChangeEntryDAO
 		
 		changeEntryList = em.createQuery(cq).getResultList();
 		
+		em.clear();
+		
 		return changeEntryList;
 	}
 }

@@ -44,7 +44,7 @@ public class LoginController implements Serializable
 		userSession.setCurrentUser(userDao.getUser(loginUser.getUserName()));
 		userSession.setLoggedIn(true);
 		
-		return "backend.xhtml";
+		return "backend.xhtml"; //CurrentUser und loggedin wurde noch nicht gesetzt
 	}
 	
 	public String logout()
@@ -52,7 +52,6 @@ public class LoginController implements Serializable
 		if (userSession.getCurrentUser() != null)
 		{	
 			userSession = new UserSessionController();
-			userSession.setLoggedIn(false);
 			
 			loginUser = new User("", "");
 			
