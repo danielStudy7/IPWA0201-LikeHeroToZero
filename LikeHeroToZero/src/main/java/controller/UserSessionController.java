@@ -24,7 +24,7 @@ public class UserSessionController implements Serializable
 		currentUser = new User();
 		loggedIn = false;
 	}
-	
+
 	
 	//Getter Setter
 	public User getCurrentUser()

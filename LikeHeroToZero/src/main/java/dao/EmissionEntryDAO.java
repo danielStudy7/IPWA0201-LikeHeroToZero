@@ -79,6 +79,8 @@ public class EmissionEntryDAO
 				em.merge(emissionEntry);
 				em.remove(emissionEntry);
 			t.commit();
+			
+			em.clear();
 		}
 		else
 		{
@@ -95,6 +97,8 @@ public class EmissionEntryDAO
 			t.begin();
 				em.merge(emissionEntry);
 			t.commit();
+			
+			em.clear();
 		}
 		else
 		{
@@ -114,6 +118,8 @@ public class EmissionEntryDAO
 		emissionList = em.createQuery(cq).getResultList();
 		
 		emissionEntry = emissionList.get(index);
+		
+		em.clear();
 		
 		return emissionEntry;
 	}

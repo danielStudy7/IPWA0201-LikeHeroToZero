@@ -51,7 +51,8 @@ public class LoginController implements Serializable
 	{
 		if (userSession.getCurrentUser() != null)
 		{	
-			userSession = new UserSessionController();
+			userSession.setCurrentUser(null);
+			userSession.setLoggedIn(false);
 			
 			loginUser = new User("", "");
 			
@@ -85,7 +86,7 @@ public class LoginController implements Serializable
 	public void postValidateUser(ComponentSystemEvent event) throws AbortProcessingException
 	{
 		UIInput temp = (UIInput) event.getComponent();
-		this.loginUser.setUserName((String)temp.getValue());
+		this.loginUser.setUserName((String)temp.getValue()); 
 	}
 	
 	
