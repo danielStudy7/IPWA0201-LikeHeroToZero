@@ -1,15 +1,14 @@
 package controller;
 
 import java.io.Serializable;
-import java.util.List;
 
 import org.primefaces.event.SelectEvent;
 
 import dao.ChangeEntryDAO;
-import dao.EmissionEntryDAO;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import lazyDataModel.LazyEmissionEntryDataModel;
 import model.ChangeEntry;
 import model.EmissionEntry;
 
@@ -18,14 +17,11 @@ import model.EmissionEntry;
 public class BackendController implements Serializable
 {
 	private static final long serialVersionUID = 1L;
-
-	private List<EmissionEntry> emissionList;
+	
+	private LazyEmissionEntryDataModel lazyDataModel;
 	private EmissionEntry emissionEntry;
 	private EmissionEntry selectedEmissionEntry;
 	private ChangeEntry changeEntry;
-	
-	@Inject
-	private EmissionEntryDAO emissionDao;
 	
 	@Inject
 	private ChangeEntryDAO changeEntryDao;
@@ -38,6 +34,7 @@ public class BackendController implements Serializable
 	public BackendController()
 	{
 		changeEntry = new ChangeEntry();
+		lazyDataModel = new LazyEmissionEntryDataModel();
 	}
 	
 	
@@ -96,11 +93,9 @@ public class BackendController implements Serializable
 	
 	
 	//Getter Setter
-	public List<EmissionEntry> getEmissionList()
+	public LazyEmissionEntryDataModel getLazyDataModel()
 	{
-		emissionList = emissionDao.findAll();
-		
-		return emissionList;
+		return lazyDataModel;
 	}
 	
 	public EmissionEntry getEmissionEntry()

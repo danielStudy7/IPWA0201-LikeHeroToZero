@@ -39,6 +39,12 @@ public class LazyEmissionEntryDataModel extends LazyDataModel<EmissionEntry>
 	}
 	
 	@Override
+	public EmissionEntry getRowData(String rowKey)
+	{
+		return  emissionDao.getEmissionEntry(rowKey);
+	}
+	
+	@Override
 	public int count(Map<String, FilterMeta> filterBy) 
 	{
 		Map<String, Object> filters = new HashMap<>();

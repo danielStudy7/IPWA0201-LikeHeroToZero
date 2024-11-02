@@ -106,18 +106,17 @@ public class EmissionEntryDAO
 		}
 	}
 	
-	public EmissionEntry getEmissionEntry(int index)
+	public EmissionEntry getEmissionEntry(String id)
 	{
 		EmissionEntry emissionEntry;
 		
-		List<EmissionEntry> emissionList;
 		CriteriaQuery<EmissionEntry> cq = cb.createQuery(EmissionEntry.class);
 		
-		cq.from(EmissionEntry.class);
+		Root<EmissionEntry> emissionEntryRoot = cq.from(EmissionEntry.class);
 		
-		emissionList = em.createQuery(cq).getResultList();
+		cq.where(cb.equal(emissionEntryRoot.get("id"), id));
 		
-		emissionEntry = emissionList.get(index);
+		emissionEntry = em.createQuery(cq).getSingleResult();
 		
 		em.clear();
 		

@@ -55,30 +55,34 @@
 				<h2>Einträge bearbeiten</h2>
 				<h:form>
 					<p:dataTable 	id="emissionTable"
-									value="#{backendController.emissionList}" 
+									value="#{backendController.lazyDataModel}" 
 									var="emissionEntry"
 									paginator="true"
 									rows="25"
 									rowsPerPageTemplate="25,50,100,150"
 									selectionMode="single"
-									selection="#{backendController.selectedEmissionEntry}"
-									rowKey="#{emissionEntry.id}">
+									selection="#{backendController.selectedEmissionEntry}">
 						<p:ajax 	event="rowSelect" 
 									listener="#{backendController.onRowSelect}" 
 									update="emissionTable"/>
 						<p:column 	selectionMode="single"
 									style="width:16px;text-align:center"/>
-						<p:column>
+						<p:column	sortable="true"
+									sortBy="#{emissionEntry.country}"
+									filterBy="#{emissionEntry.country}">
 							<f:facet name="header">Land</f:facet>
 							<h:outputLabel value="#{emissionEntry.country}"/>
 						</p:column>
-						<p:column>
+						<p:column	sortable="true"
+									sortBy="#{emissionEntry.emissions}">
 							<f:facet name="header">Emissionen in Megatonne</f:facet>
 							<h:outputLabel value="#{emissionEntry.emissions}">
 								<f:convertNumber locale="de_DE"/>
 							</h:outputLabel>					
 						</p:column>						
-						<p:column>
+						<p:column	sortable="true"
+									sortBy="#{emissionEntry.year}"
+									filterBy="#{emissionEntry.year}">
 							<f:facet name="header">Jahr</f:facet>
 							<h:outputLabel value="#{emissionEntry.year}"/>
 						</p:column>
@@ -88,8 +92,7 @@
 												styleClass="primary-blue btn col l4 s12"/>
 						</f:facet>
 					</p:dataTable>
-				</h:form>
-				<h:form>
+
 					<p>
 						Bitte wählen Sie einen Eintrag in der Tabelle aus und hinterlegen die Werte, die geändert werden sollen. Die Eingabe einer Bemerkung und entsprechenden Quelle ist verpflichtend, damit die Änderung verifiziert werden kann. 
 					</p>
