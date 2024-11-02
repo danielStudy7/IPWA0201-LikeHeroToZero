@@ -68,14 +68,17 @@
 										value="Benutzername"/>
 						<h:inputText 	id="userName" 
 										value="#{registerController.signUpUser.userName}"
-										>
+										required="true"
+										label="Benutzername">
 							<f:event listener="#{registerController.postValidateUserName}" type="postValidate"/>				
 						</h:inputText>
 						<h:outputLabel 	for="password" 
 										value="Passwort"/>
 						<h:inputSecret 	id="password" 
 										value="#{registerController.signUpUser.password}"
-										validator="#{registerController.validateUserName}"/>
+										validator="#{registerController.validateUserName}"
+										required="true"
+										label="Passwort"/>
 						<h:commandButton 	value="Abbrechen" 
 											action="index"
 											styleClass="grey lighten-5 grey-text text-darken-5 btn"/>	
