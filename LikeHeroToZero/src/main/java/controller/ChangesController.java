@@ -66,10 +66,17 @@ public class ChangesController implements Serializable
 	
 	public void declineChange()
 	{
-		changeEntryDao.declineChangeEntry(selectedChangeEntry);
-		
-		selectedChangeEntry = null;
-		emissionEntry = null;
+		if (selectedChangeEntry != null)
+		{
+			changeEntryDao.declineChangeEntry(selectedChangeEntry);
+			
+			selectedChangeEntry = null;
+			emissionEntry = null;			
+		}
+		else
+		{
+			//Keine weiteren Aktionen notwendig
+		}
 	}
 	
 	//Übernahme des Tabelleneintrag

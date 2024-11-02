@@ -136,10 +136,12 @@
 						<p/>
 						<h:commandButton	value="Änderung ablehnen"
 											action="#{changesController.declineChange}"
-											styleClass="grey lighten-5 grey-text text-darken-5 btn"/>
+											styleClass="grey lighten-5 grey-text text-darken-5 btn"
+											disabled="#{changesController.selectedChangeEntry == null}"/>
 						<h:commandButton	value="Änderung genehmigen"
 											action="#{changesController.acceptChange}"
-											styleClass="primary-blue btn col l4 s12"/>
+											styleClass="primary-blue btn col l4 s12"
+											disabled="#{changesController.selectedChangeEntry == null}"/>
 					</h:panelGrid>
 				</h:form>
 			</div>
