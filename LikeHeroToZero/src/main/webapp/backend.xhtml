@@ -73,7 +73,7 @@
 							<h:outputLabel value="#{emissionEntry.country}"/>
 						</p:column>
 						<p:column>
-							<f:facet name="header">MTon CO2</f:facet>
+							<f:facet name="header">Emissionen in Megatonne</f:facet>
 							<h:outputLabel value="#{emissionEntry.emissions}">
 								<f:convertNumber locale="de_DE"/>
 							</h:outputLabel>					
@@ -101,7 +101,7 @@
 										value="#{backendController.selectedEmissionEntry.country}"/>
 						<h:inputText	value="#{backendController.changeEntry.country}"/>
 						<h:outputLabel	for="emission"
-										value="Emissionen"/>
+										value="Emissionen in Megatonne"/>
 						<h:outputLabel 	id="emission"
 										value="#{backendController.selectedEmissionEntry.emissions}">
 							<f:convertNumber locale="de_DE"/>				
