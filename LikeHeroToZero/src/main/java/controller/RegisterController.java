@@ -45,6 +45,7 @@ public class RegisterController implements Serializable
 		{
 			userDao.createUser(signUpUser);
 			userSession.setCurrentUser(signUpUser);
+			userSession.setLoggedIn(true);
 			
 			return "backend.xhtml";
 		}
