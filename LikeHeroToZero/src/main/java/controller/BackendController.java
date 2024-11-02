@@ -50,35 +50,42 @@ public class BackendController implements Serializable
 	//Neuen ChangeEntry anlegen
 	//Übernimmt Daten aus dem vorherigen EmissionEntry, wenn diese nicht gefüllt wurden
 	public void createChangeEntry()
-	{		
-		if (changeEntry.getCountry() == null || changeEntry.getCountry() == "")
+	{	
+		if (selectedEmissionEntry != null)
 		{
-			changeEntry.setCountry(selectedEmissionEntry.getCountry());
-		}
+			if (changeEntry.getCountry() == null || changeEntry.getCountry() == "")
+			{
+				changeEntry.setCountry(selectedEmissionEntry.getCountry());
+			}
 			
-		if (changeEntry.getEmissions() == 0.0)
-		{
-			changeEntry.setEmissions(selectedEmissionEntry.getEmissions());
+			if (changeEntry.getEmissions() == 0.0)
+			{
+				changeEntry.setEmissions(selectedEmissionEntry.getEmissions());
+			}
+			
+			if (changeEntry.getYear() == 0)
+			{
+				changeEntry.setYear(selectedEmissionEntry.getYear());
+			}
+			
+			changeEntry.setAccepted(false);
+			changeEntry.setDeclined(false);
+			
+			changeEntry.setEmissionEntry(selectedEmissionEntry);
+			
+			changeEntry.setChangeUser(userSession.getCurrentUser());
+			changeEntry.setCreateUser(selectedEmissionEntry.getUser());
+			
+			changeEntryDao.createChangeEntry(changeEntry);
+			
+			changeEntry = new ChangeEntry();
+			
+			selectedEmissionEntry = null;
 		}
-				
-		if (changeEntry.getYear() == 0)
+		else
 		{
-			changeEntry.setYear(selectedEmissionEntry.getYear());
+			
 		}
-		
-		changeEntry.setAccepted(false);
-		changeEntry.setDeclined(false);
-		
-		changeEntry.setEmissionEntry(selectedEmissionEntry);
-		
-		changeEntry.setChangeUser(userSession.getCurrentUser());
-		changeEntry.setCreateUser(selectedEmissionEntry.getUser());
-
-		changeEntryDao.createChangeEntry(changeEntry);
-		
-		changeEntry = new ChangeEntry();
-		
-		selectedEmissionEntry = null;
 	}
 	
 	

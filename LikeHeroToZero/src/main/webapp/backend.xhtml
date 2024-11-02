@@ -91,7 +91,7 @@
 				</h:form>
 				<h:form>
 					<p>
-						Bitte hinterlegen Sie die Werte, die geändert werden sollen. Die Eingabe einer Bemerkung und entsprechenden Quelle ist verpflichtend, damit die Änderung verifiziert werden kann. 
+						Bitte wählen Sie einen Eintrag in der Tabelle aus und hinterlegen die Werte, die geändert werden sollen. Die Eingabe einer Bemerkung und entsprechenden Quelle ist verpflichtend, damit die Änderung verifiziert werden kann. 
 					</p>
 					<h:messages id="error"/>
 					<h:panelGrid 	columns="3">
@@ -131,7 +131,8 @@
 					</h:panelGrid>
 					<h:commandButton	value="Änderung beantragen"
 										action="#{backendController.createChangeEntry}"
-										styleClass="primary-blue btn"/>
+										styleClass="primary-blue btn"
+										disabled="#{backendController.selectedEmissionEntry == null}"/>
 				</h:form>
 			</div>
 		</main>
