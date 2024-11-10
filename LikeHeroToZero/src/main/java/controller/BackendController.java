@@ -44,7 +44,7 @@ public class BackendController implements Serializable
 		selectedEmissionEntry = event.getObject();
 	}
 	
-	//Neuen ChangeEntry anlegen
+	//Neuen ChangeEntry erstellen
 	//Übernimmt Daten aus dem vorherigen EmissionEntry, wenn diese nicht gefüllt wurden
 	public void createChangeEntry()
 	{	
