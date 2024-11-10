@@ -60,7 +60,7 @@ public class User
 	@Override
 	public int hashCode()
 	{
-		return this.password.hashCode() * 7;
+		return this.userName.hashCode() * 7;
 	}
 	
 	
