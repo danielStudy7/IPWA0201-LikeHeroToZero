@@ -20,48 +20,57 @@
       </plugin>
     </plugins>
   </build>
-    <dependencies>
-    	<dependency>
-    	<groupId>com.fasterxml.jackson.core</groupId>
-    	<artifactId>jackson-databind</artifactId>
-    	<version>2.18.1</version>
-	</dependency>
-	<dependency>
- 	<groupId>jakarta.servlet</groupId>
-      	<artifactId>jakarta.servlet-api</artifactId>
-      	<version>5.0.0</version>
-      	<scope>provided</scope>
-    </dependency>
-    <dependency>
-      	<groupId>org.glassfish</groupId>
-      	<artifactId>jakarta.faces</artifactId>
-      	<version>4.0.1</version>
-    </dependency>
-    <dependency>
-      	<groupId>jakarta.inject</groupId>
-      	<artifactId>jakarta.inject-api</artifactId>
-      	<version>2.0.1</version>
-    </dependency>
-    <dependency>
-      	<groupId>org.jboss.weld.servlet</groupId>
-      	<artifactId>weld-servlet-core</artifactId>
-      	<version>5.1.3.Final</version>
-    </dependency>
-	<dependency>
-      	<groupId>org.primefaces</groupId>
-      	<artifactId>primefaces</artifactId>
-      	<version>11.0.0</version>
-      	<classifier>jakarta</classifier>
-    </dependency>
-    <dependency>
-    	<groupId>org.hibernate</groupId>
-    	<artifactId>hibernate-core</artifactId>
-    	<version>6.5.2.Final</version>
-    </dependency>
-	<dependency>
-	    <groupId>com.mysql</groupId>
-	    <artifactId>mysql-connector-j</artifactId>
-	    <version>9.0.0</version>
-	</dependency>
-  </dependencies>
+  <properties>
+  <maven.compiler.release>17</maven.compiler.release>
+  <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+</properties>
+
+<dependencies>
+  <!-- Servlet-API: von Tomcat 11 bereitgestellt -->
+  <dependency>
+    <groupId>jakarta.servlet</groupId>
+    <artifactId>jakarta.servlet-api</artifactId>
+    <version>6.1.0</version>
+    <scope>provided</scope>
+  </dependency>
+
+  <!-- Jakarta Faces (Mojarra) -->
+  <dependency>
+    <groupId>org.glassfish</groupId>
+    <artifactId>jakarta.faces</artifactId>
+    <version>4.0.11</version>
+  </dependency>
+
+  <!-- CDI: Uber-Jar, NICHT weld-servlet-core -->
+  <dependency>
+    <groupId>org.jboss.weld.servlet</groupId>
+    <artifactId>weld-servlet-shaded</artifactId>
+    <version>5.1.3.Final</version>
+  </dependency>
+
+  <!-- PrimeFaces für Faces 4.x -->
+  <dependency>
+    <groupId>org.primefaces</groupId>
+    <artifactId>primefaces</artifactId>
+    <version>15.0.16</version>
+    <classifier>jakarta</classifier>
+  </dependency>
+
+  <dependency>
+    <groupId>org.hibernate.orm</groupId>
+    <artifactId>hibernate-core</artifactId>
+    <version>6.6.4.Final</version>
+  </dependency>
+  <dependency>
+    <groupId>com.mysql</groupId>
+    <artifactId>mysql-connector-j</artifactId>
+    <version>9.0.0</version>
+  </dependency>
+  <dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+    <version>2.18.1</version>
+  </dependency>
+</dependencies>
 </project>
