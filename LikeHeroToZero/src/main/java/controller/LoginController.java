@@ -41,6 +41,7 @@ public class LoginController implements Serializable
 	//Login und Logout
 	public String login()
 	{
+		// TODO Refactoring
 		userSession.setCurrentUser(userDao.getUser(loginUser.getUserName()));
 		userSession.setLoggedIn(true);
 		
@@ -60,6 +61,7 @@ public class LoginController implements Serializable
 		}
 		else 
 		{			
+			// TODO Refactor - andere Rückgabe
 			return "index.xhtml";
 		}
 	}

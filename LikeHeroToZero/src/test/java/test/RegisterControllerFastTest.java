@@ -23,7 +23,7 @@ import jakarta.faces.validator.ValidatorException;
 import model.User;
 
 @ExtendWith(EasyMockExtension.class)
-class RegisterControllerTest {
+class RegisterControllerFastTest {
 	
 	@TestSubject
 	private RegisterController controllerUnderTest = new RegisterController();

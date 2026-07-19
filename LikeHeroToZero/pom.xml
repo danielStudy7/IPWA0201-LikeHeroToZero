@@ -26,6 +26,18 @@
   <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 </properties>
 
+<dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>org.junit</groupId>
+      <artifactId>junit-bom</artifactId>
+      <version>6.0.0</version>   <!-- aktuelle JUnit-6-Version prüfen -->
+      <type>pom</type>
+      <scope>import</scope>
+    </dependency>
+  </dependencies>
+</dependencyManagement>
+
 <dependencies>
   <!-- Servlet-API: von Tomcat 11 bereitgestellt -->
   <dependency>
@@ -76,6 +88,11 @@
     <groupId>org.easymock</groupId>
     <artifactId>easymock</artifactId>
     <version>5.6.0</version>
+    <scope>test</scope>
+  </dependency>
+  <dependency>
+    <groupId>org.junit.platform</groupId>
+    <artifactId>junit-platform-suite</artifactId>
     <scope>test</scope>
   </dependency>
 </dependencies>

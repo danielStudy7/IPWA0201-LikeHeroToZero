@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import controller.UserSessionController;
 import model.User;
 
-class UserSessionControllerTest {
+class UserSessionControllerFastTest {
 
 	private static UserSessionController controllerUnderTest;
 	private static User user;

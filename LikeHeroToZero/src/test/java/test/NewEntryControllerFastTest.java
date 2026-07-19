@@ -18,7 +18,7 @@ import model.EmissionEntry;
 import model.User;
 
 @ExtendWith(EasyMockExtension.class)
-public class NewEntryControllerTest {
+public class NewEntryControllerFastTest {
 
     @TestSubject
     private NewEntryController controllerUnderTest = new NewEntryController();
