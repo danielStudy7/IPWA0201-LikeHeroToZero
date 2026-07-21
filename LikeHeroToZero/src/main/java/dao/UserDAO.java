@@ -25,7 +25,11 @@ public class UserDAO
 	//Konstruktor
 	public UserDAO()
 	{
-		em = Persistence.createEntityManagerFactory("LikeHeroToZero").createEntityManager();
+		this(Persistence.createEntityManagerFactory("LikeHeroToZero").createEntityManager());
+	}
+	
+	public UserDAO(EntityManager em) {
+		this.em = em;
 		cb = em.getCriteriaBuilder();
 	}
 	

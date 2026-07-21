@@ -29,7 +29,11 @@ public class EmissionEntryDAO
 	//Konstruktor
 	public EmissionEntryDAO()
 	{
-		em = Persistence.createEntityManagerFactory("LikeHeroToZero").createEntityManager();
+		this(Persistence.createEntityManagerFactory("LikeHeroToZero").createEntityManager());
+	}
+	
+	public EmissionEntryDAO(EntityManager entityManager) {
+		this.em = entityManager;
 		cb = em.getCriteriaBuilder();
 	}
 	
