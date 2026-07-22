@@ -26,8 +26,29 @@ public class ChangeEntryDAO
 	//Konstruktor
 	public ChangeEntryDAO()
 	{
-		em = Persistence.createEntityManagerFactory("LikeHeroToZero").createEntityManager();
-		cb = em.getCriteriaBuilder();
+		this(Persistence.createEntityManagerFactory("LikeHeroToZero").createEntityManager());
+	}
+	
+	public ChangeEntryDAO(EntityManager entityManager) {
+		this.em = entityManager;
+		this.cb = em.getCriteriaBuilder();
+	}
+	
+	public ChangeEntry getChangeEntry(String id)
+	{
+		ChangeEntry changeEntry;
+		
+		CriteriaQuery<ChangeEntry> cq = cb.createQuery(ChangeEntry.class);
+		
+		Root<ChangeEntry> changeEntryRoot = cq.from(ChangeEntry.class);
+		
+		cq.where(cb.equal(changeEntryRoot.get("id"), id));
+		
+		changeEntry = em.createQuery(cq).getSingleResult();
+		
+		em.clear();
+		
+		return changeEntry;
 	}
 	
 	

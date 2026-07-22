@@ -1,4 +1,4 @@
-package test;
+package slowTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,7 +14,7 @@ import jakarta.persistence.NoResultException;
 import model.EmissionEntry;
 import model.User;
 
-class EmissionEntryDaoSlowTest extends SlowTestVorlage {
+class EmissionEntryDaoSlowTest extends AbstractSlowTestVorlage {
 
 	private EmissionEntryDAO daoUnderTest;
 	private User user;
@@ -24,6 +24,7 @@ class EmissionEntryDaoSlowTest extends SlowTestVorlage {
 	@Override
 	void createTestData() {
 		daoUnderTest = new EmissionEntryDAO(getEntityManager());
+		
 		user = new User("admin", "save");
 		germanyEntry = new EmissionEntry("Germany", 22.0, 2025, false, user);
 		spainEntry = new EmissionEntry("Spain", 32.0, 2025, false, user);

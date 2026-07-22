@@ -1,4 +1,4 @@
-package test;
+package fastTest;
 
 
 import org.easymock.EasyMockExtension;

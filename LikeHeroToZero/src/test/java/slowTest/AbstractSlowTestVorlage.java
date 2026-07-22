@@ -1,4 +1,4 @@
-package test;
+package slowTest;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -10,7 +10,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 
-abstract class SlowTestVorlage {
+abstract class AbstractSlowTestVorlage {
 
 	private static EntityManagerFactory entityManagerFactory;
 	private static EntityManager entityManager;

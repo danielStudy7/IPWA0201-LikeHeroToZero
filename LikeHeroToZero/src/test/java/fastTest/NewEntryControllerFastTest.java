@@ -1,4 +1,4 @@
-package test;
+package fastTest;
 
 import static org.easymock.EasyMock.*;
 import static org.junit.jupiter.api.Assertions.*;

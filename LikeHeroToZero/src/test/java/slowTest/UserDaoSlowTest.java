@@ -1,4 +1,4 @@
-package test;
+package slowTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,7 +10,7 @@ import dao.UserDAO;
 import jakarta.persistence.NoResultException;
 import model.User;
 
-class UserDaoSlowTest extends SlowTestVorlage {
+class UserDaoSlowTest extends AbstractSlowTestVorlage {
 
 	private UserDAO daoUnderTest;
 	private User userDaniel;
