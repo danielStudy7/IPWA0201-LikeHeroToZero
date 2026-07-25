@@ -49,7 +49,7 @@ public class NewEntryControllerFastTest {
         expect(userSession.getCurrentUser()).andReturn(user).times(2);
         userDao.updateEntity(user);
         expectLastCall();
-        emissionDao.createEmissionEntry(entry);
+        emissionDao.createEntity(entry);
         expectLastCall();
         replay(emissionDao, userDao, userSession);
 

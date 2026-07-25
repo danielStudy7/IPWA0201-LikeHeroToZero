@@ -75,7 +75,7 @@ public class IndexController implements Serializable
 				{
 					emissionEntry.setUser(systemUser);
 					emissionEntry.setChecked(true);
-					emissionEntryDao.createEmissionEntry(emissionEntry);
+					emissionEntryDao.createEntity(emissionEntry);
 				}
 			}
 			catch (IOException e)

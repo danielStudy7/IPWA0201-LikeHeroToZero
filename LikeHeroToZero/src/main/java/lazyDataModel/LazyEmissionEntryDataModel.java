@@ -41,7 +41,8 @@ public class LazyEmissionEntryDataModel extends LazyDataModel<EmissionEntry>
 	@Override
 	public EmissionEntry getRowData(String rowKey)
 	{
-		return  emissionDao.getEmissionEntry(rowKey);
+		int id = Integer.valueOf(rowKey);
+		return  emissionDao.getEntity(id, EmissionEntry.class);
 	}
 	
 	@Override

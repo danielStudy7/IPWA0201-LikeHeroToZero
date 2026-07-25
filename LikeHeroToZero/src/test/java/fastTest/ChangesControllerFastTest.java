@@ -69,14 +69,15 @@ class ChangesControllerFastTest {
 	public void testAcceptChange_AcceptWithoutChanges() throws Exception {
 		SelectEvent<ChangeEntry> event = createMock("event", SelectEvent.class);
 		
+		changeEntryGermany.setAccepted(true);
 		controllerUnderTest.setSelectedChangeEntry(changeEntryGermany);
 		assertNotNull(controllerUnderTest.getSelectedChangeEntry());
 		
 		reset(userSessionController, changeEntryDao, emissionEntryDao, event);
 		expect(event.getObject()).andReturn(changeEntryGermany).times(2);
-		changeEntryDao.acceptChangeEntry(changeEntryGermany);
+		changeEntryDao.updateEntity(changeEntryGermany);
 		expectLastCall();
-		emissionEntryDao.updateEmissionEntry(emissionEntryGermany);
+		emissionEntryDao.updateEntity(emissionEntryGermany);
 		expectLastCall();
 		replay(userSessionController, changeEntryDao, emissionEntryDao, event);
 		
@@ -96,14 +97,15 @@ class ChangesControllerFastTest {
 	public void testAcceptChange_AcceptWithChanges() throws Exception {
 		SelectEvent<ChangeEntry> event = createMock("event", SelectEvent.class);
 		
+		changeEntrySpain.setAccepted(true);
 		controllerUnderTest.setSelectedChangeEntry(changeEntrySpain);
 		assertNotNull(controllerUnderTest.getSelectedChangeEntry());
 		
 		reset(userSessionController, changeEntryDao, emissionEntryDao, event);
 		expect(event.getObject()).andReturn(changeEntrySpain).times(2);
-		changeEntryDao.acceptChangeEntry(changeEntrySpain);
+		changeEntryDao.updateEntity(changeEntrySpain);
 		expectLastCall();
-		emissionEntryDao.updateEmissionEntry(emissionEntrySpain);
+		emissionEntryDao.updateEntity(emissionEntrySpain);
 		expectLastCall();
 		replay(userSessionController, changeEntryDao, emissionEntryDao, event);
 		
@@ -123,12 +125,13 @@ class ChangesControllerFastTest {
 	public void testDeclineChange() throws Exception {
 		SelectEvent<ChangeEntry> event = createMock("event", SelectEvent.class);
 		
+		changeEntrySpain.setDeclined(true);
 		controllerUnderTest.setSelectedChangeEntry(changeEntrySpain);
 		assertNotNull(controllerUnderTest.getSelectedChangeEntry());
 		
 		reset(userSessionController, changeEntryDao, emissionEntryDao, event);
 		expect(event.getObject()).andReturn(changeEntrySpain).times(2);
-		changeEntryDao.declineChangeEntry(changeEntrySpain);
+		changeEntryDao.updateEntity(changeEntrySpain);
 		expectLastCall();
 		replay(userSessionController, changeEntryDao, emissionEntryDao, event);
 		

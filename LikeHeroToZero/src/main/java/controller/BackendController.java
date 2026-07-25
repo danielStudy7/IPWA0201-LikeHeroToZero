@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import org.primefaces.event.SelectEvent;
 
+import common.FailedOperationException;
 import dao.ChangeEntryDAO;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
@@ -46,7 +47,7 @@ public class BackendController implements Serializable
 	
 	//Neuen ChangeEntry erstellen
 	//Übernimmt Daten aus dem vorherigen EmissionEntry, wenn diese nicht gefüllt wurden
-	public void createChangeEntry()
+	public void createChangeEntry() throws FailedOperationException
 	{	
 		if (selectedEmissionEntry != null)
 		{
@@ -73,7 +74,7 @@ public class BackendController implements Serializable
 			changeEntry.setChangeUser(userSession.getCurrentUser());
 			changeEntry.setCreateUser(selectedEmissionEntry.getUser());
 			
-			changeEntryDao.createChangeEntry(changeEntry);
+			changeEntryDao.createEntity(changeEntry);
 			
 			changeEntry = new ChangeEntry();
 			

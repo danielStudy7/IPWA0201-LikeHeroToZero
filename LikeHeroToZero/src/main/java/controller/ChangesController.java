@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.primefaces.event.SelectEvent;
 
+import common.FailedOperationException;
 import dao.ChangeEntryDAO;
 import dao.EmissionEntryDAO;
 import jakarta.faces.view.ViewScoped;
@@ -42,18 +43,19 @@ public class ChangesController implements Serializable
 	
 	
 	//Methoden zum Akzeptieren und Ablehnen
-	public void acceptChange()
+	public void acceptChange() throws FailedOperationException
 	{
 		if (selectedChangeEntry != null)
 		{
-			changeEntryDao.acceptChangeEntry(selectedChangeEntry);
+			selectedChangeEntry.setAccepted(true);
+			changeEntryDao.updateEntity(selectedChangeEntry);
 			
 			//EmissionEntry updaten
 			emissionEntry.setCountry(selectedChangeEntry.getCountry());
 			emissionEntry.setEmissions(selectedChangeEntry.getEmissions());
 			emissionEntry.setYear(selectedChangeEntry.getYear());
 			
-			emissionEntryDao.updateEmissionEntry(emissionEntry);
+			emissionEntryDao.updateEntity(emissionEntry);
 			
 			selectedChangeEntry = null;
 			emissionEntry = null;			
@@ -64,11 +66,12 @@ public class ChangesController implements Serializable
 		}
 	}
 	
-	public void declineChange()
+	public void declineChange() throws FailedOperationException
 	{
 		if (selectedChangeEntry != null)
 		{
-			changeEntryDao.declineChangeEntry(selectedChangeEntry);
+			selectedChangeEntry.setDeclined(true);
+			changeEntryDao.updateEntity(selectedChangeEntry);
 			
 			selectedChangeEntry = null;
 			emissionEntry = null;			
@@ -95,7 +98,7 @@ public class ChangesController implements Serializable
 	//Getter Setter
 	public List<ChangeEntry> getChangesList()
 	{
-		changesList = changeEntryDao.getChangeList(userSession.getCurrentUser());
+		changesList = changeEntryDao.getChangeListByUser(userSession.getCurrentUser());
 		
 		return changesList;
 	}

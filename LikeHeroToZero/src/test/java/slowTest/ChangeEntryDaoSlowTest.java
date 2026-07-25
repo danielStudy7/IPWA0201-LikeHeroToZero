@@ -41,8 +41,8 @@ public class ChangeEntryDaoSlowTest extends AbstractSlowTestVorlage {
 	void testCreateChangeEntry() throws Exception {
 		ChangeEntry newChangeEntry = new ChangeEntry(false, false, 23.45, 2025, changeUser, createUser, "InfoText", "source: bild.de", "Germany", sourceEmissionEntry);
 		
-		daoUnderTest.createChangeEntry(newChangeEntry);
-		ChangeEntry result = daoUnderTest.getChangeEntry(String.valueOf(newChangeEntry.getId()));
+		daoUnderTest.createEntity(newChangeEntry);
+		ChangeEntry result = daoUnderTest.getEntity(newChangeEntry.getId(), ChangeEntry.class);
 		
 		assertNotNull(result);
 		assertAll(
@@ -60,10 +60,10 @@ public class ChangeEntryDaoSlowTest extends AbstractSlowTestVorlage {
 	
 	@Test
 	void testDeleteChangeEntry() throws Exception {
-		daoUnderTest.deleteChangeEntry(changeEntry);
+		daoUnderTest.deleteEntity(changeEntry);
 		
 		try {
-			daoUnderTest.getChangeEntry(String.valueOf(changeEntry.getId()));
+			daoUnderTest.getEntity(changeEntry.getId(), ChangeEntry.class);
 			fail("Hier sollte eine Exception fliegen, weil der User nicht mehr existiert.");
 		}
 		catch ( NoResultException e) {
@@ -79,8 +79,8 @@ public class ChangeEntryDaoSlowTest extends AbstractSlowTestVorlage {
 		changeEntry.setSource("who.com");
 		changeEntry.setInfoText("Bleibt in diesem Fall");
 		
-		daoUnderTest.updateChangeEntry(changeEntry);
-		ChangeEntry result = daoUnderTest.getChangeEntry(String.valueOf(changeEntry.getId()));
+		daoUnderTest.updateEntity(changeEntry);
+		ChangeEntry result = daoUnderTest.getEntity(changeEntry.getId(), ChangeEntry.class);
 	
 		assertNotNull(result);
 		assertAll(
@@ -98,9 +98,10 @@ public class ChangeEntryDaoSlowTest extends AbstractSlowTestVorlage {
 	
 	@Test
 	void testAcceptChangeEntry() throws Exception {
-		daoUnderTest.acceptChangeEntry(changeEntry);
+		changeEntry.setAccepted(true);
+		daoUnderTest.updateEntity(changeEntry);
 		
-		ChangeEntry result = daoUnderTest.getChangeEntry(String.valueOf(changeEntry.getId()));
+		ChangeEntry result = daoUnderTest.getEntity(changeEntry.getId(), ChangeEntry.class);
 		
 		assertTrue(result.isAccepted());
 		assertFalse(result.isDeclined());
@@ -108,9 +109,10 @@ public class ChangeEntryDaoSlowTest extends AbstractSlowTestVorlage {
 	
 	@Test
 	void testDeclineChangeEntry() throws Exception {
-		daoUnderTest.declineChangeEntry(changeEntry);
+		changeEntry.setDeclined(true);
+		daoUnderTest.updateEntity(changeEntry);
 		
-		ChangeEntry result = daoUnderTest.getChangeEntry(String.valueOf(changeEntry.getId()));
+		ChangeEntry result = daoUnderTest.getEntity(changeEntry.getId(), ChangeEntry.class);
 		
 		assertFalse(result.isAccepted());
 		assertTrue(result.isDeclined());
@@ -123,7 +125,7 @@ public class ChangeEntryDaoSlowTest extends AbstractSlowTestVorlage {
 		getEntityManager().persist(changeEntry1);
 		getTransaction().commit();
 		
-		List<ChangeEntry> changeList = daoUnderTest.getChangeList(createUser);
+		List<ChangeEntry> changeList = daoUnderTest.getChangeListByUser(createUser);
 		assertEquals(2, changeList.size());
 	}
 }

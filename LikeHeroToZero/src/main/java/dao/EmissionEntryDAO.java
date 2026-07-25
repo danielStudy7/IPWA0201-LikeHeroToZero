@@ -9,9 +9,6 @@ import org.primefaces.model.SortOrder;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
@@ -19,204 +16,94 @@ import model.EmissionEntry;
 
 @Named
 @ApplicationScoped
-public class EmissionEntryDAO 
+public class EmissionEntryDAO extends AbstractDAO
 {
-	private EntityManager em;
 	
-	private CriteriaBuilder cb;
-	
-	
-	//Konstruktor
 	public EmissionEntryDAO()
 	{
-		this(Persistence.createEntityManagerFactory("LikeHeroToZero").createEntityManager());
+		super();
 	}
 	
 	public EmissionEntryDAO(EntityManager entityManager) {
-		this.em = entityManager;
-		cb = em.getCriteriaBuilder();
+		super(entityManager);
 	}
 	
-	
-	//Datenbank abfragen
 	public List<EmissionEntry> findAll()
 	{	
 		List<EmissionEntry> emissionList;
 		
-		CriteriaQuery<EmissionEntry> cq = cb.createQuery(EmissionEntry.class);
-		Root<EmissionEntry> emissionRoot = cq.from(EmissionEntry.class);
+		CriteriaQuery<EmissionEntry> query = createQuery(EmissionEntry.class);
+		Root<EmissionEntry> emissionRoot = query.from(EmissionEntry.class);
+		query.select(emissionRoot).orderBy(getCriteriaBuilder().desc(emissionRoot.get("year")));
 		
-		cq.select(emissionRoot).orderBy(cb.desc(emissionRoot.get("year")));
+		emissionList = getEntityManager().createQuery(query).getResultList();
 		
-		emissionList = em.createQuery(cq).getResultList();
-		
-		em.clear();
+		getEntityManager().clear();
 		
 		return emissionList;
 	}
 	
-	public void createEmissionEntry(EmissionEntry emissionEntry)
-	{
-		if (emissionEntry != null)
-		{
-			EntityTransaction t = em.getTransaction();
-			
-			t.begin();
-				em.persist(emissionEntry);
-			t.commit();
-			
-			em.clear();			
-		}
-		else
-		{
-			//Keine weitere Aktion notwendig
-		}
-	}
-	
-	public void deleteEmissionEntry(EmissionEntry emissionEntry)
-	{
-		if (emissionEntry != null)
-		{
-			EntityTransaction t = em.getTransaction();
-			
-			t.begin();
-				em.merge(emissionEntry);
-				em.remove(emissionEntry);
-			t.commit();
-			
-			em.clear();
-		}
-		else
-		{
-			//Keine weitere Aktion notwendig
-		}
-	}
-	
-	public void updateEmissionEntry(EmissionEntry emissionEntry)
-	{
-		if (emissionEntry != null)
-		{
-			EntityTransaction t = em.getTransaction();
-			
-			t.begin();
-				em.merge(emissionEntry);
-			t.commit();
-			
-			em.clear();
-		}
-		else
-		{
-			//Keine weitere Aktion notwendig
-		}
-	}
-	
-	public EmissionEntry getEmissionEntry(String id)
-	{
-		EmissionEntry emissionEntry;
-		
-		CriteriaQuery<EmissionEntry> cq = cb.createQuery(EmissionEntry.class);
-		
-		Root<EmissionEntry> emissionEntryRoot = cq.from(EmissionEntry.class);
-		
-		cq.where(cb.equal(emissionEntryRoot.get("id"), id));
-		
-		emissionEntry = em.createQuery(cq).getSingleResult();
-		
-		em.clear();
-		
-		return emissionEntry;
-	}
-	
-	public void checkEmissionEntry(EmissionEntry emissionEntry)
-	{
-		if (emissionEntry != null)
-		{
-			emissionEntry.setChecked(true);
-			
-			EntityTransaction t = em.getTransaction();
-			
-			t.begin();
-				em.merge(emissionEntry);
-			t.commit();
-			
-			em.clear();
-		}
-		else
-		{
-			//Keine weitere Aktion notwendig
-		}
-	}
-	
-	
 	//Methoden für das LazyEmissionEntryDataModel
 	public int countEmissionEntrys(Map<String, Object> filters)
 	{
-		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
-		Root<EmissionEntry> emissionRoot = cq.from(EmissionEntry.class);
+		CriteriaQuery<Long> query = createQuery(Long.class);
+		Root<EmissionEntry> emissionRoot = query.from(EmissionEntry.class);
+		query.select(getCriteriaBuilder().count(emissionRoot));
 		
-		//Anzahl abfragen
-		cq.select(cb.count(emissionRoot));
-		
-		//Filtern
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		
 		if (filters != null)
 		{
 			filters.forEach((k, v) ->
 			{
-				predicates.add(cb.equal(emissionRoot.get(k), v));
+				predicates.add(getCriteriaBuilder().equal(emissionRoot.get(k), v));
 			});
 		}
 		
-		cq.where(predicates.toArray(new Predicate[0]));
+		query.where(predicates.toArray(new Predicate[0]));
 		
-		int result = em.createQuery(cq).getSingleResult().intValue();
+		int result = getEntityManager().createQuery(query).getSingleResult().intValue();
 		
-		em.clear();
+		getEntityManager().clear();
 		
 		return result;
 	}
 	
 	public List<EmissionEntry> loadEmissionEntrys(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filterBy)
 	{
-		CriteriaQuery<EmissionEntry> cq = cb.createQuery(EmissionEntry.class);
-		Root<EmissionEntry> emissionRoot = cq.from(EmissionEntry.class);
+		CriteriaQuery<EmissionEntry> query = getCriteriaBuilder().createQuery(EmissionEntry.class);
+		Root<EmissionEntry> emissionRoot = query.from(EmissionEntry.class);
 		
-		//Sortieren
 		if (sortField != null)
 		{
 			if (sortOrder == SortOrder.ASCENDING)
 			{
-				cq.orderBy(cb.asc(emissionRoot.get(sortField)));
+				query.orderBy(getCriteriaBuilder().asc(emissionRoot.get(sortField)));
 			}
 			else if (sortOrder == SortOrder.DESCENDING)
 			{
-				cq.orderBy(cb.desc(emissionRoot.get(sortField)));
+				query.orderBy(getCriteriaBuilder().desc(emissionRoot.get(sortField)));
 			}
 		}
 		
-		//Filtern
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		
 		if (filterBy != null)
 		{
 			filterBy.forEach((k,v) ->
 			{		
-				predicates.add(cb.equal(emissionRoot.get(k), v));
+				predicates.add(getCriteriaBuilder().equal(emissionRoot.get(k), v));
 			});			
 		}
 		
-		//Nur die geprüften Einträge ausgeben 
-		Predicate checkedPredicate = cb.equal(emissionRoot.get("checked"), true);
+		Predicate checkedPredicate = getCriteriaBuilder().equal(emissionRoot.get("checked"), true);
 		predicates.add(checkedPredicate);
 		
-		cq.where(predicates.toArray(new Predicate[0]));
+		query.where(predicates.toArray(new Predicate[0]));
 		
+		List<EmissionEntry> resultList = getEntityManager().createQuery(query).setFirstResult(first).setMaxResults(pageSize).getResultList();
 		
-		//Abfrage ausführen
-		List<EmissionEntry> resultList = em.createQuery(cq).setFirstResult(first).setMaxResults(pageSize).getResultList();
-		
-		em.clear();
+		getEntityManager().clear();
 		
 		return resultList;
 	}

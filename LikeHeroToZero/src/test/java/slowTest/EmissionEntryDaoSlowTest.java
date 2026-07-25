@@ -47,18 +47,18 @@ class EmissionEntryDaoSlowTest extends AbstractSlowTestVorlage {
 	void testCreateEmissionEntry() throws Exception {
 		EmissionEntry newEntry = new EmissionEntry("Portugal", 42.0, 2025, true, user);
 		
-		daoUnderTest.createEmissionEntry(newEntry);
-		EmissionEntry result = daoUnderTest.getEmissionEntry(String.valueOf(newEntry.getId()));
+		daoUnderTest.createEntity(newEntry);
+		EmissionEntry result = daoUnderTest.getEntity(newEntry.getId(), EmissionEntry.class);
 		
 		assertEquals(newEntry, result);
 	}
 	
 	@Test
 	void testDeleteEmissionEntry() throws Exception {
-		daoUnderTest.deleteEmissionEntry(spainEntry);
+		daoUnderTest.deleteEntity(spainEntry);
 		
 		try {
-			daoUnderTest.getEmissionEntry(String.valueOf(spainEntry.getId()));
+			daoUnderTest.getEntity(spainEntry.getId(), EmissionEntry.class);
 			fail("Hier sollte eine Exception fliegen, weil der User nicht mehr existiert.");
 		}
 		catch (NoResultException e) {
@@ -71,8 +71,8 @@ class EmissionEntryDaoSlowTest extends AbstractSlowTestVorlage {
 		spainEntry.setEmissions(42.22);
 		spainEntry.setChecked(true);
 		
-		daoUnderTest.updateEmissionEntry(spainEntry);
-		EmissionEntry result = daoUnderTest.getEmissionEntry(String.valueOf(spainEntry.getId()));
+		daoUnderTest.updateEntity(spainEntry);
+		EmissionEntry result = daoUnderTest.getEntity(spainEntry.getId(), EmissionEntry.class);
 		
 		assertAll(
 			() -> assertEquals(spainEntry.getCountry(), result.getCountry()),
