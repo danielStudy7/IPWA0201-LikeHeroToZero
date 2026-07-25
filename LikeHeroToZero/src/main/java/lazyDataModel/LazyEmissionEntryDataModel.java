@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.primefaces.model.FilterMeta;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortMeta;
@@ -65,7 +66,16 @@ public class LazyEmissionEntryDataModel extends LazyDataModel<EmissionEntry>
 	public List<EmissionEntry> load(int first, int pageSize, Map<String, SortMeta> sortBy,
 			Map<String, FilterMeta> filterBy) 
 	{
-		//  TODO eigene Methode
+		Pair<String,SortOrder> sortOrder = createSortOrder(sortBy);
+		
+		Map<String, Object> filters = createFilterHashMap(filterBy);
+		emissionList = emissionDao.loadEmissionEntrys(first, pageSize, sortOrder.getLeft(), sortOrder.getRight(), filters);
+		
+		return emissionList;
+	}
+
+	private Pair<String, SortOrder> createSortOrder(Map<String, SortMeta> sortBy) {
+		
 		String sortField = null;
 		SortOrder sortOrder = null;
 		
@@ -76,7 +86,10 @@ public class LazyEmissionEntryDataModel extends LazyDataModel<EmissionEntry>
 			sortOrder = sortMeta.getOrder();
 		}
 		
-		// TODO eigene Methode
+		return Pair.of(sortField, sortOrder);
+	}
+
+	private Map<String, Object> createFilterHashMap(Map<String, FilterMeta> filterBy) {
 		Map<String, Object> filters = new HashMap<>();
 		
 		if (filterBy != null)
@@ -86,9 +99,7 @@ public class LazyEmissionEntryDataModel extends LazyDataModel<EmissionEntry>
 				filters.put(entry.getKey(), entry.getValue().getFilterValue());
 			}
 		}
-		emissionList = emissionDao.loadEmissionEntrys(first, pageSize, sortField, sortOrder, filters);
-		
-		return emissionList;
+		return filters;
 	}
 	
 	

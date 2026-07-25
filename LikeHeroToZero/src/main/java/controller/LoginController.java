@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.Serializable;
-import java.util.List;
 
 import dao.UserDAO;
 import jakarta.enterprise.context.SessionScoped;
@@ -15,6 +14,7 @@ import jakarta.faces.validator.ValidatorException;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import model.User;
+import service.UserService;
 
 @Named
 @SessionScoped
@@ -28,29 +28,26 @@ public class LoginController implements Serializable
 	@Inject
 	private UserSessionController userSession;
 	
+	@Inject
+	private UserService userService;
+	
 	private User loginUser;
 	
-	
-	//Konstruktor
 	public LoginController()
 	{
 		loginUser = new User("", "");
 	}
 	
-	
-	//Login und Logout
 	public String login()
 	{
-		// TODO UserService login mit return Wert
 		userSession.setCurrentUser(userDao.getUserByUsername(loginUser.getUserName()));
 		userSession.setLoggedIn(true);
 		
-		return "backend.xhtml"; //CurrentUser und loggedin wurde noch nicht gesetzt
+		return "backend.xhtml";
 	}
 	
 	public String logout()
 	{
-		// TODO UserService logOut mit Return Wer
 		if (userSession.getCurrentUser() != null)
 		{	
 			userSession.setCurrentUser(null);
@@ -62,39 +59,27 @@ public class LoginController implements Serializable
 		}
 		else 
 		{			
-			// TODO Refactoring: Nur im Controller zurückgeben
 			return "index.xhtml";
 		}
 	}
 
-	// TODO UserService
 	public void validateLogin(FacesContext context, UIComponent component, Object object) throws ValidatorException
 	{
-		List<User> userList = userDao.getEntityList(User.class);
-		
 		String tempPass = (String) object;
 		
-		loginUser.setPassword(Integer.toString(tempPass.hashCode()));
-		
-		for (User user : userList)
-		{	
-			if (user.equals(loginUser))
-			{
-				return;
-			}
+		if (userService.isLoginValid(loginUser.getUserName(), tempPass)) {
+			return;
 		}
+		
 		throw new ValidatorException(new FacesMessage("Benutzername oder Passwort falsch!"));
 	}
 	
-	// TODO UserService
 	public void postValidateUser(ComponentSystemEvent event) throws AbortProcessingException
 	{
 		UIInput temp = (UIInput) event.getComponent();
 		this.loginUser.setUserName((String)temp.getValue()); 
 	}
 	
-	
-	//Getter Setter
 	public UserSessionController getUserSession()
 	{
 		return userSession;

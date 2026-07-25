@@ -19,7 +19,6 @@ public class EmissionEntry
 	private Country country;
 	private double emissions;
 	
-	// TODO localDate oder so?
 	private int year;
 	
 	private boolean checked;

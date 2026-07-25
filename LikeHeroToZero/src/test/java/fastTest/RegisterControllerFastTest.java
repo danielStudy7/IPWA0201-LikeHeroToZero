@@ -2,8 +2,6 @@ package fastTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Arrays;
-
 import org.easymock.EasyMockExtension;
 import org.easymock.Mock;
 import org.easymock.TestSubject;
@@ -21,6 +19,7 @@ import jakarta.faces.component.UIInput;
 import jakarta.faces.event.ComponentSystemEvent;
 import jakarta.faces.validator.ValidatorException;
 import model.User;
+import service.UserService;
 
 @ExtendWith(EasyMockExtension.class)
 class RegisterControllerFastTest {
@@ -32,6 +31,8 @@ class RegisterControllerFastTest {
 	private UserDAO userDao;
 	@Mock
 	private UserSessionController userSession;
+	@Mock
+	private UserService userService;
 	
 	private User user;
 	
@@ -49,19 +50,17 @@ class RegisterControllerFastTest {
 	public void testSignUp_Success() throws Exception {
 		controllerUnderTest.setSignUpUser(user);
 		
-		reset(userDao, userSession);
-		userDao.createEntity(user);
-		expectLastCall();
+		reset(userSession);
 		userSession.setCurrentUser(user);
 		expectLastCall();
 		userSession.setLoggedIn(true);
 		expectLastCall();
-		replay(userDao, userSession);
+		replay(userSession);
 		
 		String result = controllerUnderTest.signUp();
 		
 		assertEquals("backend.xhtml", result);
-		verify(userDao, userSession);
+		verify(userSession);
 	}
 	
 	@Test
@@ -87,18 +86,18 @@ class RegisterControllerFastTest {
 		ComponentSystemEvent event = createMock("event", ComponentSystemEvent.class);
 	    UIInput uiInput = createMock("uiInput", UIInput.class);
 
-	    reset(userDao, userSession);
+	    reset(userSession, userService, event, uiInput);
 	    expect(event.getComponent()).andReturn(uiInput);
 	    expect(uiInput.getValue()).andReturn("nochNichtVergeben");
-	    expect(userDao.getEntityList(User.class)).andReturn(Arrays.asList(user));
-	    replay(userDao, userSession, event, uiInput);
+	    expect(userService.isUsernameValid("nochNichtVergeben")).andReturn(true);
+	    replay(userService, userSession, event, uiInput);
 
 	    controllerUnderTest.postValidateUserName(event);   // tempUserName wird gesetzt
 
 	    assertDoesNotThrow(() ->
 	        controllerUnderTest.validateUserName(null, null, null));
 
-	    verify(userDao, event, uiInput);
+	    verify(userSession, userService, event, uiInput);
 	}
 	
 	@Test
@@ -106,18 +105,18 @@ class RegisterControllerFastTest {
 		ComponentSystemEvent event = createMock("event", ComponentSystemEvent.class);
 	    UIInput uiInput = createMock("uiInput", UIInput.class);
 
-	    reset(userDao, userSession);
+	    reset(userService, userSession, event, uiInput);
 	    expect(event.getComponent()).andReturn(uiInput);
 	    expect(uiInput.getValue()).andReturn("dhirt");
-	    expect(userDao.getEntityList(User.class)).andReturn(Arrays.asList(user));
-	    replay(userDao, userSession, event, uiInput);
+	    expect(userService.isUsernameValid("dhirt")).andReturn(false);
+	    replay(userService, userSession, event, uiInput);
 
 	    controllerUnderTest.postValidateUserName(event);  
 
 	    assertThrows(ValidatorException.class, () ->
 	        controllerUnderTest.validateUserName(null, null, null));
 
-	    verify(userDao, event, uiInput);
+	    verify(userSession, userService, event, uiInput);
 	}
 
 }

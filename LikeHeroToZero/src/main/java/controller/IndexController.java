@@ -18,6 +18,7 @@ import lazyDataModel.LazyEmissionEntryDataModel;
 import model.Country;
 import model.EmissionEntry;
 import model.User;
+import service.UserService;
 
 @Named
 @ViewScoped
@@ -34,6 +35,9 @@ public class IndexController implements Serializable
 	
 	@Inject
 	private UserDAO userDao;
+	
+	@Inject
+	private UserService userService;
 	
 	
 	//Konstruktor
@@ -54,7 +58,7 @@ public class IndexController implements Serializable
 			if (userDao.getUserByUsername("system") == null)
 			{
 				systemUser = new User("system", "system");
-				userDao.createEntity(systemUser);				
+				userService.createUser(systemUser);
 			}
 			else
 			{

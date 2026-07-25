@@ -3,8 +3,6 @@ package fastTest;
 import static org.easymock.EasyMock.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Arrays;
-
 import org.easymock.EasyMockExtension;
 import org.easymock.Mock;
 import org.easymock.TestSubject;
@@ -18,6 +16,7 @@ import dao.UserDAO;
 import jakarta.faces.component.UIInput;
 import jakarta.faces.event.ComponentSystemEvent;
 import model.User;
+import service.UserService;
 
 @ExtendWith(EasyMockExtension.class)
 class LoginControllerFastTest {
@@ -28,6 +27,8 @@ class LoginControllerFastTest {
 	private UserDAO userDao;
 	@Mock
 	private UserSessionController userSessionController;
+	@Mock
+	private UserService userService;
 	
 	private User loginUser;
 	
@@ -95,13 +96,13 @@ class LoginControllerFastTest {
 		String tempPassword = "geheim";
 		controllerUnderTest.setLoginUser(loginUser);
 		
-		reset(userDao, userSessionController);
-		expect(userDao.getEntityList(User.class)).andReturn(Arrays.asList(loginUser));
-		replay(userDao, userSessionController);
+		reset(userSessionController, userService);
+		expect(userService.isLoginValid(loginUser.getUserName(), loginUser.getPassword())).andReturn(true);
+		replay(userSessionController, userService);
 		
 		assertDoesNotThrow(() -> controllerUnderTest.validateLogin(null, null, tempPassword));
 		
-		verify(userDao, userSessionController);
+		verify(userSessionController, userService);
 	}
 	
 	@Test

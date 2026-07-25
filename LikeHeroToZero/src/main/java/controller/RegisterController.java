@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.Serializable;
-import java.util.List;
 
 import common.FailedOperationException;
 import dao.UserDAO;
@@ -14,6 +13,7 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import model.User;
+import service.UserService;
 
 @Named
 @ViewScoped
@@ -22,29 +22,25 @@ public class RegisterController implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
-	private UserDAO userDao;
+	private UserSessionController userSession;
 	
 	@Inject
-	private UserSessionController userSession;
+	private UserService userService;
 	
 	private User signUpUser;
 	
 	private String tempUserName;
 	
-	
-	//Konstruktor
 	public RegisterController()
 	{
 		signUpUser = new User("", "");
 	}
 	
-	
-	//Neuen User erstellten
 	public String signUp() throws FailedOperationException
 	{
 		if (signUpUser.getUserName() != null && !signUpUser.getUserName().isEmpty() && signUpUser.getPassword() != null && !signUpUser.getPassword().isEmpty())
 		{
-			userDao.createEntity(signUpUser);
+			userService.createUser(signUpUser);
 			userSession.setCurrentUser(signUpUser);
 			userSession.setLoggedIn(true);
 			
@@ -56,47 +52,21 @@ public class RegisterController implements Serializable
 		}
 	}
 	
-	
-	//Registrierung validieren
 	public void postValidateUserName(ComponentSystemEvent event) throws ValidatorException
 	{
 		UIInput tempUserName = (UIInput) event.getComponent();
 		this.tempUserName = (String) tempUserName.getValue();
 	}
 	
-	// TODO UserService
 	public void validateUserName(FacesContext context, UIInput component, Object object) throws ValidatorException
 	{
-		List<User> userList = userDao.getEntityList(User.class);
-		
-		int count = 0;
-		
-		if (userList != null && !userList.isEmpty())
-		{
-			for (User user : userList)
-			{
-				if (user.getUserName().equals(tempUserName))
-				{
-					count++;
-				}
-			}
-			if (count == 0)
-			{
-				return;
-			}
-			else
-			{
-				throw new ValidatorException(new FacesMessage("Benutzername ist bereits vergeben. Bitte wählen Sie einen anderen."));
-			}
-		}
-		else
-		{
+		if (userService.isUsernameValid(tempUserName)) {
 			return;
 		}
+		
+		throw new ValidatorException(new FacesMessage("Benutzername ist bereits vergeben. Bitte wählen Sie einen anderen."));
 	}
 	
-	
-	//Getter Setter
 	public User getSignUpUser()
 	{
 		return signUpUser;

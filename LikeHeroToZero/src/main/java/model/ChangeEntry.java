@@ -18,7 +18,6 @@ public class ChangeEntry
 	private boolean declined;
 	private double emissions;
 	
-	// TODO localDate oder so?
 	private int year;
 	
 	@ManyToOne

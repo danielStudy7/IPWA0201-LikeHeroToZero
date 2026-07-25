@@ -20,8 +20,6 @@ public class User
 	private String name;
 	private String familyName;
 	
-	
-	//Konstruktoren
 	public User()
 	{
 		
@@ -33,8 +31,6 @@ public class User
 		this.password = password;
 	}
 
-	
-	//Überschriebene Methoden
 	@Override
 	public boolean equals(Object loginUser)
 	{
@@ -63,8 +59,6 @@ public class User
 		return this.userName.hashCode() * 7;
 	}
 	
-	
-	//Getter Setter
 	public int getId()
 	{
 		return id;
