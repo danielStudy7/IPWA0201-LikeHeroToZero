@@ -1,7 +1,15 @@
 package fastTest;
 
-import static org.easymock.EasyMock.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.easymock.EasyMock.createMock;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.expectLastCall;
+import static org.easymock.EasyMock.replay;
+import static org.easymock.EasyMock.reset;
+import static org.easymock.EasyMock.verify;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,10 +26,12 @@ import controller.ChangesController;
 import controller.UserSessionController;
 import dao.ChangeEntryDAO;
 import dao.EmissionEntryDAO;
+import jakarta.faces.validator.ValidatorException;
 import model.ChangeEntry;
 import model.Country;
 import model.EmissionEntry;
 import model.User;
+import service.ChangeEntryService;
 
 @ExtendWith(EasyMockExtension.class)
 class ChangesControllerFastTest {
@@ -35,6 +45,8 @@ class ChangesControllerFastTest {
 	private ChangeEntryDAO changeEntryDao;
 	@Mock
 	private EmissionEntryDAO emissionEntryDao;
+	@Mock
+	private ChangeEntryService changeEntryService;
 	
 	private User changeUser;
 	private EmissionEntry emissionEntryGermany;
@@ -60,7 +72,7 @@ class ChangesControllerFastTest {
 	public void testAcceptChange_NoChange() throws Exception {
 		assertNull(controllerUnderTest.getSelectedChangeEntry());
 		
-		controllerUnderTest.acceptChange();
+		assertThrows(ValidatorException.class, () -> controllerUnderTest.acceptChange());
 		
 		assertFalse(changeEntryList.get(0).isAccepted());
 		assertFalse(changeEntryList.get(1).isAccepted());
@@ -74,24 +86,23 @@ class ChangesControllerFastTest {
 		controllerUnderTest.setSelectedChangeEntry(changeEntryGermany);
 		assertNotNull(controllerUnderTest.getSelectedChangeEntry());
 		
-		reset(userSessionController, changeEntryDao, emissionEntryDao, event);
-		expect(event.getObject()).andReturn(changeEntryGermany).times(2);
+		reset(userSessionController, changeEntryService, event);
+		expect(event.getObject()).andReturn(changeEntryGermany).times(1);
 		changeEntryDao.updateEntity(changeEntryGermany);
 		expectLastCall();
 		emissionEntryDao.updateEntity(emissionEntryGermany);
 		expectLastCall();
-		replay(userSessionController, changeEntryDao, emissionEntryDao, event);
+		changeEntryService.acceptChange(changeEntryGermany, emissionEntryGermany, true);
+		expectLastCall();
+		replay(userSessionController, changeEntryService, event);
 		
 		controllerUnderTest.onRowSelect(event);
 		controllerUnderTest.acceptChange();
 		
-		assertEquals(changeEntryGermany.getCountry(), emissionEntryGermany.getCountry());
-		assertEquals(changeEntryGermany.getEmissions(), emissionEntryGermany.getEmissions());
-		assertEquals(changeEntryGermany.getEmissionEntry().getId(), emissionEntryGermany.getId());
-		assertEquals(changeEntryGermany.getCreateUser(), emissionEntryGermany.getUser());
-		assertEquals(changeEntryGermany.getYear(), emissionEntryGermany.getYear());
+		assertNull(controllerUnderTest.getSelectedChangeEntry());
+		assertNull(controllerUnderTest.getEmissionEntry());
 		
-		verify(userSessionController, changeEntryDao, emissionEntryDao, event);
+		verify(userSessionController, changeEntryService, event);
 	}
 
 	@Test
@@ -102,24 +113,19 @@ class ChangesControllerFastTest {
 		controllerUnderTest.setSelectedChangeEntry(changeEntrySpain);
 		assertNotNull(controllerUnderTest.getSelectedChangeEntry());
 		
-		reset(userSessionController, changeEntryDao, emissionEntryDao, event);
-		expect(event.getObject()).andReturn(changeEntrySpain).times(2);
-		changeEntryDao.updateEntity(changeEntrySpain);
+		reset(userSessionController, changeEntryService, event);
+		expect(event.getObject()).andReturn(changeEntrySpain);
+		changeEntryService.acceptChange(changeEntrySpain, emissionEntrySpain, true);
 		expectLastCall();
-		emissionEntryDao.updateEntity(emissionEntrySpain);
-		expectLastCall();
-		replay(userSessionController, changeEntryDao, emissionEntryDao, event);
+		replay(userSessionController, changeEntryService, event);
 		
 		controllerUnderTest.onRowSelect(event);
 		controllerUnderTest.acceptChange();
 		
-		assertEquals(changeEntrySpain.getCountry(), emissionEntrySpain.getCountry());
-		assertEquals(changeEntrySpain.getEmissions(), emissionEntrySpain.getEmissions());
-		assertEquals(changeEntrySpain.getEmissionEntry().getId(), emissionEntrySpain.getId());
-		assertEquals(changeEntrySpain.getCreateUser(), emissionEntrySpain.getUser());
-		assertEquals(changeEntrySpain.getYear(), emissionEntrySpain.getYear());
+		assertNull(controllerUnderTest.getSelectedChangeEntry());
+		assertNull(controllerUnderTest.getEmissionEntry());
 		
-		verify(userSessionController, changeEntryDao, emissionEntryDao, event);
+		verify(userSessionController, changeEntryService, event);
 	}
 	
 	@Test
@@ -130,15 +136,18 @@ class ChangesControllerFastTest {
 		controllerUnderTest.setSelectedChangeEntry(changeEntrySpain);
 		assertNotNull(controllerUnderTest.getSelectedChangeEntry());
 		
-		reset(userSessionController, changeEntryDao, emissionEntryDao, event);
-		expect(event.getObject()).andReturn(changeEntrySpain).times(2);
-		changeEntryDao.updateEntity(changeEntrySpain);
+		reset(userSessionController, changeEntryService, emissionEntryDao, event);
+		expect(event.getObject()).andReturn(changeEntrySpain).times(1);
 		expectLastCall();
-		replay(userSessionController, changeEntryDao, emissionEntryDao, event);
+		changeEntryService.acceptChange(changeEntrySpain, emissionEntrySpain, false);
+		expectLastCall();
+		replay(userSessionController, changeEntryService, emissionEntryDao, event);
 		
 		controllerUnderTest.onRowSelect(event);
 		controllerUnderTest.declineChange();
 		
 		assertFalse(changeEntrySpain.isAccepted());
+		
+		verify(userSessionController, changeEntryService, emissionEntryDao, event);
 	}
 }

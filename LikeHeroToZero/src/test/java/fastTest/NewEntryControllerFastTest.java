@@ -17,6 +17,7 @@ import dao.EmissionEntryDAO;
 import dao.UserDAO;
 import model.EmissionEntry;
 import model.User;
+import service.UserService;
 
 @ExtendWith(EasyMockExtension.class)
 public class NewEntryControllerFastTest {
@@ -30,6 +31,8 @@ public class NewEntryControllerFastTest {
     private UserDAO userDao;
     @Mock
     private UserSessionController userSession;
+    @Mock
+    private UserService userService;
 
     private User user;
 
@@ -45,13 +48,13 @@ public class NewEntryControllerFastTest {
     public void testCreateEmissionEntry_Success() throws FailedOperationException {
         EmissionEntry entry = controllerUnderTest.getEmissionEntry();
 
-        reset(emissionDao, userDao, userSession);
+        reset(emissionDao, userSession, userService);
         expect(userSession.getCurrentUser()).andReturn(user).times(2);
-        userDao.updateEntity(user);
-        expectLastCall();
         emissionDao.createEntity(entry);
         expectLastCall();
-        replay(emissionDao, userDao, userSession);
+        userService.updateUser(user);
+        expectLastCall();
+        replay(emissionDao, userSession, userService);
 
         controllerUnderTest.createEmissionEntry();
 
@@ -59,6 +62,6 @@ public class NewEntryControllerFastTest {
         assertEquals(user, entry.getUser());
         assertNotSame(entry, controllerUnderTest.getEmissionEntry());
 
-        verify(emissionDao, userDao, userSession);
+        verify(emissionDao, userSession, userService);
     }
 }

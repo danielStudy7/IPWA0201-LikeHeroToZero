@@ -5,13 +5,15 @@ import java.io.Serializable;
 import org.primefaces.event.SelectEvent;
 
 import common.FailedOperationException;
-import dao.ChangeEntryDAO;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.validator.ValidatorException;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lazyDataModel.LazyEmissionEntryDataModel;
 import model.ChangeEntry;
 import model.EmissionEntry;
+import service.ChangeEntryService;
 
 @Named
 @ViewScoped
@@ -25,65 +27,33 @@ public class BackendController implements Serializable
 	private ChangeEntry changeEntry;
 	
 	@Inject
-	private ChangeEntryDAO changeEntryDao;
+	private UserSessionController userSession;
 	
 	@Inject
-	private UserSessionController userSession;
+	private ChangeEntryService changeEntryService;
 
-	
-	//Konstruktor
 	public BackendController()
 	{
 		changeEntry = new ChangeEntry();
 		lazyDataModel = new LazyEmissionEntryDataModel();
 	}
 	
-	
-	//Übernahme des selektierten EmissionEntry
 	public void onRowSelect(SelectEvent<EmissionEntry> event)
 	{
 		selectedEmissionEntry = event.getObject();
 	}
 	
-	//Neuen ChangeEntry erstellen
-	//Übernimmt Daten aus dem vorherigen EmissionEntry, wenn diese nicht gefüllt wurden
-	// TODO ChangeEntryService
 	public void createChangeEntry() throws FailedOperationException
 	{	
 		if (selectedEmissionEntry != null)
 		{
-			if (changeEntry.getCountry() == null)
-			{
-				changeEntry.setCountry(selectedEmissionEntry.getCountry());
-			}
-			
-			if (changeEntry.getEmissions() == 0.0)
-			{
-				changeEntry.setEmissions(selectedEmissionEntry.getEmissions());
-			}
-			
-			if (changeEntry.getYear() == 0)
-			{
-				changeEntry.setYear(selectedEmissionEntry.getYear());
-			}
-			
-			changeEntry.setAccepted(false);
-			changeEntry.setDeclined(false);
-			
-			changeEntry.setEmissionEntry(selectedEmissionEntry);
-			
-			changeEntry.setChangeUser(userSession.getCurrentUser());
-			changeEntry.setCreateUser(selectedEmissionEntry.getUser());
-			
-			changeEntryDao.createEntity(changeEntry);
-			
+			changeEntryService.createChangeEntry(changeEntry, selectedEmissionEntry, userSession.getCurrentUser());
+
 			changeEntry = new ChangeEntry();
-			
 			selectedEmissionEntry = null;
 		}
-		else
-		{
-			
+		else {
+			throw new ValidatorException(new FacesMessage("Bitte wählen Sie einen Eintrag zum Ändern aus."));
 		}
 	}
 	
@@ -93,8 +63,6 @@ public class BackendController implements Serializable
 		//Leere Methode zum Übernehmen der Einträge
 	}
 	
-	
-	//Getter Setter
 	public LazyEmissionEntryDataModel getLazyDataModel()
 	{
 		return lazyDataModel;

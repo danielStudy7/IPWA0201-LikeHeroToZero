@@ -3,7 +3,6 @@ package controller;
 import java.io.Serializable;
 
 import common.FailedOperationException;
-import dao.UserDAO;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIInput;
 import jakarta.faces.context.FacesContext;

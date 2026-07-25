@@ -26,11 +26,9 @@ public class EmissionEntry
 	@ManyToOne
 	private User user;
 
-	
-	//Konstruktoren
 	public EmissionEntry()
 	{
-		
+		// hibernate
 	}
 	
 	public EmissionEntry(Country country, double emissions, int year, boolean checked, User user)
@@ -42,8 +40,6 @@ public class EmissionEntry
 		this.user = user;
 	}
 	
-	
-	//Überschriebene Methoden
 	@Override
 	public boolean equals(Object obj)
 	{
