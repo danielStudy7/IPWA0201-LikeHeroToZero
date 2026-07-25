@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import common.FailedOperationException;
 import controller.NewEntryController;
 import controller.UserSessionController;
 import dao.EmissionEntryDAO;
@@ -41,12 +42,12 @@ public class NewEntryControllerFastTest {
     }
 
     @Test
-    public void testCreateEmissionEntry_Success() {
+    public void testCreateEmissionEntry_Success() throws FailedOperationException {
         EmissionEntry entry = controllerUnderTest.getEmissionEntry();
 
         reset(emissionDao, userDao, userSession);
         expect(userSession.getCurrentUser()).andReturn(user).times(2);
-        userDao.updateUser(user);
+        userDao.updateEntity(user);
         expectLastCall();
         emissionDao.createEmissionEntry(entry);
         expectLastCall();

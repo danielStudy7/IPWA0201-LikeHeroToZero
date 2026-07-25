@@ -42,7 +42,7 @@ public class LoginController implements Serializable
 	public String login()
 	{
 		// TODO Refactoring
-		userSession.setCurrentUser(userDao.getUser(loginUser.getUserName()));
+		userSession.setCurrentUser(userDao.getUserByUsername(loginUser.getUserName()));
 		userSession.setLoggedIn(true);
 		
 		return "backend.xhtml"; //CurrentUser und loggedin wurde noch nicht gesetzt
@@ -69,7 +69,7 @@ public class LoginController implements Serializable
 	//Login validieren
 	public void validateLogin(FacesContext context, UIComponent component, Object object) throws ValidatorException
 	{
-		List<User> userList = userDao.getUserList();
+		List<User> userList = userDao.getEntityList(User.class);
 		
 		String tempPass = (String) object;
 		

@@ -31,14 +31,14 @@ class UserDaoSlowTest extends AbstractSlowTestVorlage {
 	
 	@Test
 	public void testGetUserList() throws Exception {
-		List<User> userList = daoUnderTest.getUserList();
+		List<User> userList = daoUnderTest.getEntityList(User.class);
 		
 		assertEquals(2, userList.size());
 	}
 	
 	@Test
 	public void testGetUser() throws Exception {
-		User result = daoUnderTest.getUser("daniel");
+		User result = daoUnderTest.getUserByUsername("daniel");
 		
 		assertEquals(userDaniel, result);
 	}
@@ -49,8 +49,8 @@ class UserDaoSlowTest extends AbstractSlowTestVorlage {
 		newUser.setName("Daniel");
 		newUser.setFamilyName("Hirt");
 		
-		daoUnderTest.createUser(newUser);
-		User result = daoUnderTest.getUser("hirt");
+		daoUnderTest.createEntity(newUser);
+		User result = daoUnderTest.getUserByUsername("hirt");
 		
 		assertEquals(newUser, result);
 	}
@@ -60,8 +60,8 @@ class UserDaoSlowTest extends AbstractSlowTestVorlage {
 		userAdmin.setName("Daniel");
 		userAdmin.setFamilyName("Hirt");
 		
-		daoUnderTest.updateUser(userAdmin);
-		User result = daoUnderTest.getUser("admin");
+		daoUnderTest.updateEntity(userAdmin);
+		User result = daoUnderTest.getUserByUsername("admin");
 		
 		assertAll(
 			() -> assertEquals("Daniel", result.getName()),
@@ -74,10 +74,10 @@ class UserDaoSlowTest extends AbstractSlowTestVorlage {
 	
 	@Test
 	public void testDeleteUser() throws Exception {
-		daoUnderTest.deleteUser(userDaniel);
+		daoUnderTest.deleteEntity(userDaniel);
 		
 		try {
-			daoUnderTest.getUser("daniel");
+			daoUnderTest.getUserByUsername("daniel");
 			fail("Hier sollte eine Exception fliegen, weil der User nicht mehr existiert.");
 		}
 		catch (NoResultException e) {

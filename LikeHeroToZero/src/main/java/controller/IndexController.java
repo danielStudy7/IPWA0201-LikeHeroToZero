@@ -8,6 +8,7 @@ import java.util.List;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import common.FailedOperationException;
 import dao.EmissionEntryDAO;
 import dao.UserDAO;
 import jakarta.faces.view.ViewScoped;
@@ -37,7 +38,7 @@ public class IndexController implements Serializable
 	//Konstruktor
 	//Erstellt initiale Standarddaten, wenn keine vorhanden sind 
 	//Erstellt einen Standard-User für die Standarddaten
-	public IndexController()
+	public IndexController() throws FailedOperationException
 	{
 		lazyDataModel = new LazyEmissionEntryDataModel();
 		emissionEntryDao = new EmissionEntryDAO();
@@ -47,14 +48,14 @@ public class IndexController implements Serializable
 			userDao = new UserDAO();
 			User systemUser;
 			
-			if (userDao.getUser("system") == null)
+			if (userDao.getUserByUsername("system") == null)
 			{
 				systemUser = new User("system", "system");
-				userDao.createUser(systemUser);				
+				userDao.createEntity(systemUser);				
 			}
 			else
 			{
-				systemUser = userDao.getUser("system");
+				systemUser = userDao.getUserByUsername("system");
 			}
 			
 			ObjectMapper objectMapper = new ObjectMapper();

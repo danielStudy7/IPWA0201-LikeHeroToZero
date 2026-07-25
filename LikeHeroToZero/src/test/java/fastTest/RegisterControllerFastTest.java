@@ -50,7 +50,7 @@ class RegisterControllerFastTest {
 		controllerUnderTest.setSignUpUser(user);
 		
 		reset(userDao, userSession);
-		userDao.createUser(user);
+		userDao.createEntity(user);
 		expectLastCall();
 		userSession.setCurrentUser(user);
 		expectLastCall();
@@ -65,7 +65,7 @@ class RegisterControllerFastTest {
 	}
 	
 	@Test
-	public void testSignUp_FailUserName() {
+	public void testSignUp_FailUserName() throws Exception {
 		user.setUserName("");
 		
 		String result = controllerUnderTest.signUp();
@@ -74,7 +74,7 @@ class RegisterControllerFastTest {
 	}
 	
 	@Test
-	public void testSignUp_FailPassword() {
+	public void testSignUp_FailPassword() throws Exception  {
 		user.setPassword("");
 		
 		String result = controllerUnderTest.signUp();
@@ -90,7 +90,7 @@ class RegisterControllerFastTest {
 	    reset(userDao, userSession);
 	    expect(event.getComponent()).andReturn(uiInput);
 	    expect(uiInput.getValue()).andReturn("nochNichtVergeben");
-	    expect(userDao.getUserList()).andReturn(Arrays.asList(user));
+	    expect(userDao.getEntityList(User.class)).andReturn(Arrays.asList(user));
 	    replay(userDao, userSession, event, uiInput);
 
 	    controllerUnderTest.postValidateUserName(event);   // tempUserName wird gesetzt
@@ -109,7 +109,7 @@ class RegisterControllerFastTest {
 	    reset(userDao, userSession);
 	    expect(event.getComponent()).andReturn(uiInput);
 	    expect(uiInput.getValue()).andReturn("dhirt");
-	    expect(userDao.getUserList()).andReturn(Arrays.asList(user));
+	    expect(userDao.getEntityList(User.class)).andReturn(Arrays.asList(user));
 	    replay(userDao, userSession, event, uiInput);
 
 	    controllerUnderTest.postValidateUserName(event);  

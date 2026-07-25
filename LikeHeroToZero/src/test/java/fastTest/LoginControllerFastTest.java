@@ -46,7 +46,7 @@ class LoginControllerFastTest {
 		controllerUnderTest.setLoginUser(loginUser);
 		
 		reset(userDao, userSessionController);
-		expect(userDao.getUser(loginUser.getUserName())).andReturn(loginUser);
+		expect(userDao.getUserByUsername(loginUser.getUserName())).andReturn(loginUser);
 		userSessionController.setCurrentUser(loginUser);
 		expectLastCall();
 		userSessionController.setLoggedIn(true);
@@ -96,7 +96,7 @@ class LoginControllerFastTest {
 		controllerUnderTest.setLoginUser(loginUser);
 		
 		reset(userDao, userSessionController);
-		expect(userDao.getUserList()).andReturn(Arrays.asList(loginUser));
+		expect(userDao.getEntityList(User.class)).andReturn(Arrays.asList(loginUser));
 		replay(userDao, userSessionController);
 		
 		assertDoesNotThrow(() -> controllerUnderTest.validateLogin(null, null, tempPassword));

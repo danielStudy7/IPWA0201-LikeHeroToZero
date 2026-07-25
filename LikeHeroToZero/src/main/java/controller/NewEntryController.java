@@ -2,6 +2,7 @@ package controller;
 
 import java.io.Serializable;
 
+import common.FailedOperationException;
 import dao.EmissionEntryDAO;
 import dao.UserDAO;
 import jakarta.faces.view.ViewScoped;
@@ -35,9 +36,9 @@ public class NewEntryController implements Serializable
 
 	
 	//Erstellt einen freigegebenen Eintrag
-	public void createEmissionEntry()
+	public void createEmissionEntry() throws FailedOperationException
 	{
-		userDao.updateUser(userSession.getCurrentUser());
+		userDao.updateEntity(userSession.getCurrentUser());
 		emissionEntry.setUser(userSession.getCurrentUser());
 		emissionEntry.setChecked(true);
 		emissionDao.createEmissionEntry(emissionEntry);

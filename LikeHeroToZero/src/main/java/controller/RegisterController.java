@@ -3,6 +3,7 @@ package controller;
 import java.io.Serializable;
 import java.util.List;
 
+import common.FailedOperationException;
 import dao.UserDAO;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIInput;
@@ -39,11 +40,11 @@ public class RegisterController implements Serializable
 	
 	
 	//Neuen User erstellten
-	public String signUp()
+	public String signUp() throws FailedOperationException
 	{
 		if (signUpUser.getUserName() != null && !signUpUser.getUserName().isEmpty() && signUpUser.getPassword() != null && !signUpUser.getPassword().isEmpty())
 		{
-			userDao.createUser(signUpUser);
+			userDao.createEntity(signUpUser);
 			userSession.setCurrentUser(signUpUser);
 			userSession.setLoggedIn(true);
 			
@@ -65,7 +66,7 @@ public class RegisterController implements Serializable
 	
 	public void validateUserName(FacesContext context, UIInput component, Object object) throws ValidatorException
 	{
-		List<User> userList = userDao.getUserList();
+		List<User> userList = userDao.getEntityList(User.class);
 		
 		int count = 0;
 		
