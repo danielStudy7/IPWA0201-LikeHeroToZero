@@ -86,7 +86,7 @@
 									sortBy="#{emissionEntry.country}"
 									filterBy="#{emissionEntry.country}">
 							<f:facet name="header">Land</f:facet>
-							<h:outputText value="#{emissionEntry.country}"/>
+							<h:outputText value="#{emissionEntry.country.displayName}"/>
 						</p:column>
 						<p:column 	sortable="true" 
 									sortBy="#{emissionEntry.emissions}">
