@@ -65,6 +65,7 @@ public class LazyEmissionEntryDataModel extends LazyDataModel<EmissionEntry>
 	public List<EmissionEntry> load(int first, int pageSize, Map<String, SortMeta> sortBy,
 			Map<String, FilterMeta> filterBy) 
 	{
+		//  TODO eigene Methode
 		String sortField = null;
 		SortOrder sortOrder = null;
 		
@@ -75,6 +76,7 @@ public class LazyEmissionEntryDataModel extends LazyDataModel<EmissionEntry>
 			sortOrder = sortMeta.getOrder();
 		}
 		
+		// TODO eigene Methode
 		Map<String, Object> filters = new HashMap<>();
 		
 		if (filterBy != null)

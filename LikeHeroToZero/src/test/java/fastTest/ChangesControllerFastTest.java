@@ -19,6 +19,7 @@ import controller.UserSessionController;
 import dao.ChangeEntryDAO;
 import dao.EmissionEntryDAO;
 import model.ChangeEntry;
+import model.Country;
 import model.EmissionEntry;
 import model.User;
 
@@ -46,11 +47,11 @@ class ChangesControllerFastTest {
 	public void setUp() throws Exception {
 		changeUser = new User("changer", "secret");
 		
-		emissionEntryGermany = new EmissionEntry("Germany", 20.2, 2025, false, changeUser);
-		emissionEntrySpain = new EmissionEntry("Spain", 22.3, 2026, false, changeUser);
+		emissionEntryGermany = new EmissionEntry(Country.GERMANY, 20.2, 2025, false, changeUser);
+		emissionEntrySpain = new EmissionEntry(Country.SPAIN_AND_ANDORRA, 22.3, 2026, false, changeUser);
 		
-		changeEntryGermany = new ChangeEntry(false, false, 20.2, 2025, changeUser, changeUser, "InfoText", "bild.de", "Germany", emissionEntryGermany);
-		changeEntrySpain = new ChangeEntry(false, false, 22.2, 2025, changeUser, changeUser, "InfoText", "marca.de", "Spain", emissionEntrySpain);
+		changeEntryGermany = new ChangeEntry(false, false, 20.2, 2025, changeUser, changeUser, "InfoText", "bild.de", Country.GERMANY, emissionEntryGermany);
+		changeEntrySpain = new ChangeEntry(false, false, 22.2, 2025, changeUser, changeUser, "InfoText", "marca.de", Country.SPAIN_AND_ANDORRA, emissionEntrySpain);
 		
 		changeEntryList = Arrays.asList(changeEntryGermany, changeEntrySpain);
 	}

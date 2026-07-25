@@ -34,10 +34,10 @@ public class NewEntryController implements Serializable
 		emissionEntry = new EmissionEntry();
 	}
 
-	
-	//Erstellt einen freigegebenen Eintrag
+	// TODO EmissionEntryService
 	public void createEmissionEntry() throws FailedOperationException
 	{
+		// TODO UserService updateUser
 		userDao.updateEntity(userSession.getCurrentUser());
 		emissionEntry.setUser(userSession.getCurrentUser());
 		emissionEntry.setChecked(true);

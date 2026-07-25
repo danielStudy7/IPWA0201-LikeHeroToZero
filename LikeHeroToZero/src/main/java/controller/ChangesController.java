@@ -42,7 +42,7 @@ public class ChangesController implements Serializable
 	}
 	
 	
-	//Methoden zum Akzeptieren und Ablehnen
+	// TODO ChangeEntryService
 	public void acceptChange() throws FailedOperationException
 	{
 		if (selectedChangeEntry != null)
@@ -66,6 +66,7 @@ public class ChangesController implements Serializable
 		}
 	}
 	
+	// TODO ChangeEntryService
 	public void declineChange() throws FailedOperationException
 	{
 		if (selectedChangeEntry != null)
@@ -96,6 +97,7 @@ public class ChangesController implements Serializable
 	
 	
 	//Getter Setter
+	// TODO ChangeEntryService
 	public List<ChangeEntry> getChangesList()
 	{
 		changesList = changeEntryDao.getChangeListByUser(userSession.getCurrentUser());

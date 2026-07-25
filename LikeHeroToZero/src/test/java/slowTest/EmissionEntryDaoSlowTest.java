@@ -11,6 +11,7 @@ import org.primefaces.model.SortOrder;
 
 import dao.EmissionEntryDAO;
 import jakarta.persistence.NoResultException;
+import model.Country;
 import model.EmissionEntry;
 import model.User;
 
@@ -26,8 +27,8 @@ class EmissionEntryDaoSlowTest extends AbstractSlowTestVorlage {
 		daoUnderTest = new EmissionEntryDAO(getEntityManager());
 		
 		user = new User("admin", "save");
-		germanyEntry = new EmissionEntry("Germany", 22.0, 2025, false, user);
-		spainEntry = new EmissionEntry("Spain", 32.0, 2025, false, user);
+		germanyEntry = new EmissionEntry(Country.GERMANY, 22.0, 2025, false, user);
+		spainEntry = new EmissionEntry(Country.SPAIN_AND_ANDORRA, 32.0, 2025, false, user);
 		
 		getEntityManager().persist(user);
 		getEntityManager().persist(germanyEntry);
@@ -45,7 +46,7 @@ class EmissionEntryDaoSlowTest extends AbstractSlowTestVorlage {
 	
 	@Test
 	void testCreateEmissionEntry() throws Exception {
-		EmissionEntry newEntry = new EmissionEntry("Portugal", 42.0, 2025, true, user);
+		EmissionEntry newEntry = new EmissionEntry(Country.PORTUGAL, 42.0, 2025, true, user);
 		
 		daoUnderTest.createEntity(newEntry);
 		EmissionEntry result = daoUnderTest.getEntity(newEntry.getId(), EmissionEntry.class);
@@ -105,7 +106,7 @@ class EmissionEntryDaoSlowTest extends AbstractSlowTestVorlage {
 	@Test
 	void testLoad_WithoutFilter() throws Exception {
 		getTransaction().begin();
-		EmissionEntry portugalEntry = new EmissionEntry("Portugal", 42.0, 2026, true, user);
+		EmissionEntry portugalEntry = new EmissionEntry(Country.PORTUGAL, 42.0, 2026, true, user);
 		getEntityManager().persist(portugalEntry);
 		
 		germanyEntry.setChecked(true);
@@ -155,7 +156,7 @@ class EmissionEntryDaoSlowTest extends AbstractSlowTestVorlage {
 	@Test
 	void testLoad() throws Exception {
 		getTransaction().begin();
-		EmissionEntry portugalEntry = new EmissionEntry("Portugal", 42.0, 2026, true, user);
+		EmissionEntry portugalEntry = new EmissionEntry(Country.PORTUGAL, 42.0, 2026, true, user);
 		getEntityManager().persist(portugalEntry);
 		
 		germanyEntry.setChecked(true);

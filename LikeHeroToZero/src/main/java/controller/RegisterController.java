@@ -64,6 +64,7 @@ public class RegisterController implements Serializable
 		this.tempUserName = (String) tempUserName.getValue();
 	}
 	
+	// TODO UserService
 	public void validateUserName(FacesContext context, UIInput component, Object object) throws ValidatorException
 	{
 		List<User> userList = userDao.getEntityList(User.class);

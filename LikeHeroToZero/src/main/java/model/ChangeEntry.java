@@ -1,6 +1,8 @@
 package model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -15,6 +17,8 @@ public class ChangeEntry
 	private boolean accepted;
 	private boolean declined;
 	private double emissions;
+	
+	// TODO localDate oder so?
 	private int year;
 	
 	@ManyToOne
@@ -25,7 +29,9 @@ public class ChangeEntry
 	
 	private String infoText;
 	private String source;
-	private String country;
+	
+	@Enumerated(EnumType.STRING) 
+	private Country country;
 	
 	@ManyToOne
 	private EmissionEntry emissionEntry;
@@ -38,7 +44,7 @@ public class ChangeEntry
 	}
 	
 	public ChangeEntry(boolean accepted, boolean declined, double emissions, int year, User changeUser, User createUser, String infoText, String source,
-			String country, EmissionEntry emissionEntry) 
+			Country country, EmissionEntry emissionEntry) 
 	{
 		this();
 		this.accepted = accepted;
@@ -124,7 +130,7 @@ public class ChangeEntry
 		return source;
 	}
 	
-	public String getCountry()
+	public Country getCountry()
 	{
 		return country;
 	}
@@ -179,7 +185,7 @@ public class ChangeEntry
 		this.source = source;
 	}
 	
-	public void setCountry(String country)
+	public void setCountry(Country country)
 	{
 		this.country = country;
 	}

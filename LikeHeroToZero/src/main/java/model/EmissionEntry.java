@@ -1,6 +1,8 @@
 package model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -12,8 +14,12 @@ public class EmissionEntry
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	private String country;
+	
+	@Enumerated(EnumType.STRING)
+	private Country country;
 	private double emissions;
+	
+	// TODO localDate oder so?
 	private int year;
 	
 	private boolean checked;
@@ -28,7 +34,7 @@ public class EmissionEntry
 		
 	}
 	
-	public EmissionEntry(String country, double emissions, int year, boolean checked, User user)
+	public EmissionEntry(Country country, double emissions, int year, boolean checked, User user)
 	{
 		this.country = country;
 		this.emissions = emissions;
@@ -69,7 +75,7 @@ public class EmissionEntry
 		return id;
 	}
 	
-	public String getCountry() 
+	public Country getCountry() 
 	{
 		return country;
 	}
@@ -99,7 +105,7 @@ public class EmissionEntry
 		this.id = id;
 	}
 	
-	public void setCountry(String country) 
+	public void setCountry(Country country) 
 	{
 		this.country = country;
 	}

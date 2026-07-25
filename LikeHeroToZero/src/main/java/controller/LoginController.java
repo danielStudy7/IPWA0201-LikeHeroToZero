@@ -41,7 +41,7 @@ public class LoginController implements Serializable
 	//Login und Logout
 	public String login()
 	{
-		// TODO Refactoring
+		// TODO UserService login mit return Wert
 		userSession.setCurrentUser(userDao.getUserByUsername(loginUser.getUserName()));
 		userSession.setLoggedIn(true);
 		
@@ -50,6 +50,7 @@ public class LoginController implements Serializable
 	
 	public String logout()
 	{
+		// TODO UserService logOut mit Return Wer
 		if (userSession.getCurrentUser() != null)
 		{	
 			userSession.setCurrentUser(null);
@@ -61,12 +62,12 @@ public class LoginController implements Serializable
 		}
 		else 
 		{			
-			// TODO Refactor - andere Rückgabe
+			// TODO Refactoring: Nur im Controller zurückgeben
 			return "index.xhtml";
 		}
 	}
-	
-	//Login validieren
+
+	// TODO UserService
 	public void validateLogin(FacesContext context, UIComponent component, Object object) throws ValidatorException
 	{
 		List<User> userList = userDao.getEntityList(User.class);
@@ -85,6 +86,7 @@ public class LoginController implements Serializable
 		throw new ValidatorException(new FacesMessage("Benutzername oder Passwort falsch!"));
 	}
 	
+	// TODO UserService
 	public void postValidateUser(ComponentSystemEvent event) throws AbortProcessingException
 	{
 		UIInput temp = (UIInput) event.getComponent();

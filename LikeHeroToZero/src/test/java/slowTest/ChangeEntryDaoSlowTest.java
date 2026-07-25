@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import dao.ChangeEntryDAO;
 import jakarta.persistence.NoResultException;
 import model.ChangeEntry;
+import model.Country;
 import model.EmissionEntry;
 import model.User;
 
@@ -26,8 +27,8 @@ public class ChangeEntryDaoSlowTest extends AbstractSlowTestVorlage {
 		
 		changeUser = new User("changer", "changePasswortPlease");
 		createUser = new User("creater", "createNewPasswort");
-		sourceEmissionEntry = new EmissionEntry("Germany", 19.99, 2025, true, createUser);
-		changeEntry = new ChangeEntry(false, false, 555.45, 2025, changeUser, createUser, "delete", "source: dele.te", "Germany", sourceEmissionEntry);
+		sourceEmissionEntry = new EmissionEntry(Country.GERMANY, 19.99, 2025, true, createUser);
+		changeEntry = new ChangeEntry(false, false, 555.45, 2025, changeUser, createUser, "delete", "source: dele.te", Country.GERMANY, sourceEmissionEntry);
 		
 		getEntityManager().persist(changeUser);
 		getEntityManager().persist(createUser);
@@ -39,7 +40,7 @@ public class ChangeEntryDaoSlowTest extends AbstractSlowTestVorlage {
 	
 	@Test
 	void testCreateChangeEntry() throws Exception {
-		ChangeEntry newChangeEntry = new ChangeEntry(false, false, 23.45, 2025, changeUser, createUser, "InfoText", "source: bild.de", "Germany", sourceEmissionEntry);
+		ChangeEntry newChangeEntry = new ChangeEntry(false, false, 23.45, 2025, changeUser, createUser, "InfoText", "source: bild.de", Country.GERMANY, sourceEmissionEntry);
 		
 		daoUnderTest.createEntity(newChangeEntry);
 		ChangeEntry result = daoUnderTest.getEntity(newChangeEntry.getId(), ChangeEntry.class);
@@ -120,7 +121,7 @@ public class ChangeEntryDaoSlowTest extends AbstractSlowTestVorlage {
 	
 	@Test
 	void testGetChangeList() throws Exception {
-		ChangeEntry changeEntry1 = new ChangeEntry(false, false, 23.45, 2025, changeUser, createUser, "InfoText", "source: bild.de", "Germany", sourceEmissionEntry);
+		ChangeEntry changeEntry1 = new ChangeEntry(false, false, 23.45, 2025, changeUser, createUser, "InfoText", "source: bild.de", Country.GERMANY, sourceEmissionEntry);
 		getTransaction().begin();
 		getEntityManager().persist(changeEntry1);
 		getTransaction().commit();

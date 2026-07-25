@@ -47,11 +47,12 @@ public class BackendController implements Serializable
 	
 	//Neuen ChangeEntry erstellen
 	//Übernimmt Daten aus dem vorherigen EmissionEntry, wenn diese nicht gefüllt wurden
+	// TODO ChangeEntryService
 	public void createChangeEntry() throws FailedOperationException
 	{	
 		if (selectedEmissionEntry != null)
 		{
-			if (changeEntry.getCountry() == null || changeEntry.getCountry() == "")
+			if (changeEntry.getCountry() == null)
 			{
 				changeEntry.setCountry(selectedEmissionEntry.getCountry());
 			}
