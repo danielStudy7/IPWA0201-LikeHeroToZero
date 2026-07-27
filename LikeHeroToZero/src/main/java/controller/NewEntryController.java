@@ -3,11 +3,11 @@ package controller;
 import java.io.Serializable;
 
 import common.FailedOperationException;
-import dao.EmissionEntryDAO;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import model.EmissionEntry;
+import service.EmissionEntryService;
 import service.UserService;
 
 @Named
@@ -19,7 +19,7 @@ public class NewEntryController implements Serializable
 	private EmissionEntry emissionEntry;
 	
 	@Inject
-	private EmissionEntryDAO emissionDao;
+	private EmissionEntryService emissionEntryService;
 	
 	@Inject
 	private UserSessionController userSession;
@@ -32,13 +32,10 @@ public class NewEntryController implements Serializable
 		emissionEntry = new EmissionEntry();
 	}
 
-	// TODO EmissionEntryService emissionEntry in den Service reichen
 	public void createEmissionEntry() throws FailedOperationException
 	{
 		userService.updateUser(userSession.getCurrentUser());
-		emissionEntry.setUser(userSession.getCurrentUser());
-		emissionEntry.setChecked(true);
-		emissionDao.createEntity(emissionEntry);
+		emissionEntryService.createEmissionEntry(emissionEntry, userSession.getCurrentUser());
 		emissionEntry = new EmissionEntry();
 	}
 

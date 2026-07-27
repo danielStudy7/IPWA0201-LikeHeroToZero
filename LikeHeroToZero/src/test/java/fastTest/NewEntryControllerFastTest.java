@@ -13,10 +13,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import common.FailedOperationException;
 import controller.NewEntryController;
 import controller.UserSessionController;
-import dao.EmissionEntryDAO;
 import dao.UserDAO;
 import model.EmissionEntry;
 import model.User;
+import service.EmissionEntryService;
 import service.UserService;
 
 @ExtendWith(EasyMockExtension.class)
@@ -26,7 +26,7 @@ public class NewEntryControllerFastTest {
     private NewEntryController controllerUnderTest = new NewEntryController();
 
     @Mock
-    private EmissionEntryDAO emissionDao;
+    private EmissionEntryService emissionEntryService;
     @Mock
     private UserDAO userDao;
     @Mock
@@ -48,20 +48,24 @@ public class NewEntryControllerFastTest {
     public void testCreateEmissionEntry_Success() throws FailedOperationException {
         EmissionEntry entry = controllerUnderTest.getEmissionEntry();
 
-        reset(emissionDao, userSession, userService);
+        reset(emissionEntryService, userSession, userService);
         expect(userSession.getCurrentUser()).andReturn(user).times(2);
-        emissionDao.createEntity(entry);
+        emissionEntryService.createEmissionEntry(entry, user);
         expectLastCall();
         userService.updateUser(user);
         expectLastCall();
-        replay(emissionDao, userSession, userService);
+        entry.setChecked(true);
+        expectLastCall();
+        entry.setUser(user);
+        expectLastCall();
+        replay(emissionEntryService, userSession, userService);
 
         controllerUnderTest.createEmissionEntry();
 
-        assertTrue(entry.isChecked());
         assertEquals(user, entry.getUser());
+        assertTrue(entry.isChecked());
         assertNotSame(entry, controllerUnderTest.getEmissionEntry());
 
-        verify(emissionDao, userSession, userService);
+        verify(emissionEntryService, userSession, userService);
     }
 }

@@ -9,8 +9,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import common.FailedOperationException;
-import dao.EmissionEntryDAO;
-import dao.UserDAO;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -18,6 +16,7 @@ import lazyDataModel.LazyEmissionEntryDataModel;
 import model.Country;
 import model.EmissionEntry;
 import model.User;
+import service.EmissionEntryService;
 import service.UserService;
 
 @Named
@@ -31,69 +30,66 @@ public class IndexController implements Serializable
 	private List<String> selectedItems;
 	
 	@Inject
-	private EmissionEntryDAO emissionEntryDao;
-	
-	@Inject
-	private UserDAO userDao;
+	private EmissionEntryService emissionEntryService;
 	
 	@Inject
 	private UserService userService;
 	
-	
-	//Konstruktor
-	//Erstellt initiale Standarddaten, wenn keine vorhanden sind 
-	//Erstellt einen Standard-User für die Standarddaten
 	public IndexController() throws FailedOperationException
 	{
-		// TODO Refactoring IndexService
 		lazyDataModel = new LazyEmissionEntryDataModel();
-		emissionEntryDao = new EmissionEntryDAO();
 		
-		if (emissionEntryDao.findAll().isEmpty() || emissionEntryDao.findAll() == null)
+		if (emissionEntryService.findAll().isEmpty() || emissionEntryService.findAll() == null)
 		{
-			userDao = new UserDAO();
-			User systemUser;
+			User systemUser = getOrCreateSystemUser();
 			
-			// FIXME getSingleResult gibt nicht mehr null zurück wenn nichts gefunden wird 
-			if (userDao.getUserByUsername("system") == null)
-			{
-				systemUser = new User("system", "system");
-				userService.createUser(systemUser);
-			}
-			else
-			{
-				systemUser = userDao.getUserByUsername("system");
-			}
-			
-			ObjectMapper objectMapper = new ObjectMapper();
-			
-			try
-			{
-			    InputStream inputData = IndexController.class.getClassLoader().getResourceAsStream("data.json");
-
-			    if (inputData == null)
-			    {
-			        throw new IOException("Die Datei \"data.json\" konnte nicht gefunden werden.");
-			    }
-
-			    JsonNode rootNode = objectMapper.readTree(inputData);
-
-			    for (JsonNode node : rootNode)
-			    {
-			        EmissionEntry emissionEntry = new EmissionEntry();
-			        emissionEntry.setEmissions(node.findValue("emissions").asDouble());
-			        emissionEntry.setYear(node.findValue("year").asInt());
-			        emissionEntry.setUser(systemUser);
-			        emissionEntry.setChecked(true);
-			        emissionEntry.setCountry(Country.fromDisplayName(node.findValue("country").asText()));
-			        emissionEntryDao.createEntity(emissionEntry);
-			    }
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
+			importInitinalData(systemUser);
 		}
+	}
+
+	private void importInitinalData(User systemUser) throws FailedOperationException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		
+		try
+		{
+		    InputStream inputData = IndexController.class.getClassLoader().getResourceAsStream("data.json");
+
+		    if (inputData == null)
+		    {
+		        throw new IOException("Die Datei \"data.json\" konnte nicht gefunden werden.");
+		    }
+
+		    JsonNode rootNode = objectMapper.readTree(inputData);
+
+		    for (JsonNode node : rootNode)
+		    {
+		        EmissionEntry emissionEntry = new EmissionEntry();
+		        emissionEntry.setEmissions(node.findValue("emissions").asDouble());
+		        emissionEntry.setYear(node.findValue("year").asInt());
+		        emissionEntry.setChecked(true);
+		        emissionEntry.setCountry(Country.fromDisplayName(node.findValue("country").asText()));
+		        emissionEntryService.createEmissionEntry(emissionEntry, systemUser);
+		    }
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	private User getOrCreateSystemUser() throws FailedOperationException {
+		User systemUser;
+		
+		if (userService.getUserByUsername("system") == null)
+		{
+			systemUser = new User("system", "system");
+			userService.createUser(systemUser);
+		}
+		else
+		{
+			systemUser = userService.getUserByUsername("system");
+		}
+		return systemUser;
 	}
 	
 	public LazyEmissionEntryDataModel getLazyDataModel()

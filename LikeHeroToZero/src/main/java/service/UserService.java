@@ -6,6 +6,7 @@ import common.FailedOperationException;
 import dao.UserDAO;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Named;
+import jakarta.persistence.NoResultException;
 import model.User;
 
 @Named
@@ -56,5 +57,18 @@ public class UserService {
 	
 	public void updateUser(User user) throws FailedOperationException {
 		userDao.updateEntity(user);
+	}
+	
+	public User getUserByUsername(String username) {
+		User result = null;
+		
+		try {
+			result = userDao.getUserByUsername(username);
+		} 
+		catch (NoResultException e) {
+			// Keine Exception werfen, null zurück
+		}
+
+		return result;
 	}
 }
