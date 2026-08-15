@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import common.FailedOperationException;
+import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -35,11 +36,20 @@ public class IndexController implements Serializable
 	@Inject
 	private UserService userService;
 	
+	private List<EmissionEntry> emissionEntries;
+	
 	public IndexController() throws FailedOperationException
 	{
+		// CDI
+	}
+	
+	@PostConstruct
+	public void init() throws FailedOperationException {
+		emissionEntries = emissionEntryService.findAll();
+
 		lazyDataModel = new LazyEmissionEntryDataModel();
 		
-		if (emissionEntryService.findAll().isEmpty() || emissionEntryService.findAll() == null)
+		if (emissionEntries.isEmpty() || emissionEntries == null)
 		{
 			User systemUser = getOrCreateSystemUser();
 			
