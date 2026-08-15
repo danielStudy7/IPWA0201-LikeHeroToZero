@@ -31,7 +31,7 @@
     <dependency>
       <groupId>org.junit</groupId>
       <artifactId>junit-bom</artifactId>
-      <version>6.0.0</version>   <!-- aktuelle JUnit-6-Version prüfen -->
+      <version>6.1.3</version> 
       <type>pom</type>
       <scope>import</scope>
     </dependency>
@@ -99,6 +99,16 @@
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-lang3</artifactId>
     <version>3.20.0</version>
+</dependency>
+<dependency>
+  <groupId>org.junit.jupiter</groupId>
+  <artifactId>junit-jupiter</artifactId>
+  <scope>test</scope>
+</dependency>
+<dependency>
+  <groupId>org.junit.platform</groupId>
+  <artifactId>junit-platform-suite-engine</artifactId>
+  <scope>test</scope>
 </dependency>
 </dependencies>
 </project>
