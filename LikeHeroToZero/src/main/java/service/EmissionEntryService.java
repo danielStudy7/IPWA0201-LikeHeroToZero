@@ -16,7 +16,11 @@ public class EmissionEntryService {
 	private EmissionEntryDAO emissionEntryDao;
 	
 	public EmissionEntryService() {
-		this.emissionEntryDao = new EmissionEntryDAO();
+		this(new EmissionEntryDAO());
+	}
+	
+	public EmissionEntryService(EmissionEntryDAO emissionEntryDao) {
+		this.emissionEntryDao = emissionEntryDao;
 	}
 	
 	public void createEmissionEntry(EmissionEntry emissionEntry, User currentUser) throws FailedOperationException {

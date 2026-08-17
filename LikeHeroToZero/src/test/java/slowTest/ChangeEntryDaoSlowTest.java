@@ -22,7 +22,7 @@ public class ChangeEntryDaoSlowTest extends AbstractSlowTestVorlage {
 	private ChangeEntry changeEntry;
 	
 	@Override
-	void createTestData() {
+	public void createTestData() {
 		daoUnderTest = new ChangeEntryDAO(getEntityManager());
 		
 		changeUser = new User("changer", "changePasswortPlease");

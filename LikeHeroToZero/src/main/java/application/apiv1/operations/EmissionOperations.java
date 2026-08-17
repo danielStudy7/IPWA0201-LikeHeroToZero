@@ -1,10 +1,11 @@
 package application.apiv1.operations;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import application.apiv1.mapper.EmissionEntryToRESTModel;
-import application.apiv1.model.EmissionRESTModel;
+import application.apiv1.model.EmissionEntryRESTModel;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -14,6 +15,7 @@ import jakarta.ws.rs.core.MediaType;
 import model.EmissionEntry;
 import service.EmissionEntryService;
 
+@Tag(name = "Emissionen")
 @Path("/emissions")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -24,9 +26,13 @@ public class EmissionOperations {
 	
 	@GET
 	@Path("/getAllEmissions")
-	public List<EmissionRESTModel> getAllEmissionEntrys() {
+	@Operation(summary = "Liefert alle vorhandenen Emissionseinträge zurück.")
+	public List<EmissionEntryRESTModel> getAllEmissionEntrys() {
+		
+		EmissionEntryToRESTModel responseMapper = new EmissionEntryToRESTModel();
+		
 		List<EmissionEntry> emissionEntrys = emissionEntryService.findAll();
 		
-		return emissionEntrys.stream().map(entry -> EmissionEntryToRESTModel.mapToRESTModel(entry)).collect(Collectors.toList());
+		return responseMapper.map(emissionEntrys);
 	}
 }

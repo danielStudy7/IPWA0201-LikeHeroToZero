@@ -3,7 +3,7 @@ package application.apiv1.model;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 
-public class EmissionRESTModel {
+public class EmissionEntryRESTModel {
 	@Schema(requiredMode = RequiredMode.REQUIRED)
 	private int id;
 	private double emissions;

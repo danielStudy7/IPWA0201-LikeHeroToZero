@@ -23,7 +23,7 @@ class EmissionEntryDaoSlowTest extends AbstractSlowTestVorlage {
 	private EmissionEntry spainEntry;
 	
 	@Override
-	void createTestData() {
+	public void createTestData() {
 		daoUnderTest = new EmissionEntryDAO(getEntityManager());
 		
 		user = new User("admin", "save");

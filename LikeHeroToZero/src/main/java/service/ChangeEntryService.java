@@ -19,8 +19,12 @@ public class ChangeEntryService {
 	private EmissionEntryDAO emissionEntryDao;
 	
 	public ChangeEntryService() {
-		this.changeEntryDao = new ChangeEntryDAO();
-		this.emissionEntryDao = new EmissionEntryDAO();
+		this(new ChangeEntryDAO(), new EmissionEntryDAO());
+	}
+	
+	public ChangeEntryService(ChangeEntryDAO changeEntryDao, EmissionEntryDAO emissionEntryDao) {
+		this.changeEntryDao = changeEntryDao;
+		this.emissionEntryDao = emissionEntryDao;
 	}
 	
 	public void createChangeEntry(ChangeEntry changeEntry, EmissionEntry emissionEntry, User changeUser) throws FailedOperationException {

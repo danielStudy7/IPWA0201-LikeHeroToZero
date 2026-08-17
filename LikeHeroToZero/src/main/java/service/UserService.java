@@ -16,7 +16,11 @@ public class UserService {
 	private UserDAO userDao;
 	
 	public UserService() {
-		this.userDao = new UserDAO();
+		this(new UserDAO());
+	}
+	
+	public UserService(UserDAO userDao) {
+		this.userDao = userDao;
 	}
 	
 	

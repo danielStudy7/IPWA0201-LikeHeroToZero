@@ -10,7 +10,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 
-abstract class AbstractSlowTestVorlage {
+public abstract class AbstractSlowTestVorlage {
 
 	private static EntityManagerFactory entityManagerFactory;
 	private static EntityManager entityManager;
@@ -25,8 +25,6 @@ abstract class AbstractSlowTestVorlage {
         if (entityManagerFactory != null) {
         	entityManagerFactory.close();
         }
-        
-        
     }
 
     @BeforeEach
@@ -56,7 +54,7 @@ abstract class AbstractSlowTestVorlage {
     	transaction.commit();
     }
     
-    abstract void createTestData();
+    public abstract void createTestData();
 
 	public static EntityManagerFactory getEntityManagerFactory() {
 		return entityManagerFactory;
