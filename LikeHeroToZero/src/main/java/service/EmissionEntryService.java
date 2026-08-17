@@ -29,6 +29,14 @@ public class EmissionEntryService {
 		emissionEntryDao.createEntity(emissionEntry);
 	}
 	
+	public EmissionEntry createAndReturnEmissionEntry(EmissionEntry emissionEntry, User currentUser) throws FailedOperationException {
+		emissionEntry.setUser(currentUser);
+		emissionEntry.setChecked(true);
+		emissionEntryDao.createEntity(emissionEntry);
+		
+		return emissionEntry;
+	}
+	
 	public List<EmissionEntry> findAll() {
 		return emissionEntryDao.findAll();
 	}

@@ -42,5 +42,6 @@ public class EmissionEntryToRESTModelFastTest extends AbstractMapperTest<Emissio
 		assertEquals(source.getYear(), target.getYear());
 		assertEquals(source.isChecked(), target.isChecked());
 		assertEquals(source.getEmissions(), target.getEmissions());
+		assertEquals(source.getCountry(), target.getCountry());
 	}
 }

@@ -8,6 +8,7 @@ import org.glassfish.jersey.internal.inject.AbstractBinder;
 import org.glassfish.jersey.internal.inject.Binder;
 import org.junit.jupiter.api.Test;
 
+import application.apiv1.model.EmissionEntryCreateRESTModel;
 import application.apiv1.model.EmissionEntryRESTModel;
 import dao.EmissionEntryDAO;
 import jakarta.ws.rs.core.GenericType;
@@ -60,6 +61,26 @@ public class EmissionOperationsSlowTest extends AbstractJerseySlowTestVorlage {
 			assertEquals(emissionEntry.getYear(), emissionEntryRESTModel.getYear());
 			assertEquals(emissionEntry.getId().toString(), emissionEntryRESTModel.getId());
 			assertEquals(emissionEntry.isChecked(), emissionEntryRESTModel.isChecked());
+			assertEquals(emissionEntry.getCountry(), emissionEntryRESTModel.getCountry());
+			
+		}
+	}
+	
+	@Test
+	public void testCreateEmissionEntry() throws Exception {
+		
+		EmissionEntryCreateRESTModel model = new EmissionEntryCreateRESTModel();
+		model.setChecked(true);
+		model.setCountry(Country.GERMANY);
+		model.setEmissions(0.789);
+		model.setYear(2026);
+		
+		try(Response response = httpPostMethod("/emissions/createEmissionEntry", model)) {
+			
+			assertEquals(200, response.getStatus());
+			
+			EmissionEntryRESTModel result = response.readEntity(EmissionEntryRESTModel.class);
+			assertEquals(result.getCountry(), Country.GERMANY);
 			
 		}
 	}

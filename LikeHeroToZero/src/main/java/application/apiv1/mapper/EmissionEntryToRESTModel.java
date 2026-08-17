@@ -8,12 +8,13 @@ public class EmissionEntryToRESTModel extends AbstractMapper<EmissionEntry, Emis
 	@Override
 	protected EmissionEntryRESTModel mapInterval(EmissionEntry source) {
 	
-		EmissionEntryRESTModel result = new EmissionEntryRESTModel();
-		result.setId(source.getId().toString());
-		result.setEmissions(source.getEmissions());
-		result.setChecked(source.isChecked());
-		result.setYear(source.getYear());
+		EmissionEntryRESTModel target = new EmissionEntryRESTModel();
+		target.setId(source.getId().toString());
+		target.setEmissions(source.getEmissions());
+		target.setChecked(source.isChecked());
+		target.setYear(source.getYear());
+		target.setCountry(source.getCountry());
 		
-		return result;
+		return target;
 	}
 }

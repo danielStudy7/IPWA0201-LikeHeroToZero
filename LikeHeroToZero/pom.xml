@@ -169,7 +169,7 @@
 	  <groupId>org.glassfish.jersey.core</groupId>
 	  <artifactId>jersey-client</artifactId>
 	  <version>3.1.10</version>
-	  <scope>test</scope>
+	  <!--Nicht Test Scoped weil Produktivdependencys kaputt gehen-->
 	</dependency>
   </dependencies>
 </project>
