@@ -51,7 +51,12 @@ class EmissionEntryDaoSlowTest extends AbstractSlowTestVorlage {
 		daoUnderTest.createEntity(newEntry);
 		EmissionEntry result = daoUnderTest.getEntity(newEntry.getId(), EmissionEntry.class);
 		
-		assertEquals(newEntry, result);
+		assertEquals(newEntry.getId(), result.getId());
+		assertEquals(newEntry.getCountry(), result.getCountry());
+		assertEquals(newEntry.getEmissions(), result.getEmissions());
+		assertEquals(newEntry.getYear(), result.getYear());
+		assertEquals(newEntry.isChecked(), result.isChecked());
+		assertEquals(newEntry.getUser().getId(), result.getUser().getId());
 	}
 	
 	@Test
@@ -122,9 +127,9 @@ class EmissionEntryDaoSlowTest extends AbstractSlowTestVorlage {
 		List<EmissionEntry> result = daoUnderTest.loadEmissionEntrys(first, pageSize, sortField, SortOrder.ASCENDING, null);
 		
 		assertEquals(3, result.size());
-		assertEquals(germanyEntry, result.get(0));
-		assertEquals(spainEntry, result.get(1));
-		assertEquals(portugalEntry, result.get(2));
+		assertEquals(germanyEntry.getId(), result.get(0).getId());
+		assertEquals(spainEntry.getId(), result.get(1).getId());
+		assertEquals(portugalEntry.getId(), result.get(2).getId());
 	}
 	
 	@Test
@@ -144,13 +149,13 @@ class EmissionEntryDaoSlowTest extends AbstractSlowTestVorlage {
 		List<EmissionEntry> result = daoUnderTest.loadEmissionEntrys(first, pageSize, sortField, SortOrder.ASCENDING, null);
 		
 		assertEquals(1, result.size());
-		assertEquals(germanyEntry, result.get(0));
+		assertEquals(germanyEntry.getId(), result.get(0).getId());
 		
 		// Page 2
 		result = daoUnderTest.loadEmissionEntrys(1, pageSize, sortField, SortOrder.ASCENDING, null);
 		
 		assertEquals(1, result.size());
-		assertEquals(spainEntry, result.get(0));
+		assertEquals(spainEntry.getId(), result.get(0).getId());
 	}
 	
 	@Test

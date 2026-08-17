@@ -3,6 +3,7 @@ package lazyDataModel;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.primefaces.model.FilterMeta;
@@ -42,7 +43,7 @@ public class LazyEmissionEntryDataModel extends LazyDataModel<EmissionEntry>
 	@Override
 	public EmissionEntry getRowData(String rowKey)
 	{
-		int id = Integer.valueOf(rowKey);
+		UUID id = UUID.fromString(rowKey);
 		return  emissionDao.getEntity(id, EmissionEntry.class);
 	}
 	

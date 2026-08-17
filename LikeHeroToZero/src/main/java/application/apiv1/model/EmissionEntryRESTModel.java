@@ -5,15 +5,15 @@ import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 
 public class EmissionEntryRESTModel {
 	@Schema(requiredMode = RequiredMode.REQUIRED)
-	private int id;
+	private String id;
 	private double emissions;
 	private int year;
 	private boolean checked;
 	
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public double getEmissions() {

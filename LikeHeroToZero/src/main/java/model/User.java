@@ -1,5 +1,7 @@
 package model;
 
+import java.util.UUID;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,7 +13,7 @@ public class User
 {	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private UUID id;
 	
 	@Column(unique = true)
 	private String userName;
@@ -59,7 +61,7 @@ public class User
 		return this.userName.hashCode() * 7;
 	}
 	
-	public int getId()
+	public UUID getId()
 	{
 		return id;
 	}
@@ -84,7 +86,7 @@ public class User
 		return familyName;
 	}
 
-	public void setId(int id)
+	public void setId(UUID id)
 	{
 		this.id = id;
 	}

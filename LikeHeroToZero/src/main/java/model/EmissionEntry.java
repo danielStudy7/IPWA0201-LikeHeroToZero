@@ -1,5 +1,7 @@
 package model;
 
+import java.util.UUID;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -13,7 +15,7 @@ public class EmissionEntry
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private UUID id;
 	
 	@Enumerated(EnumType.STRING)
 	private Country country;
@@ -58,14 +60,14 @@ public class EmissionEntry
 	@Override
 	public int hashCode()
 	{
-		String tempId = Integer.toString(id);
+		String tempId = id.toString();
 		
 		return tempId.hashCode() * 7;
 	}
 
 	
 	//Getter Setter
-	public int getId()
+	public UUID getId()
 	{
 		return id;
 	}
@@ -95,7 +97,7 @@ public class EmissionEntry
 		return user;
 	}
 	
-	public void setId(int id)
+	public void setId(UUID id)
 	{
 		this.id = id;
 	}

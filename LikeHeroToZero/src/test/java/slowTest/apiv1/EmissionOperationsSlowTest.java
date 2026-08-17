@@ -58,7 +58,7 @@ public class EmissionOperationsSlowTest extends AbstractJerseySlowTestVorlage {
 			EmissionEntryRESTModel emissionEntryRESTModel = result.get(0);
 			assertEquals(emissionEntry.getEmissions(), emissionEntryRESTModel.getEmissions());
 			assertEquals(emissionEntry.getYear(), emissionEntryRESTModel.getYear());
-			assertEquals(emissionEntry.getId(), emissionEntryRESTModel.getId());
+			assertEquals(emissionEntry.getId().toString(), emissionEntryRESTModel.getId());
 			assertEquals(emissionEntry.isChecked(), emissionEntryRESTModel.isChecked());
 			
 		}

@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import org.easymock.EasyMockExtension;
 import org.easymock.Mock;
@@ -51,24 +52,24 @@ public class ChangeEntryServiceFastTest {
     @BeforeEach
     public void setUp() {
         createUser = new User();
-        createUser.setId(100);
+        createUser.setId(UUID.randomUUID());
         createUser.setUserName("dhirt");
         createUser.setPassword("geheim");
 
         changeUser = new User();
-        changeUser.setId(200);
+        changeUser.setId(UUID.randomUUID());
         changeUser.setUserName("mmuster");
         changeUser.setPassword("geheim");
 
         emissionEntrySpain = new EmissionEntry();
-        emissionEntrySpain.setId(10);
+        emissionEntrySpain.setId(UUID.randomUUID());
         emissionEntrySpain.setCountry(Country.SPAIN_AND_ANDORRA);
         emissionEntrySpain.setEmissions(22.3);
         emissionEntrySpain.setYear(2023);
         emissionEntrySpain.setUser(createUser);
 
         changeEntrySpain = new ChangeEntry();
-        changeEntrySpain.setId(1);
+        changeEntrySpain.setId(UUID.randomUUID());
     }
 
     @Test

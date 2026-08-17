@@ -2,6 +2,8 @@ package fastTest.apiv1;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.UUID;
+
 import application.apiv1.mapper.AbstractMapper;
 import application.apiv1.mapper.EmissionEntryToRESTModel;
 import application.apiv1.model.EmissionEntryRESTModel;
@@ -21,7 +23,7 @@ public class EmissionEntryToRESTModelFastTest extends AbstractMapperTest<Emissio
 	protected EmissionEntry createValidSource() {
 		
 		EmissionEntry source = new EmissionEntry();
-		source.setId(100);
+		source.setId(UUID.randomUUID());
 		source.setYear(2026);
 		source.setChecked(true);
 		source.setEmissions(22.22);
@@ -36,7 +38,7 @@ public class EmissionEntryToRESTModelFastTest extends AbstractMapperTest<Emissio
 	@Override
 	protected void assertMapped(EmissionEntry source, EmissionEntryRESTModel target) {
 
-		assertEquals(source.getId(), target.getId());
+		assertEquals(source.getId().toString(), target.getId());
 		assertEquals(source.getYear(), target.getYear());
 		assertEquals(source.isChecked(), target.isChecked());
 		assertEquals(source.getEmissions(), target.getEmissions());

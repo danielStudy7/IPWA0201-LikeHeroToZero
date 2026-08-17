@@ -1,5 +1,7 @@
 package model;
 
+import java.util.UUID;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -13,7 +15,7 @@ public class ChangeEntry
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private UUID id;
 	private boolean accepted;
 	private boolean declined;
 	private double emissions;
@@ -36,10 +38,9 @@ public class ChangeEntry
 	private EmissionEntry emissionEntry;
 	
 	
-	//Konstruktoren
 	public ChangeEntry()
 	{
-		
+		// hiberante
 	}
 	
 	public ChangeEntry(boolean accepted, boolean declined, double emissions, int year, User changeUser, User createUser, String infoText, String source,
@@ -59,7 +60,6 @@ public class ChangeEntry
 	}
 	
 	
-	//Überschriebene Methoden
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -78,14 +78,13 @@ public class ChangeEntry
 	@Override
 	public int hashCode()
 	{
-		String tempId = Integer.toString(id);
+		String tempId = id.toString();
 		
 		return tempId.hashCode() * 7;
 	}
 	
 
-	//Getter Setter
-	public int getId() 
+	public UUID getId() 
 	{
 		return id;
 	}
@@ -139,7 +138,7 @@ public class ChangeEntry
 		return emissionEntry;
 	}
 	
-	public void setId(int id) 
+	public void setId(UUID id) 
 	{
 		this.id = id;
 	}

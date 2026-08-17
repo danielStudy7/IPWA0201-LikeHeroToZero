@@ -9,7 +9,7 @@ public class EmissionEntryToRESTModel extends AbstractMapper<EmissionEntry, Emis
 	protected EmissionEntryRESTModel mapInterval(EmissionEntry source) {
 	
 		EmissionEntryRESTModel result = new EmissionEntryRESTModel();
-		result.setId(source.getId());
+		result.setId(source.getId().toString());
 		result.setEmissions(source.getEmissions());
 		result.setChecked(source.isChecked());
 		result.setYear(source.getYear());

@@ -3,6 +3,8 @@ package fastTest;
 import static org.easymock.EasyMock.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.UUID;
+
 import org.easymock.EasyMockExtension;
 import org.easymock.Mock;
 import org.easymock.TestSubject;
@@ -35,7 +37,7 @@ class LoginControllerFastTest {
 	@BeforeEach
 	public void setUp() throws Exception {
 		loginUser = new User();
-		loginUser.setId(100);
+		loginUser.setId(UUID.randomUUID());
 		loginUser.setName("Daniel");
 		loginUser.setFamilyName("Hirt");
 		loginUser.setPassword("geheim");

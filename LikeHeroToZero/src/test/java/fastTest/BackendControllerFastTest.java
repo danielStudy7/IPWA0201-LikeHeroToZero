@@ -13,6 +13,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.UUID;
+
 import org.easymock.EasyMockExtension;
 import org.easymock.Mock;
 import org.easymock.TestSubject;
@@ -48,12 +50,12 @@ public class BackendControllerFastTest {
     @BeforeEach
     public void setUp() {
         user = new User();
-        user.setId(100);
+        user.setId(UUID.randomUUID());
         user.setUserName("dhirt");
         user.setPassword("geheim");
 
         emissionEntrySpain = new EmissionEntry();
-        emissionEntrySpain.setId(10);
+        emissionEntrySpain.setId(UUID.randomUUID());
         emissionEntrySpain.setCountry(Country.SPAIN_AND_ANDORRA);
         emissionEntrySpain.setEmissions(22.3);
         emissionEntrySpain.setYear(2023);

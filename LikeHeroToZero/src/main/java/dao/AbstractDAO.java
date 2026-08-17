@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.List;
+import java.util.UUID;
 
 import common.FailedOperationException;
 import jakarta.persistence.EntityManager;
@@ -25,7 +26,7 @@ public abstract class AbstractDAO {
 		this.criteriaBuilder = entityManager.getCriteriaBuilder();
 	}
 	
-	public <T> T getEntity(int id, Class<T> clazz) {
+	public <T> T getEntity(UUID id, Class<T> clazz) {
 		CriteriaQuery<T> query = criteriaBuilder.createQuery(clazz);
 		Root<T> root = query.from(clazz);
 		Predicate idCondition = criteriaBuilder.equal(root.get("id"), id);

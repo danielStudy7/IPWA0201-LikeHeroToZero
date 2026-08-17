@@ -10,6 +10,8 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.UUID;
+
 import org.easymock.EasyMockExtension;
 import org.easymock.Mock;
 import org.easymock.TestSubject;
@@ -44,7 +46,7 @@ class RegisterControllerFastTest {
 	@BeforeEach
 	public void setUp() throws Exception{
 		user = new User();
-		user.setId(100);
+		user.setId(UUID.randomUUID());
 		user.setName("Daniel");
 		user.setFamilyName("Hirt");
 		user.setPassword("Test123");

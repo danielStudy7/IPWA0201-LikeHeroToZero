@@ -50,7 +50,7 @@ public class ChangeEntryDaoSlowTest extends AbstractSlowTestVorlage {
 			() -> assertEquals(changeUser, result.getChangeUser()),
 			() -> assertEquals(createUser, result.getCreateUser()),
 			() -> assertEquals(newChangeEntry.getCountry(), result.getCountry()),
-			() -> assertEquals(sourceEmissionEntry, result.getEmissionEntry()),
+			() -> assertEquals(sourceEmissionEntry.getId(), result.getEmissionEntry().getId()),
 			() -> assertEquals(newChangeEntry.getEmissions(), result.getEmissions()),
 			() -> assertEquals(newChangeEntry.getId(), result.getId()),
 			() -> assertEquals(newChangeEntry.getInfoText(), result.getInfoText()),
@@ -84,17 +84,15 @@ public class ChangeEntryDaoSlowTest extends AbstractSlowTestVorlage {
 		ChangeEntry result = daoUnderTest.getEntity(changeEntry.getId(), ChangeEntry.class);
 	
 		assertNotNull(result);
-		assertAll(
-			() -> assertEquals(changeUser, result.getChangeUser()),
-			() -> assertEquals(createUser, result.getCreateUser()),
-			() -> assertEquals(changeEntry.getCountry(), result.getCountry()),
-			() -> assertEquals(sourceEmissionEntry, result.getEmissionEntry()),
-			() -> assertEquals(changeEntry.getEmissions(), result.getEmissions()),
-			() -> assertEquals(changeEntry.getId(), result.getId()),
-			() -> assertEquals(changeEntry.getInfoText(), result.getInfoText()),
-			() -> assertEquals(changeEntry.getYear(), result.getYear()),
-			() -> assertEquals(changeEntry.getSource(), result.getSource())
-		);
+		assertEquals(changeUser, result.getChangeUser());
+		assertEquals(createUser, result.getCreateUser());
+		assertEquals(changeEntry.getCountry(), result.getCountry());
+		assertEquals(sourceEmissionEntry.getId(), result.getEmissionEntry().getId());
+		assertEquals(changeEntry.getEmissions(), result.getEmissions());
+		assertEquals(changeEntry.getId(), result.getId());
+		assertEquals(changeEntry.getInfoText(), result.getInfoText());
+		assertEquals(changeEntry.getYear(), result.getYear());
+		assertEquals(changeEntry.getSource(), result.getSource());
 	}
 	
 	@Test
