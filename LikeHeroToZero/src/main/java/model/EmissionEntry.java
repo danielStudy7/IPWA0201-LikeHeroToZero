@@ -14,7 +14,7 @@ import jakarta.persistence.ManyToOne;
 public class EmissionEntry 
 {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;
 	
 	@Enumerated(EnumType.STRING)
