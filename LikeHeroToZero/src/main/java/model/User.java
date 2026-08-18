@@ -12,12 +12,11 @@ import jakarta.persistence.Id;
 public class User 
 {	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;
 	
 	@Column(unique = true)
 	private String userName;
-	
 	private String password;
 	private String name;
 	private String familyName;
