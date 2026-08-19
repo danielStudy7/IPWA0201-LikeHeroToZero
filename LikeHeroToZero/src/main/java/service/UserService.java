@@ -8,19 +8,22 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Named;
 import jakarta.persistence.NoResultException;
 import model.User;
+import security.PasswordService;
 
 @Named
 @ApplicationScoped
 public class UserService {
 	
 	private UserDAO userDao;
+	private PasswordService passwordService;
 	
 	public UserService() {
-		this(new UserDAO());
+		this(new UserDAO(), new PasswordService());
 	}
 	
-	public UserService(UserDAO userDao) {
+	public UserService(UserDAO userDao, PasswordService passwordService) {
 		this.userDao = userDao;
+		this.passwordService = passwordService;
 	}
 	
 	
@@ -55,7 +58,7 @@ public class UserService {
 	}
 	
 	public void createUser(User newUser) throws FailedOperationException {
-		newUser.setPassword(Integer.toString(newUser.getPassword().hashCode()));
+		newUser.setPassword(passwordService.hash(newUser.getPassword()));
 		userDao.createEntity(newUser);
 	}
 	

@@ -17,12 +17,14 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import model.EmissionEntry;
+import security.Secured;
 import service.EmissionEntryService;
 
 @Tag(name = "Emissionen")
 @Path("/emissions")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@Secured
 public class EmissionOperations {
 	
 	@Inject

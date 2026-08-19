@@ -50,8 +50,12 @@ public abstract class AbstractDAO {
 	}
 	
 	public <T> void createEntity(T entity) throws FailedOperationException {
+		
 		if (entity != null) {
-			getTransaction().begin();
+			if (!getTransaction().isActive()) {
+				getTransaction().begin();
+			}
+			
 			entityManager.persist(entity);
 			getTransaction().commit();
 			
@@ -63,8 +67,11 @@ public abstract class AbstractDAO {
 	}
 	
 	public <T> void deleteEntity(T entity) throws FailedOperationException {
+		
 		if (entity != null) {
-			getTransaction().begin();
+			if (!getTransaction().isActive()) {
+				getTransaction().begin();
+			}
 			entityManager.merge(entity);
 			entityManager.remove(entity);
 			getTransaction().commit();
@@ -77,8 +84,12 @@ public abstract class AbstractDAO {
 	}
 	
 	public <T> void updateEntity(T entity) throws FailedOperationException {
+		
 		if (entity != null) {
-			getTransaction().begin();
+			if (!getTransaction().isActive()) {
+				getTransaction().begin();
+			}
+			
 			entityManager.merge(entity);
 			getTransaction().commit();
 			
@@ -101,7 +112,7 @@ public abstract class AbstractDAO {
 		return this.criteriaBuilder;
 	}
 	
-	private EntityTransaction getTransaction() {
+	public EntityTransaction getTransaction() {
 		return entityManager.getTransaction();
 	}
 }
