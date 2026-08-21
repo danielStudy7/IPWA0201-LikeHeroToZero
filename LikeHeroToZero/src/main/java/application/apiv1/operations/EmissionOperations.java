@@ -15,9 +15,12 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.SecurityContext;
 import model.EmissionEntry;
 import security.Secured;
+import security.UserPrincipal;
 import service.EmissionEntryService;
 
 @Tag(name = "Emissionen")
@@ -45,12 +48,13 @@ public class EmissionOperations {
 	@POST
 	@Path("/createEmissionEntry")
 	@Operation(summary = "Erstellen eines neuen Emission-Eintrags.")
-	public EmissionEntryRESTModel createEmissionEntry(EmissionEntryCreateRESTModel model) throws FailedOperationException {
+	public EmissionEntryRESTModel createEmissionEntry(@Context SecurityContext securityContext, EmissionEntryCreateRESTModel model) throws FailedOperationException {
 		
 		EmissionEntryCreateRESTModelToEmissionEntry requestMapper = new EmissionEntryCreateRESTModelToEmissionEntry();
 		EmissionEntryToRESTModel responseMapper = new EmissionEntryToRESTModel();
 		
-		EmissionEntry emissionEntry = emissionEntryService.createAndReturnEmissionEntry(requestMapper.map(model), null);
+		UserPrincipal principal = (UserPrincipal) securityContext.getUserPrincipal();
+		EmissionEntry emissionEntry = emissionEntryService.createAndReturnEmissionEntry(requestMapper.map(model), principal.id());
 		
 		return responseMapper.map(emissionEntry);
 	}

@@ -55,7 +55,7 @@ public class AuthenticationService {
 		return response;
 				
 	}
-	
+
 	private static WebApplicationException unauthorized() {
 		
 		return new WebApplicationException(Response.status(Response.Status.UNAUTHORIZED)

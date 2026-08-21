@@ -1,6 +1,7 @@
 package slowTest.apiv1;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ import service.EmissionEntryService;
 public class EmissionOperationsSlowTest extends AbstractJerseySlowTestVorlage {
 
 	private EmissionEntry emissionEntry;
+	private User user;
 
 	@Override
 	protected Binder createTestBinder() {
@@ -30,7 +32,7 @@ public class EmissionOperationsSlowTest extends AbstractJerseySlowTestVorlage {
 			@Override
 			protected void configure() {
 				bindFactory(() -> new EmissionEntryService(new EmissionEntryDAO(getEntityManager())))//
-					.to(EmissionEntryService.class);
+				.to(EmissionEntryService.class);
 			}
 		};
 	}
@@ -38,7 +40,7 @@ public class EmissionOperationsSlowTest extends AbstractJerseySlowTestVorlage {
 	@Override
 	public void createTestData() {
 		
-		User user = new User("user", "pw");
+		user = new User("user", "pw");
 		getEntityManager().persist(user);
 		
 		emissionEntry = new EmissionEntry(Country.GERMANY, 45.55, 2026, true, user);
@@ -75,13 +77,15 @@ public class EmissionOperationsSlowTest extends AbstractJerseySlowTestVorlage {
 		model.setEmissions(0.789);
 		model.setYear(2026);
 		
-		try(Response response = httpPostMethod("/emissions/createEmissionEntry", model)) {
+		try(Response response = httpPostMethod("/emissions/createEmissionEntry", model, createToken(user))) {
 			
 			assertEquals(200, response.getStatus());
 			
 			EmissionEntryRESTModel result = response.readEntity(EmissionEntryRESTModel.class);
 			assertEquals(result.getCountry(), Country.GERMANY);
-			
+			assertEquals(result.getEmissions(), 0.789);
+			assertEquals(result.getYear(), 2026);
+			assertNotNull(result.getId());
 		}
 	}
 }

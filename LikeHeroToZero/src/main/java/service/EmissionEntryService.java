@@ -1,6 +1,7 @@
 package service;
 
 import java.util.List;
+import java.util.UUID;
 
 import common.FailedOperationException;
 import dao.EmissionEntryDAO;
@@ -29,8 +30,9 @@ public class EmissionEntryService {
 		emissionEntryDao.createEntity(emissionEntry);
 	}
 	
-	public EmissionEntry createAndReturnEmissionEntry(EmissionEntry emissionEntry, User currentUser) throws FailedOperationException {
-		emissionEntry.setUser(currentUser);
+	public EmissionEntry createAndReturnEmissionEntry(EmissionEntry emissionEntry, UUID currentUserId) throws FailedOperationException {
+		
+		emissionEntry.setUser(emissionEntryDao.getEntity(currentUserId, User.class));
 		emissionEntry.setChecked(true);
 		emissionEntryDao.createEntity(emissionEntry);
 		
