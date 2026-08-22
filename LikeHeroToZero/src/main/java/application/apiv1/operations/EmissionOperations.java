@@ -6,6 +6,8 @@ import application.apiv1.mapper.EmissionEntryCreateRESTModelToEmissionEntry;
 import application.apiv1.mapper.EmissionEntryToRESTModel;
 import application.apiv1.model.EmissionEntryCreateRESTModel;
 import application.apiv1.model.EmissionEntryRESTModel;
+import application.apiv1.model.EmissionPaginationResultRESTModel;
+import application.apiv1.model.EmissionPaginationSearchRESTModel;
 import common.FailedOperationException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,7 +29,6 @@ import service.EmissionEntryService;
 @Path("/emissions")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Secured
 public class EmissionOperations {
 	
 	@Inject
@@ -48,6 +49,7 @@ public class EmissionOperations {
 	@POST
 	@Path("/createEmissionEntry")
 	@Operation(summary = "Erstellen eines neuen Emission-Eintrags.")
+	@Secured
 	public EmissionEntryRESTModel createEmissionEntry(@Context SecurityContext securityContext, EmissionEntryCreateRESTModel model) throws FailedOperationException {
 		
 		EmissionEntryCreateRESTModelToEmissionEntry requestMapper = new EmissionEntryCreateRESTModelToEmissionEntry();
@@ -58,4 +60,23 @@ public class EmissionOperations {
 		
 		return responseMapper.map(emissionEntry);
 	}
+	
+	@POST
+	@Path("/searchEmissionEntry")
+	@Operation(summary = "Paginierte Suche nach Emissionseinträgen.")
+	public EmissionPaginationResultRESTModel searchEmissionEntry(EmissionPaginationSearchRESTModel model) {
+		
+		EmissionEntryToRESTModel responseMapper = new EmissionEntryToRESTModel();
+		
+		int entryCount = emissionEntryService.countEmissionEntrys(model.getFilterCountry(), model.getFilterYear());
+		List<EmissionEntry> emissionEntrysPaginiert = emissionEntryService.listEmissionEntrysPaginiert(model.getPage(), model.getEntriesPerPage(), model.getSortBy().getDbName(), model.isSortDescending(), model.getFilterCountry(), model.getFilterYear());
+		
+		EmissionPaginationResultRESTModel result = new EmissionPaginationResultRESTModel();
+		result.setTotalHits(entryCount);
+		result.setEmissionEntrys(responseMapper.map(emissionEntrysPaginiert));
+		
+		return result;
+	}
+	
+	
 }

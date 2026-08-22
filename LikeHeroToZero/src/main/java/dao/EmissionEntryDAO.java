@@ -44,7 +44,7 @@ public class EmissionEntryDAO extends AbstractDAO
 	}
 	
 	//Methoden für das LazyEmissionEntryDataModel
-	public int countEmissionEntrys(Map<String, Object> filters)
+	public int countEmissionEntrys(Map<String, Object> filtersOpt)
 	{
 		CriteriaQuery<Long> query = createQuery(Long.class);
 		Root<EmissionEntry> emissionRoot = query.from(EmissionEntry.class);
@@ -52,9 +52,9 @@ public class EmissionEntryDAO extends AbstractDAO
 		
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		
-		if (filters != null)
+		if (filtersOpt != null)
 		{
-			filters.forEach((k, v) ->
+			filtersOpt.forEach((k, v) ->
 			{
 				predicates.add(getCriteriaBuilder().equal(emissionRoot.get(k), v));
 			});
@@ -69,28 +69,28 @@ public class EmissionEntryDAO extends AbstractDAO
 		return result;
 	}
 	
-	public List<EmissionEntry> loadEmissionEntrys(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filterBy)
+	public List<EmissionEntry> loadEmissionEntrys(int first, int pageSize, String sortFieldOpt, SortOrder sortOrderOpt, Map<String, Object> filterByOpt)
 	{
 		CriteriaQuery<EmissionEntry> query = getCriteriaBuilder().createQuery(EmissionEntry.class);
 		Root<EmissionEntry> emissionRoot = query.from(EmissionEntry.class);
 		
-		if (sortField != null)
+		if (sortFieldOpt != null)
 		{
-			if (sortOrder == SortOrder.ASCENDING)
+			if (sortOrderOpt == SortOrder.ASCENDING)
 			{
-				query.orderBy(getCriteriaBuilder().asc(emissionRoot.get(sortField)));
+				query.orderBy(getCriteriaBuilder().asc(emissionRoot.get(sortFieldOpt)));
 			}
-			else if (sortOrder == SortOrder.DESCENDING)
+			else if (sortOrderOpt == SortOrder.DESCENDING)
 			{
-				query.orderBy(getCriteriaBuilder().desc(emissionRoot.get(sortField)));
+				query.orderBy(getCriteriaBuilder().desc(emissionRoot.get(sortFieldOpt)));
 			}
 		}
 		
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		
-		if (filterBy != null)
+		if (filterByOpt != null)
 		{
-			filterBy.forEach((k,v) ->
+			filterByOpt.forEach((k,v) ->
 			{		
 				predicates.add(getCriteriaBuilder().equal(emissionRoot.get(k), v));
 			});			

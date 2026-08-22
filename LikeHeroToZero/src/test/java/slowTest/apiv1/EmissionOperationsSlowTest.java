@@ -11,6 +11,9 @@ import org.junit.jupiter.api.Test;
 
 import application.apiv1.model.EmissionEntryCreateRESTModel;
 import application.apiv1.model.EmissionEntryRESTModel;
+import application.apiv1.model.EmissionPaginationResultRESTModel;
+import application.apiv1.model.EmissionPaginationSearchRESTModel;
+import application.apiv1.model.EmissionSortFieldRESTModel;
 import dao.EmissionEntryDAO;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.Response;
@@ -21,7 +24,10 @@ import service.EmissionEntryService;
 
 public class EmissionOperationsSlowTest extends AbstractJerseySlowTestVorlage {
 
-	private EmissionEntry emissionEntry;
+	private EmissionEntry emissionEntryGermany2026;
+	private EmissionEntry emissionEntryGermany2025;
+	private EmissionEntry emissionEntrySpain2026;
+	private EmissionEntry emissionEntrySpain2025;
 	private User user;
 
 	@Override
@@ -43,8 +49,17 @@ public class EmissionOperationsSlowTest extends AbstractJerseySlowTestVorlage {
 		user = new User("user", "pw");
 		getEntityManager().persist(user);
 		
-		emissionEntry = new EmissionEntry(Country.GERMANY, 45.55, 2026, true, user);
-		getEntityManager().persist(emissionEntry);
+		emissionEntryGermany2026 = new EmissionEntry(Country.GERMANY, 45.55, 2026, true, user);
+		getEntityManager().persist(emissionEntryGermany2026);
+		
+		emissionEntryGermany2025 = new EmissionEntry(Country.GERMANY, 40.55, 2025, true, user);
+		getEntityManager().persist(emissionEntryGermany2025);
+		
+		emissionEntrySpain2026 = new EmissionEntry(Country.SPAIN_AND_ANDORRA, 400, 2026, true, user);
+		getEntityManager().persist(emissionEntrySpain2026);
+		
+		emissionEntrySpain2025 = new EmissionEntry(Country.SPAIN_AND_ANDORRA, 399, 2025, true, user);
+		getEntityManager().persist(emissionEntrySpain2025);
 	}
 
 	@Test
@@ -56,15 +71,7 @@ public class EmissionOperationsSlowTest extends AbstractJerseySlowTestVorlage {
 			
 			List<EmissionEntryRESTModel> result = response.readEntity(new GenericType<List<EmissionEntryRESTModel>>() {});
 			
-			assertEquals(1, result.size());
-			
-			EmissionEntryRESTModel emissionEntryRESTModel = result.get(0);
-			assertEquals(emissionEntry.getEmissions(), emissionEntryRESTModel.getEmissions());
-			assertEquals(emissionEntry.getYear(), emissionEntryRESTModel.getYear());
-			assertEquals(emissionEntry.getId().toString(), emissionEntryRESTModel.getId());
-			assertEquals(emissionEntry.isChecked(), emissionEntryRESTModel.isChecked());
-			assertEquals(emissionEntry.getCountry(), emissionEntryRESTModel.getCountry());
-			
+			assertEquals(4, result.size());
 		}
 	}
 	
@@ -86,6 +93,95 @@ public class EmissionOperationsSlowTest extends AbstractJerseySlowTestVorlage {
 			assertEquals(result.getEmissions(), 0.789);
 			assertEquals(result.getYear(), 2026);
 			assertNotNull(result.getId());
+		}
+	}
+	
+	@Test
+	public void testSearchEmissionEntrys() throws Exception {
+		
+		int year = 2025;
+		
+		EmissionPaginationSearchRESTModel searchRestModel = new EmissionPaginationSearchRESTModel();
+		searchRestModel.setPage(0);
+		searchRestModel.setEntriesPerPage(2);
+		searchRestModel.setSortBy(EmissionSortFieldRESTModel.YEAR);
+		searchRestModel.setSortDescending(false);
+		
+		try (Response response = httpPostMethod("/emissions/searchEmissionEntry", searchRestModel, null)) {
+			
+			assertEquals(200, response.getStatus());
+			
+			EmissionPaginationResultRESTModel result = response.readEntity(EmissionPaginationResultRESTModel.class);
+			assertEquals(4, result.getTotalHits());
+			
+			List<EmissionEntryRESTModel> emissionEntrys = result.getEmissionEntrys();
+			assertEquals(2, emissionEntrys.size());
+			
+			EmissionEntryRESTModel entry1 = emissionEntrys.get(0);
+			assertEquals(year, entry1.getYear());
+			
+			EmissionEntryRESTModel entry2 = emissionEntrys.get(1);
+			assertEquals(year, entry2.getYear());
+		}
+	}
+	
+	@Test
+	public void testSearchEmissionEntrys_filterByYear() throws Exception {
+		
+		int filterYear = 2025;
+		
+		EmissionPaginationSearchRESTModel searchRestModel = new EmissionPaginationSearchRESTModel();
+		searchRestModel.setPage(0);
+		searchRestModel.setEntriesPerPage(2);
+		searchRestModel.setSortBy(EmissionSortFieldRESTModel.YEAR);
+		searchRestModel.setSortDescending(false);
+		searchRestModel.setFilterYear(2025);
+		
+		try (Response response = httpPostMethod("/emissions/searchEmissionEntry", searchRestModel, null)) {
+			
+			assertEquals(200, response.getStatus());
+			
+			EmissionPaginationResultRESTModel result = response.readEntity(EmissionPaginationResultRESTModel.class);
+			assertEquals(2, result.getTotalHits());
+			
+			List<EmissionEntryRESTModel> emissionEntrys = result.getEmissionEntrys();
+			assertEquals(2, emissionEntrys.size());
+			
+			EmissionEntryRESTModel entrySpain2025 = emissionEntrys.get(0);
+			assertEquals(filterYear, entrySpain2025.getYear());
+			
+			EmissionEntryRESTModel entryGermany2025 = emissionEntrys.get(1);
+			assertEquals(filterYear, entryGermany2025.getYear());
+		}
+	}
+	
+	@Test
+	public void testSearchEmissionEntrys_filterByCountry() throws Exception {
+		
+		EmissionPaginationSearchRESTModel searchRestModel = new EmissionPaginationSearchRESTModel();
+		searchRestModel.setPage(0);
+		searchRestModel.setEntriesPerPage(2);
+		searchRestModel.setSortBy(EmissionSortFieldRESTModel.YEAR);
+		searchRestModel.setSortDescending(false);
+		searchRestModel.setFilterCountry(Country.GERMANY);
+		
+		try (Response response = httpPostMethod("/emissions/searchEmissionEntry", searchRestModel, null)) {
+			
+			assertEquals(200, response.getStatus());
+			
+			EmissionPaginationResultRESTModel result = response.readEntity(EmissionPaginationResultRESTModel.class);
+			assertEquals(2, result.getTotalHits());
+			
+			List<EmissionEntryRESTModel> emissionEntrys = result.getEmissionEntrys();
+			assertEquals(2, emissionEntrys.size());
+			
+			EmissionEntryRESTModel entryGermany2025 = emissionEntrys.get(0);
+			assertEquals(emissionEntryGermany2025.getCountry(), entryGermany2025.getCountry());
+			assertEquals(emissionEntryGermany2025.getYear(), entryGermany2025.getYear());
+			
+			EmissionEntryRESTModel entryGermany2026 = emissionEntrys.get(1);
+			assertEquals(emissionEntryGermany2026.getCountry(), entryGermany2026.getCountry());
+			assertEquals(emissionEntryGermany2026.getYear(), entryGermany2026.getYear());
 		}
 	}
 }
