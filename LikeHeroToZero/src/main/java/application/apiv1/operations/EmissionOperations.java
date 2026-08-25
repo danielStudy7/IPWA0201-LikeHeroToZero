@@ -48,7 +48,7 @@ public class EmissionOperations {
 	
 	@POST
 	@Path("/createEmissionEntry")
-	@Operation(summary = "Erstellen eines neuen Emission-Eintrags.")
+	@Operation(summary = "Erstellen eines neuen Emission-Eintrags.", description = "Benötigt eine Authentifizierung.")
 	@Secured
 	public EmissionEntryRESTModel createEmissionEntry(@Context SecurityContext securityContext, EmissionEntryCreateRESTModel model) throws FailedOperationException {
 		

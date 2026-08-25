@@ -3,6 +3,8 @@ package application.apiv1.operations;
 
 import application.apiv1.model.LoginRESTModel;
 import application.apiv1.model.TokenRESTModel;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -18,6 +20,7 @@ import security.AuthenticationService;
 import security.Secured;
 import security.UserPrincipal;
 
+@Tag(name = "Authentifizierung")
 @Path("/auth")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
@@ -32,6 +35,7 @@ public class AuthenticationOperations {
 	
 	@POST
 	@Path("/login")
+	@Operation(summary = "Login mit einem Benutzer.")
 	public TokenRESTModel login(@NotNull @Valid LoginRESTModel model) {
 		return authService.login(model.getLogin(), model.getPassword());
 	}
@@ -39,6 +43,7 @@ public class AuthenticationOperations {
 	@GET
 	@Path("/me")
 	@Secured
+	@Operation(summary = "Gibt den aktuellen Benutzer zurück.", description = "Benötigt eine Authentifizierung.")
 	public UserPrincipal me(@Context SecurityContext securityContext) {
 		return (UserPrincipal) securityContext.getUserPrincipal();
 	}

@@ -123,6 +123,13 @@ public abstract class AbstractJerseySlowTestVorlage extends AbstractSlowTestVorl
 				.get();
 	}
 	
+	public Response httpGetMethod(String path, String token) {
+		return target(path)
+				.request(MediaType.APPLICATION_JSON)
+				.header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+				.get();
+	}
+	
 	public Response httpGetMethodWithParam(String path, String param, Object value) {
 		
 		return target(path)

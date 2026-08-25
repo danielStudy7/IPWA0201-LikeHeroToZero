@@ -1,6 +1,7 @@
 package service;
 
 import java.util.List;
+import java.util.UUID;
 
 import common.FailedOperationException;
 import dao.ChangeEntryDAO;
@@ -19,15 +20,28 @@ public class ChangeEntryService {
 	private EmissionEntryDAO emissionEntryDao;
 	
 	public ChangeEntryService() {
+		
 		this(new ChangeEntryDAO(), new EmissionEntryDAO());
 	}
 	
 	public ChangeEntryService(ChangeEntryDAO changeEntryDao, EmissionEntryDAO emissionEntryDao) {
+		
 		this.changeEntryDao = changeEntryDao;
 		this.emissionEntryDao = emissionEntryDao;
 	}
 	
+	public ChangeEntry createChangeEntry(ChangeEntry changeEntry, String emissionEntryUUID, UUID changeUserUUID) throws FailedOperationException {
+		
+		EmissionEntry emissionEntry = changeEntryDao.getEntity(UUID.fromString(emissionEntryUUID), EmissionEntry.class);
+		User user = changeEntryDao.getEntity(changeUserUUID, User.class);
+		
+		createChangeEntry(changeEntry, emissionEntry, user);
+		
+		return changeEntry;
+	}
+	
 	public void createChangeEntry(ChangeEntry changeEntry, EmissionEntry emissionEntry, User changeUser) throws FailedOperationException {
+		
 		if (changeEntry.getCountry() == null)
 		{
 			changeEntry.setCountry(emissionEntry.getCountry());
@@ -54,7 +68,32 @@ public class ChangeEntryService {
 		changeEntryDao.createEntity(changeEntry);
 	}
 	
+	public List<ChangeEntry> listAll() {
+		
+		return changeEntryDao.getEntityList(ChangeEntry.class);
+	}
+	
+	public ChangeEntry getChangeEntry(String uuid) {
+		
+		return changeEntryDao.getEntity(UUID.fromString(uuid), ChangeEntry.class);
+	}
+	
+	public void acceptChange(ChangeEntry changeEntry) throws FailedOperationException {
+		
+		EmissionEntry emissionEntry = changeEntry.getEmissionEntry();
+		
+		acceptChange(changeEntry, emissionEntry, true);
+	}
+	
+	public void declineChange(ChangeEntry changeEntry) throws FailedOperationException {
+		
+		EmissionEntry emissionEntry = changeEntry.getEmissionEntry();
+		
+		acceptChange(changeEntry, emissionEntry, false);
+	}
+	
 	public void acceptChange(ChangeEntry changeEntry, EmissionEntry emissionEntry, boolean isAccepted) throws FailedOperationException {
+		
 		if (isAccepted) {
 			changeEntry.setAccepted(true);
 		}
@@ -73,6 +112,7 @@ public class ChangeEntryService {
 	}
 	
 	public List<ChangeEntry> getChangesForUser(User user) {
+		
 		return changeEntryDao.getChangeListByUser(user);
 	}
 }

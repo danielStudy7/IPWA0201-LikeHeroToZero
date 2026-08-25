@@ -5,6 +5,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
+import dao.UserDAO;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -14,6 +15,7 @@ public abstract class AbstractSlowTestVorlage {
 
 	private static EntityManagerFactory entityManagerFactory;
 	private static EntityManager entityManager;
+	private static UserDAO dao;
 	
 	@BeforeAll
 	public static void initEmFactory() throws Exception {
@@ -30,6 +32,7 @@ public abstract class AbstractSlowTestVorlage {
     @BeforeEach
     protected void initEm() {
     	entityManager = entityManagerFactory.createEntityManager();
+    	dao = new UserDAO(entityManager);
     	getTransaction().begin();
     	createTestData();
     }
@@ -66,5 +69,9 @@ public abstract class AbstractSlowTestVorlage {
 	
 	public EntityTransaction getTransaction() {
 		return entityManager.getTransaction();
+	}
+	
+	public static UserDAO getDao() {
+		return dao;
 	}
 }
