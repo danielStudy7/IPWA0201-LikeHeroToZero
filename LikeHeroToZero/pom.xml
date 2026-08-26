@@ -13,6 +13,15 @@
     <maven.compiler.release>21</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  	<sonar.coverage.jacoco.xmlReportPaths>
+    	${project.build.directory}/site/jacoco/jacoco.xml
+	</sonar.coverage.jacoco.xmlReportPaths>
+	<sonar.coverage.exclusions>
+    	src/main/webapp/resources/style/js/materialize.js
+	</sonar.coverage.exclusions>
+	<sonar.exclusions>
+    	src/main/webapp/resources/style/js/materialize.js
+	</sonar.exclusions>
   </properties>
 
   <build>
@@ -28,6 +37,29 @@
         <artifactId>maven-war-plugin</artifactId>
         <version>3.2.3</version>
       </plugin>
+      
+      <!-- Coverage -->
+      <plugin>
+		  <groupId>org.jacoco</groupId>
+		  <artifactId>jacoco-maven-plugin</artifactId>
+		  <version>0.8.13</version>
+		  <executions>
+		    <execution>
+		      <id>prepare-agent</id>
+		      <goals><goal>prepare-agent</goal></goals>
+		    </execution>
+		    <execution>
+		      <id>report</id>
+		      <phase>verify</phase>
+		      <goals><goal>report</goal></goals>
+		    </execution>
+		  </executions>
+		  <configuration>
+		  	<excludes>
+		  		<exclude>src/main/webapp/resources/style/js/materialize.js</exclude>
+		  	</excludes>
+		  </configuration>
+	  </plugin>
     </plugins>
   </build>
 
